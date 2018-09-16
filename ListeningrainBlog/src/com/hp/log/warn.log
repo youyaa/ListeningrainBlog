@@ -1,0 +1,204 @@
+2018-09-16 20:46:16 下午 [Thread: DubboZkclientConnector-SendThread(127.0.0.1:2181)][ Class:org.apache.zookeeper.ClientCnxn >> Method: org.apache.zookeeper.ClientCnxn$SendThread.run(ClientCnxn.java:1108) ]
+WARN:Client session timed out, have not heard from server in 20001ms for sessionid 0x100024461de0000
+2018-09-16 20:46:31 下午 [Thread: DubboZkclientConnector-SendThread(0:0:0:0:0:0:0:1:2181)][ Class:org.apache.zookeeper.ClientCnxn >> Method: org.apache.zookeeper.ClientCnxn$SendThread.run(ClientCnxn.java:1108) ]
+WARN:Client session timed out, have not heard from server in 15003ms for sessionid 0x100024461de0000
+2018-09-16 20:46:47 下午 [Thread: DubboZkclientConnector-SendThread(127.0.0.1:2181)][ Class:org.apache.zookeeper.ClientCnxn >> Method: org.apache.zookeeper.ClientCnxn$SendThread.run(ClientCnxn.java:1108) ]
+WARN:Client session timed out, have not heard from server in 15001ms for sessionid 0x100024461de0000
+2018-09-16 20:47:03 下午 [Thread: DubboZkclientConnector-SendThread(0:0:0:0:0:0:0:1:2181)][ Class:org.apache.zookeeper.ClientCnxn >> Method: org.apache.zookeeper.ClientCnxn$SendThread.run(ClientCnxn.java:1108) ]
+WARN:Client session timed out, have not heard from server in 15014ms for sessionid 0x100024461de0000
+2018-09-16 20:48:22 下午 [Thread: DubboZkclientConnector-SendThread(127.0.0.1:2181)][ Class:org.apache.zookeeper.ClientCnxn >> Method: org.apache.zookeeper.ClientCnxn$SendThread.run(ClientCnxn.java:1108) ]
+WARN:Client session timed out, have not heard from server in 15001ms for sessionid 0x0
+2018-09-16 20:48:36 下午 [Thread: main][ Class:com.alibaba.dubbo.remoting.zookeeper.zkclient.ZkClientWrapper >> Method: com.alibaba.dubbo.remoting.zookeeper.zkclient.ZkClientWrapper.start(ZkClientWrapper.java:69) ]
+ERROR: [DUBBO] Timeout! zookeeper server can not be connected in : 30000ms!, dubbo version: 2.0.1, current host: 192.168.1.103
+java.util.concurrent.TimeoutException
+	at java.util.concurrent.FutureTask.get(FutureTask.java:205)
+	at com.alibaba.dubbo.remoting.zookeeper.zkclient.ZkClientWrapper.start(ZkClientWrapper.java:67)
+	at com.alibaba.dubbo.remoting.zookeeper.zkclient.ZkclientZookeeperClient.<init>(ZkclientZookeeperClient.java:55)
+	at com.alibaba.dubbo.remoting.zookeeper.zkclient.ZkclientZookeeperTransporter.connect(ZkclientZookeeperTransporter.java:26)
+	at com.alibaba.dubbo.remoting.zookeeper.ZookeeperTransporter$Adaptive.connect(ZookeeperTransporter$Adaptive.java)
+	at com.alibaba.dubbo.registry.zookeeper.ZookeeperRegistry.<init>(ZookeeperRegistry.java:69)
+	at com.alibaba.dubbo.registry.zookeeper.ZookeeperRegistryFactory.createRegistry(ZookeeperRegistryFactory.java:37)
+	at com.alibaba.dubbo.registry.support.AbstractRegistryFactory.getRegistry(AbstractRegistryFactory.java:95)
+	at com.alibaba.dubbo.registry.RegistryFactory$Adaptive.getRegistry(RegistryFactory$Adaptive.java)
+	at com.alibaba.dubbo.registry.integration.RegistryProtocol.getRegistry(RegistryProtocol.java:200)
+	at com.alibaba.dubbo.registry.integration.RegistryProtocol.export(RegistryProtocol.java:134)
+	at com.alibaba.dubbo.qos.protocol.QosProtocolWrapper.export(QosProtocolWrapper.java:54)
+	at com.alibaba.dubbo.rpc.protocol.ProtocolListenerWrapper.export(ProtocolListenerWrapper.java:54)
+	at com.alibaba.dubbo.rpc.protocol.ProtocolFilterWrapper.export(ProtocolFilterWrapper.java:91)
+	at com.alibaba.dubbo.rpc.Protocol$Adaptive.export(Protocol$Adaptive.java)
+	at com.alibaba.dubbo.config.ServiceConfig.doExportUrlsFor1Protocol(ServiceConfig.java:504)
+	at com.alibaba.dubbo.config.ServiceConfig.doExportUrls(ServiceConfig.java:356)
+	at com.alibaba.dubbo.config.ServiceConfig.doExport(ServiceConfig.java:315)
+	at com.alibaba.dubbo.config.ServiceConfig.export(ServiceConfig.java:214)
+	at com.alibaba.dubbo.config.spring.ServiceBean.onApplicationEvent(ServiceBean.java:120)
+	at com.alibaba.dubbo.config.spring.ServiceBean.onApplicationEvent(ServiceBean.java:49)
+	at org.springframework.context.event.SimpleApplicationEventMulticaster.doInvokeListener(SimpleApplicationEventMulticaster.java:172)
+	at org.springframework.context.event.SimpleApplicationEventMulticaster.invokeListener(SimpleApplicationEventMulticaster.java:165)
+	at org.springframework.context.event.SimpleApplicationEventMulticaster.multicastEvent(SimpleApplicationEventMulticaster.java:139)
+	at org.springframework.context.support.AbstractApplicationContext.publishEvent(AbstractApplicationContext.java:400)
+	at org.springframework.context.support.AbstractApplicationContext.publishEvent(AbstractApplicationContext.java:354)
+	at org.springframework.context.support.AbstractApplicationContext.finishRefresh(AbstractApplicationContext.java:888)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:553)
+	at org.springframework.context.support.ClassPathXmlApplicationContext.<init>(ClassPathXmlApplicationContext.java:144)
+	at org.springframework.context.support.ClassPathXmlApplicationContext.<init>(ClassPathXmlApplicationContext.java:85)
+	at listeningrain.cn.blog.Bootstrap.main(Bootstrap.java:17)
+2018-09-16 20:48:36 下午 [Thread: DubboShutdownHook][ Class:com.alibaba.dubbo.remoting.zookeeper.support.AbstractZookeeperClient >> Method: com.alibaba.dubbo.remoting.zookeeper.support.AbstractZookeeperClient.close(AbstractZookeeperClient.java:117) ]
+WARN: [DUBBO] Zookeeper is not connected yet!, dubbo version: 2.0.1, current host: 192.168.1.103
+java.lang.IllegalStateException: Zookeeper is not connected yet!
+	at com.alibaba.dubbo.remoting.zookeeper.zkclient.ZkClientWrapper.close(ZkClientWrapper.java:123)
+	at com.alibaba.dubbo.remoting.zookeeper.zkclient.ZkclientZookeeperClient.doClose(ZkclientZookeeperClient.java:101)
+	at com.alibaba.dubbo.remoting.zookeeper.support.AbstractZookeeperClient.close(AbstractZookeeperClient.java:115)
+	at com.alibaba.dubbo.registry.zookeeper.ZookeeperRegistry.destroy(ZookeeperRegistry.java:102)
+	at com.alibaba.dubbo.registry.support.AbstractRegistryFactory.destroyAll(AbstractRegistryFactory.java:71)
+	at com.alibaba.dubbo.config.ProtocolConfig.destroyAll(ProtocolConfig.java:148)
+	at com.alibaba.dubbo.config.AbstractConfig$1.run(AbstractConfig.java:82)
+	at java.lang.Thread.run(Thread.java:748)
+2018-09-16 20:48:37 下午 [Thread: DubboZkclientConnector-SendThread(0:0:0:0:0:0:0:1:2181)][ Class:org.apache.zookeeper.ClientCnxn >> Method: org.apache.zookeeper.ClientCnxn$SendThread.run(ClientCnxn.java:1108) ]
+WARN:Client session timed out, have not heard from server in 15006ms for sessionid 0x0
+2018-09-16 20:49:48 下午 [Thread: DubboZkclientConnector-SendThread(127.0.0.1:2181)][ Class:org.apache.zookeeper.ClientCnxn >> Method: org.apache.zookeeper.ClientCnxn$SendThread.run(ClientCnxn.java:1108) ]
+WARN:Client session timed out, have not heard from server in 15002ms for sessionid 0x0
+2018-09-16 20:50:03 下午 [Thread: main][ Class:com.alibaba.dubbo.remoting.zookeeper.zkclient.ZkClientWrapper >> Method: com.alibaba.dubbo.remoting.zookeeper.zkclient.ZkClientWrapper.start(ZkClientWrapper.java:69) ]
+ERROR: [DUBBO] Timeout! zookeeper server can not be connected in : 30000ms!, dubbo version: 2.0.1, current host: 192.168.1.103
+java.util.concurrent.TimeoutException
+	at java.util.concurrent.FutureTask.get(FutureTask.java:205)
+	at com.alibaba.dubbo.remoting.zookeeper.zkclient.ZkClientWrapper.start(ZkClientWrapper.java:67)
+	at com.alibaba.dubbo.remoting.zookeeper.zkclient.ZkclientZookeeperClient.<init>(ZkclientZookeeperClient.java:55)
+	at com.alibaba.dubbo.remoting.zookeeper.zkclient.ZkclientZookeeperTransporter.connect(ZkclientZookeeperTransporter.java:26)
+	at com.alibaba.dubbo.remoting.zookeeper.ZookeeperTransporter$Adaptive.connect(ZookeeperTransporter$Adaptive.java)
+	at com.alibaba.dubbo.registry.zookeeper.ZookeeperRegistry.<init>(ZookeeperRegistry.java:69)
+	at com.alibaba.dubbo.registry.zookeeper.ZookeeperRegistryFactory.createRegistry(ZookeeperRegistryFactory.java:37)
+	at com.alibaba.dubbo.registry.support.AbstractRegistryFactory.getRegistry(AbstractRegistryFactory.java:95)
+	at com.alibaba.dubbo.registry.RegistryFactory$Adaptive.getRegistry(RegistryFactory$Adaptive.java)
+	at com.alibaba.dubbo.registry.integration.RegistryProtocol.getRegistry(RegistryProtocol.java:200)
+	at com.alibaba.dubbo.registry.integration.RegistryProtocol.export(RegistryProtocol.java:134)
+	at com.alibaba.dubbo.rpc.protocol.ProtocolFilterWrapper.export(ProtocolFilterWrapper.java:91)
+	at com.alibaba.dubbo.rpc.protocol.ProtocolListenerWrapper.export(ProtocolListenerWrapper.java:54)
+	at com.alibaba.dubbo.qos.protocol.QosProtocolWrapper.export(QosProtocolWrapper.java:54)
+	at com.alibaba.dubbo.rpc.Protocol$Adaptive.export(Protocol$Adaptive.java)
+	at com.alibaba.dubbo.config.ServiceConfig.doExportUrlsFor1Protocol(ServiceConfig.java:504)
+	at com.alibaba.dubbo.config.ServiceConfig.doExportUrls(ServiceConfig.java:356)
+	at com.alibaba.dubbo.config.ServiceConfig.doExport(ServiceConfig.java:315)
+	at com.alibaba.dubbo.config.ServiceConfig.export(ServiceConfig.java:214)
+	at com.alibaba.dubbo.config.spring.ServiceBean.onApplicationEvent(ServiceBean.java:120)
+	at com.alibaba.dubbo.config.spring.ServiceBean.onApplicationEvent(ServiceBean.java:49)
+	at org.springframework.context.event.SimpleApplicationEventMulticaster.doInvokeListener(SimpleApplicationEventMulticaster.java:172)
+	at org.springframework.context.event.SimpleApplicationEventMulticaster.invokeListener(SimpleApplicationEventMulticaster.java:165)
+	at org.springframework.context.event.SimpleApplicationEventMulticaster.multicastEvent(SimpleApplicationEventMulticaster.java:139)
+	at org.springframework.context.support.AbstractApplicationContext.publishEvent(AbstractApplicationContext.java:400)
+	at org.springframework.context.support.AbstractApplicationContext.publishEvent(AbstractApplicationContext.java:354)
+	at org.springframework.context.support.AbstractApplicationContext.finishRefresh(AbstractApplicationContext.java:888)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:553)
+	at org.springframework.context.support.ClassPathXmlApplicationContext.<init>(ClassPathXmlApplicationContext.java:144)
+	at org.springframework.context.support.ClassPathXmlApplicationContext.<init>(ClassPathXmlApplicationContext.java:85)
+	at listeningrain.cn.blog.Bootstrap.main(Bootstrap.java:17)
+2018-09-16 20:50:03 下午 [Thread: DubboShutdownHook][ Class:com.alibaba.dubbo.remoting.zookeeper.support.AbstractZookeeperClient >> Method: com.alibaba.dubbo.remoting.zookeeper.support.AbstractZookeeperClient.close(AbstractZookeeperClient.java:117) ]
+WARN: [DUBBO] Zookeeper is not connected yet!, dubbo version: 2.0.1, current host: 192.168.1.103
+java.lang.IllegalStateException: Zookeeper is not connected yet!
+	at com.alibaba.dubbo.remoting.zookeeper.zkclient.ZkClientWrapper.close(ZkClientWrapper.java:123)
+	at com.alibaba.dubbo.remoting.zookeeper.zkclient.ZkclientZookeeperClient.doClose(ZkclientZookeeperClient.java:101)
+	at com.alibaba.dubbo.remoting.zookeeper.support.AbstractZookeeperClient.close(AbstractZookeeperClient.java:115)
+	at com.alibaba.dubbo.registry.zookeeper.ZookeeperRegistry.destroy(ZookeeperRegistry.java:102)
+	at com.alibaba.dubbo.registry.support.AbstractRegistryFactory.destroyAll(AbstractRegistryFactory.java:71)
+	at com.alibaba.dubbo.config.ProtocolConfig.destroyAll(ProtocolConfig.java:148)
+	at com.alibaba.dubbo.config.AbstractConfig$1.run(AbstractConfig.java:82)
+	at java.lang.Thread.run(Thread.java:748)
+2018-09-16 20:50:04 下午 [Thread: DubboZkclientConnector-SendThread(0:0:0:0:0:0:0:1:2181)][ Class:org.apache.zookeeper.ClientCnxn >> Method: org.apache.zookeeper.ClientCnxn$SendThread.run(ClientCnxn.java:1108) ]
+WARN:Client session timed out, have not heard from server in 15013ms for sessionid 0x0
+2018-09-16 20:51:41 下午 [Thread: DubboZkclientConnector-SendThread(127.0.0.1:2181)][ Class:org.apache.zookeeper.ClientCnxn >> Method: org.apache.zookeeper.ClientCnxn$SendThread.run(ClientCnxn.java:1108) ]
+WARN:Client session timed out, have not heard from server in 15003ms for sessionid 0x0
+2018-09-16 20:51:56 下午 [Thread: main][ Class:com.alibaba.dubbo.remoting.zookeeper.zkclient.ZkClientWrapper >> Method: com.alibaba.dubbo.remoting.zookeeper.zkclient.ZkClientWrapper.start(ZkClientWrapper.java:69) ]
+ERROR: [DUBBO] Timeout! zookeeper server can not be connected in : 30000ms!, dubbo version: 2.0.1, current host: 192.168.1.103
+java.util.concurrent.TimeoutException
+	at java.util.concurrent.FutureTask.get(FutureTask.java:205)
+	at com.alibaba.dubbo.remoting.zookeeper.zkclient.ZkClientWrapper.start(ZkClientWrapper.java:67)
+	at com.alibaba.dubbo.remoting.zookeeper.zkclient.ZkclientZookeeperClient.<init>(ZkclientZookeeperClient.java:55)
+	at com.alibaba.dubbo.remoting.zookeeper.zkclient.ZkclientZookeeperTransporter.connect(ZkclientZookeeperTransporter.java:26)
+	at com.alibaba.dubbo.remoting.zookeeper.ZookeeperTransporter$Adaptive.connect(ZookeeperTransporter$Adaptive.java)
+	at com.alibaba.dubbo.registry.zookeeper.ZookeeperRegistry.<init>(ZookeeperRegistry.java:69)
+	at com.alibaba.dubbo.registry.zookeeper.ZookeeperRegistryFactory.createRegistry(ZookeeperRegistryFactory.java:37)
+	at com.alibaba.dubbo.registry.support.AbstractRegistryFactory.getRegistry(AbstractRegistryFactory.java:95)
+	at com.alibaba.dubbo.registry.RegistryFactory$Adaptive.getRegistry(RegistryFactory$Adaptive.java)
+	at com.alibaba.dubbo.registry.integration.RegistryProtocol.getRegistry(RegistryProtocol.java:200)
+	at com.alibaba.dubbo.registry.integration.RegistryProtocol.export(RegistryProtocol.java:134)
+	at com.alibaba.dubbo.rpc.protocol.ProtocolListenerWrapper.export(ProtocolListenerWrapper.java:54)
+	at com.alibaba.dubbo.qos.protocol.QosProtocolWrapper.export(QosProtocolWrapper.java:54)
+	at com.alibaba.dubbo.rpc.protocol.ProtocolFilterWrapper.export(ProtocolFilterWrapper.java:91)
+	at com.alibaba.dubbo.rpc.Protocol$Adaptive.export(Protocol$Adaptive.java)
+	at com.alibaba.dubbo.config.ServiceConfig.doExportUrlsFor1Protocol(ServiceConfig.java:504)
+	at com.alibaba.dubbo.config.ServiceConfig.doExportUrls(ServiceConfig.java:356)
+	at com.alibaba.dubbo.config.ServiceConfig.doExport(ServiceConfig.java:315)
+	at com.alibaba.dubbo.config.ServiceConfig.export(ServiceConfig.java:214)
+	at com.alibaba.dubbo.config.spring.ServiceBean.onApplicationEvent(ServiceBean.java:120)
+	at com.alibaba.dubbo.config.spring.ServiceBean.onApplicationEvent(ServiceBean.java:49)
+	at org.springframework.context.event.SimpleApplicationEventMulticaster.doInvokeListener(SimpleApplicationEventMulticaster.java:172)
+	at org.springframework.context.event.SimpleApplicationEventMulticaster.invokeListener(SimpleApplicationEventMulticaster.java:165)
+	at org.springframework.context.event.SimpleApplicationEventMulticaster.multicastEvent(SimpleApplicationEventMulticaster.java:139)
+	at org.springframework.context.support.AbstractApplicationContext.publishEvent(AbstractApplicationContext.java:400)
+	at org.springframework.context.support.AbstractApplicationContext.publishEvent(AbstractApplicationContext.java:354)
+	at org.springframework.context.support.AbstractApplicationContext.finishRefresh(AbstractApplicationContext.java:888)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:553)
+	at org.springframework.context.support.ClassPathXmlApplicationContext.<init>(ClassPathXmlApplicationContext.java:144)
+	at org.springframework.context.support.ClassPathXmlApplicationContext.<init>(ClassPathXmlApplicationContext.java:85)
+	at listeningrain.cn.blog.Bootstrap.main(Bootstrap.java:17)
+2018-09-16 20:51:56 下午 [Thread: DubboShutdownHook][ Class:com.alibaba.dubbo.remoting.zookeeper.support.AbstractZookeeperClient >> Method: com.alibaba.dubbo.remoting.zookeeper.support.AbstractZookeeperClient.close(AbstractZookeeperClient.java:117) ]
+WARN: [DUBBO] Zookeeper is not connected yet!, dubbo version: 2.0.1, current host: 192.168.1.103
+java.lang.IllegalStateException: Zookeeper is not connected yet!
+	at com.alibaba.dubbo.remoting.zookeeper.zkclient.ZkClientWrapper.close(ZkClientWrapper.java:123)
+	at com.alibaba.dubbo.remoting.zookeeper.zkclient.ZkclientZookeeperClient.doClose(ZkclientZookeeperClient.java:101)
+	at com.alibaba.dubbo.remoting.zookeeper.support.AbstractZookeeperClient.close(AbstractZookeeperClient.java:115)
+	at com.alibaba.dubbo.registry.zookeeper.ZookeeperRegistry.destroy(ZookeeperRegistry.java:102)
+	at com.alibaba.dubbo.registry.support.AbstractRegistryFactory.destroyAll(AbstractRegistryFactory.java:71)
+	at com.alibaba.dubbo.config.ProtocolConfig.destroyAll(ProtocolConfig.java:148)
+	at com.alibaba.dubbo.config.AbstractConfig$1.run(AbstractConfig.java:82)
+	at java.lang.Thread.run(Thread.java:748)
+2018-09-16 20:51:57 下午 [Thread: DubboZkclientConnector-SendThread(0:0:0:0:0:0:0:1:2181)][ Class:org.apache.zookeeper.ClientCnxn >> Method: org.apache.zookeeper.ClientCnxn$SendThread.run(ClientCnxn.java:1108) ]
+WARN:Client session timed out, have not heard from server in 15002ms for sessionid 0x0
+2018-09-16 20:53:20 下午 [Thread: DubboZkclientConnector-SendThread(0:0:0:0:0:0:0:1:2181)][ Class:org.apache.zookeeper.ClientCnxn >> Method: org.apache.zookeeper.ClientCnxn$SendThread.run(ClientCnxn.java:1108) ]
+WARN:Client session timed out, have not heard from server in 15001ms for sessionid 0x0
+2018-09-16 20:53:35 下午 [Thread: main][ Class:com.alibaba.dubbo.remoting.zookeeper.zkclient.ZkClientWrapper >> Method: com.alibaba.dubbo.remoting.zookeeper.zkclient.ZkClientWrapper.start(ZkClientWrapper.java:69) ]
+ERROR: [DUBBO] Timeout! zookeeper server can not be connected in : 30000ms!, dubbo version: 2.0.1, current host: 192.168.1.103
+java.util.concurrent.TimeoutException
+	at java.util.concurrent.FutureTask.get(FutureTask.java:205)
+	at com.alibaba.dubbo.remoting.zookeeper.zkclient.ZkClientWrapper.start(ZkClientWrapper.java:67)
+	at com.alibaba.dubbo.remoting.zookeeper.zkclient.ZkclientZookeeperClient.<init>(ZkclientZookeeperClient.java:55)
+	at com.alibaba.dubbo.remoting.zookeeper.zkclient.ZkclientZookeeperTransporter.connect(ZkclientZookeeperTransporter.java:26)
+	at com.alibaba.dubbo.remoting.zookeeper.ZookeeperTransporter$Adaptive.connect(ZookeeperTransporter$Adaptive.java)
+	at com.alibaba.dubbo.registry.zookeeper.ZookeeperRegistry.<init>(ZookeeperRegistry.java:69)
+	at com.alibaba.dubbo.registry.zookeeper.ZookeeperRegistryFactory.createRegistry(ZookeeperRegistryFactory.java:37)
+	at com.alibaba.dubbo.registry.support.AbstractRegistryFactory.getRegistry(AbstractRegistryFactory.java:95)
+	at com.alibaba.dubbo.registry.RegistryFactory$Adaptive.getRegistry(RegistryFactory$Adaptive.java)
+	at com.alibaba.dubbo.registry.integration.RegistryProtocol.getRegistry(RegistryProtocol.java:200)
+	at com.alibaba.dubbo.registry.integration.RegistryProtocol.export(RegistryProtocol.java:134)
+	at com.alibaba.dubbo.qos.protocol.QosProtocolWrapper.export(QosProtocolWrapper.java:54)
+	at com.alibaba.dubbo.rpc.protocol.ProtocolListenerWrapper.export(ProtocolListenerWrapper.java:54)
+	at com.alibaba.dubbo.rpc.protocol.ProtocolFilterWrapper.export(ProtocolFilterWrapper.java:91)
+	at com.alibaba.dubbo.rpc.Protocol$Adaptive.export(Protocol$Adaptive.java)
+	at com.alibaba.dubbo.config.ServiceConfig.doExportUrlsFor1Protocol(ServiceConfig.java:504)
+	at com.alibaba.dubbo.config.ServiceConfig.doExportUrls(ServiceConfig.java:356)
+	at com.alibaba.dubbo.config.ServiceConfig.doExport(ServiceConfig.java:315)
+	at com.alibaba.dubbo.config.ServiceConfig.export(ServiceConfig.java:214)
+	at com.alibaba.dubbo.config.spring.ServiceBean.onApplicationEvent(ServiceBean.java:120)
+	at com.alibaba.dubbo.config.spring.ServiceBean.onApplicationEvent(ServiceBean.java:49)
+	at org.springframework.context.event.SimpleApplicationEventMulticaster.doInvokeListener(SimpleApplicationEventMulticaster.java:172)
+	at org.springframework.context.event.SimpleApplicationEventMulticaster.invokeListener(SimpleApplicationEventMulticaster.java:165)
+	at org.springframework.context.event.SimpleApplicationEventMulticaster.multicastEvent(SimpleApplicationEventMulticaster.java:139)
+	at org.springframework.context.support.AbstractApplicationContext.publishEvent(AbstractApplicationContext.java:400)
+	at org.springframework.context.support.AbstractApplicationContext.publishEvent(AbstractApplicationContext.java:354)
+	at org.springframework.context.support.AbstractApplicationContext.finishRefresh(AbstractApplicationContext.java:888)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:553)
+	at org.springframework.context.support.ClassPathXmlApplicationContext.<init>(ClassPathXmlApplicationContext.java:144)
+	at org.springframework.context.support.ClassPathXmlApplicationContext.<init>(ClassPathXmlApplicationContext.java:85)
+	at listeningrain.cn.blog.Bootstrap.main(Bootstrap.java:17)
+2018-09-16 20:53:35 下午 [Thread: DubboShutdownHook][ Class:com.alibaba.dubbo.remoting.zookeeper.support.AbstractZookeeperClient >> Method: com.alibaba.dubbo.remoting.zookeeper.support.AbstractZookeeperClient.close(AbstractZookeeperClient.java:117) ]
+WARN: [DUBBO] Zookeeper is not connected yet!, dubbo version: 2.0.1, current host: 192.168.1.103
+java.lang.IllegalStateException: Zookeeper is not connected yet!
+	at com.alibaba.dubbo.remoting.zookeeper.zkclient.ZkClientWrapper.close(ZkClientWrapper.java:123)
+	at com.alibaba.dubbo.remoting.zookeeper.zkclient.ZkclientZookeeperClient.doClose(ZkclientZookeeperClient.java:101)
+	at com.alibaba.dubbo.remoting.zookeeper.support.AbstractZookeeperClient.close(AbstractZookeeperClient.java:115)
+	at com.alibaba.dubbo.registry.zookeeper.ZookeeperRegistry.destroy(ZookeeperRegistry.java:102)
+	at com.alibaba.dubbo.registry.support.AbstractRegistryFactory.destroyAll(AbstractRegistryFactory.java:71)
+	at com.alibaba.dubbo.config.ProtocolConfig.destroyAll(ProtocolConfig.java:148)
+	at com.alibaba.dubbo.config.AbstractConfig$1.run(AbstractConfig.java:82)
+	at java.lang.Thread.run(Thread.java:748)
+2018-09-16 20:53:35 下午 [Thread: DubboZkclientConnector-SendThread(127.0.0.1:2181)][ Class:org.apache.zookeeper.ClientCnxn >> Method: org.apache.zookeeper.ClientCnxn$SendThread.run(ClientCnxn.java:1108) ]
+WARN:Client session timed out, have not heard from server in 15001ms for sessionid 0x0

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="listeningrain.cn.blog.dao.TtestMapper">
+
+    <select id="find" resultType="java.lang.String">
+        select name from t_test where Id=1;
+    </select>
+
+</mapper>
