@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="ListeningrainBlog_dao" />
+        <module name="ListeningrainBlog_rest" />
+        <module name="ListeningrainBlog_service" />
+        <module name="ListeningrainBlog_service_api" />
+      </profile>
+    </annotationProcessing>
+  </component>
+</project>
