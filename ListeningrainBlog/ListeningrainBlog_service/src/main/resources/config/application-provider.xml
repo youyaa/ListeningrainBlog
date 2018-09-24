@@ -21,7 +21,7 @@
     <dubbo:protocol port="20880" name="dubbo"/>
 
     <!-- 暴露的接口 -->
-    <dubbo:service interface="listeningrain.cn.blog.service.IndexService" ref="indexService"/>
+    <dubbo:service interface="listeningrain.cn.blog.service.api.ContentsService" ref="contentsService"/>
 
     <dubbo:provider timeout="180000" />
 </beans>

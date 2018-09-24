@@ -15,8 +15,8 @@
                     protocol="zookeeper" check="false"/>
 
     <!-- 获取接口及实现类 -->
-    <dubbo:reference interface="listeningrain.cn.blog.service.IndexService"
-                     id="indexService" check="false"/>
+    <dubbo:reference interface="listeningrain.cn.blog.service.api.ContentsService"
+                     id="contentsService" check="false"/>
 
     <!-- 设置超时时间 -->
     <dubbo:consumer timeout="600000"/>

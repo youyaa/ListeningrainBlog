@@ -15,7 +15,7 @@ public class Bootstrap {
 
     public static void main(String[] args){
         ClassPathXmlApplicationContext applicationContext =
-                new ClassPathXmlApplicationContext("classpath:ApplicationContext.xml");
+                new ClassPathXmlApplicationContext("classpath:applicationContext.xml");
 
         System.out.println("开始启动listeningrain-service模块");
 
