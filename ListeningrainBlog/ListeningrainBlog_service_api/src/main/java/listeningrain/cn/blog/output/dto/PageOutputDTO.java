@@ -21,4 +21,7 @@ public class PageOutputDTO<T extends CommonOutputData> extends CommonOutputDTO {
     private Integer total;
 
     private List<T> data;
+
+    //存储分页信息
+    private Integer[] pageBar;
 }

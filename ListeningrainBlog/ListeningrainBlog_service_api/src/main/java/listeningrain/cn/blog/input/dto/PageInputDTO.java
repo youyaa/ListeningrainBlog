@@ -18,7 +18,7 @@ public class PageInputDTO<T extends CommonInputData> extends CommonInputDTO{
      * 默认从第一页开始查，查十条数据
      */
     private Integer pageNum = 1;
-    private Integer pageSize = 10;
+    private Integer pageSize = 2;
 
     //具体封装对象
     private T data;

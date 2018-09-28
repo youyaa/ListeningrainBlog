@@ -1,6 +1,7 @@
 package listeningrain.cn.blog.service;
 
 import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import listeningrain.cn.blog.atomservice.AtomContensService;
 import listeningrain.cn.blog.entity.Contents;
 import listeningrain.cn.blog.input.data.ContentsInputData;
@@ -31,7 +32,7 @@ public class ContentsServiceImpl implements ContentsService {
     public PageOutputDTO<ContentsOutputData> getContentsByPage(PageInputDTO<ContentsInputData> pageInputDTO){
         PageHelper.startPage(pageInputDTO.getPageNum(),pageInputDTO.getPageSize());
         List<Contents> contentsByPage = atomContensService.getContentsByPage();
-
+        PageInfo<Contents> of = PageInfo.of(contentsByPage);
         PageOutputDTO<ContentsOutputData> pageOutputDTO = new PageOutputDTO<>();
 
         List<ContentsOutputData> list = new ArrayList<>();
@@ -47,7 +48,25 @@ public class ContentsServiceImpl implements ContentsService {
                }
         }
 
+        //设置其他参数
+        pageOutputDTO.setPageNum(pageInputDTO.getPageNum());
+        pageOutputDTO.setPageSize(pageInputDTO.getPageSize());
+        pageOutputDTO.setTotal((int)of.getTotal());
         pageOutputDTO.setData(list);
+
+        //设置分页参数
+        Integer pageNum = null;
+        if(pageOutputDTO.getTotal() % pageOutputDTO.getPageSize() == 0){
+          pageNum = pageOutputDTO.getTotal() / pageOutputDTO.getPageSize();
+        }else{
+            pageNum = pageOutputDTO.getTotal() / pageOutputDTO.getPageSize() +1;
+        }
+
+        Integer[] pageBar = new Integer[pageNum];
+        for(int i =1;i<=pageNum;i++){
+            pageBar[i-1] = i;
+        }
+        pageOutputDTO.setPageBar(pageBar);
         return pageOutputDTO;
     }
 }

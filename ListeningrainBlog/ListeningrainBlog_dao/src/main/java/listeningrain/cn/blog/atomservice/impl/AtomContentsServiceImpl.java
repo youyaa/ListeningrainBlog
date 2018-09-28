@@ -26,8 +26,7 @@ public class AtomContentsServiceImpl implements AtomContensService {
      * @return
      */
     public List<Contents> getContentsByPage(){
-        List<Contents> contents = contentsMapper.selectByExample(new ContentsExample());
+        List<Contents> contents = contentsMapper.selectByExampleWithBLOBs(new ContentsExample());
         return contents;
     }
-
 }
