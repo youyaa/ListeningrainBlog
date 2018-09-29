@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>听雨博客，诚意推荐</title>
     <meta name="keywords" content="Listeningrain,听雨,博客" />
-    <meta name="description" content="小清新风个人博客" />
+    <meta name="description" content="小清新风个人博客,简洁风" />
 </head>
 <body>
 
@@ -17,12 +17,12 @@
     <div class="blogitem">
 
               <article th:each="content : ${contents.data}">
-                <h2 class="title"><a href="/" ><span th:text="${content.title}" /></a></h2>
+                <h2 class="title"><a th:href="@{'/index/post/'+${content.cid}}" ><span th:text="${content.title}" /></a></h2>
                 <ul class="text">
                     <span th:text="${content.content}" />
                 </ul>
                 <div class="textfoot">
-                  <a href="/">阅读全文</a><a href="/">评论</a><a href="/">转载</a>
+                  <a th:href="@{'/index/post/'+${content.cid}}">阅读更多>>></a>
                 </div>
               </article>
 

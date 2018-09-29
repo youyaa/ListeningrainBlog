@@ -18,4 +18,8 @@ public interface AtomContensService {
      */
     List<Contents> getContentsByPage();
 
+    /**
+     * 根据id查询文章
+     */
+    Contents getContentsById(Integer id);
 }

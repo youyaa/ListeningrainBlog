@@ -6,8 +6,10 @@ import listeningrain.cn.blog.atomservice.AtomContensService;
 import listeningrain.cn.blog.entity.Contents;
 import listeningrain.cn.blog.input.data.ContentsInputData;
 import listeningrain.cn.blog.input.dto.PageInputDTO;
+import listeningrain.cn.blog.input.dto.PojoInputDTO;
 import listeningrain.cn.blog.output.data.ContentsOutputData;
 import listeningrain.cn.blog.output.dto.PageOutputDTO;
+import listeningrain.cn.blog.output.dto.PojoOutputDTO;
 import listeningrain.cn.blog.service.api.ContentsService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -68,5 +70,23 @@ public class ContentsServiceImpl implements ContentsService {
         }
         pageOutputDTO.setPageBar(pageBar);
         return pageOutputDTO;
+    }
+
+    //根据id查询文章详情页
+    public PojoOutputDTO<ContentsOutputData> getContentsById(PojoInputDTO<ContentsInputData> pojoInputDTO){
+
+            Contents content = atomContensService.getContentsById(pojoInputDTO.getData().getCid());
+
+            PojoOutputDTO<ContentsOutputData>  response = null;
+            if(null != content){
+                //构造返回对象
+                ContentsOutputData contentsOutputData = new ContentsOutputData();
+                BeanUtils.copyProperties(content,contentsOutputData);
+                response = new PojoOutputDTO<>();
+                response.setData(contentsOutputData);
+            }
+
+            return response;
+
     }
 }

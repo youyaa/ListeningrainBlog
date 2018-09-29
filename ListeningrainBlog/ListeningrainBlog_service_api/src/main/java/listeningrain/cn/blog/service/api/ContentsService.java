@@ -2,8 +2,10 @@ package listeningrain.cn.blog.service.api;
 
 import listeningrain.cn.blog.input.data.ContentsInputData;
 import listeningrain.cn.blog.input.dto.PageInputDTO;
+import listeningrain.cn.blog.input.dto.PojoInputDTO;
 import listeningrain.cn.blog.output.data.ContentsOutputData;
 import listeningrain.cn.blog.output.dto.PageOutputDTO;
+import listeningrain.cn.blog.output.dto.PojoOutputDTO;
 
 /**
  * author: listeningrain
@@ -15,4 +17,7 @@ public interface ContentsService {
 
     //分页查询
     PageOutputDTO<ContentsOutputData> getContentsByPage(PageInputDTO<ContentsInputData> pageInputDTO);
+
+    //根据id查询文章详情页
+    PojoOutputDTO<ContentsOutputData> getContentsById(PojoInputDTO<ContentsInputData> pojoInputDTO);
 }

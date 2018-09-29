@@ -10,7 +10,7 @@ import java.util.List;
  * author: listeningrain
  * Date: 2018/9/24
  * Time: 10:28
- * Description:
+ * Description: 分页输出DTO
  */
 @Getter
 @Setter

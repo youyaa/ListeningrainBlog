@@ -29,4 +29,11 @@ public class AtomContentsServiceImpl implements AtomContensService {
         List<Contents> contents = contentsMapper.selectByExampleWithBLOBs(new ContentsExample());
         return contents;
     }
+
+
+    @Override
+    public Contents getContentsById(Integer id) {
+        Contents contents = contentsMapper.selectByPrimaryKey(id);
+        return contents;
+    }
 }
