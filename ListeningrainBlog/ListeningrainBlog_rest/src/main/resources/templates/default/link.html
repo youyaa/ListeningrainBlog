@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org"/>
 <head>
     <meta charset="UTF-8">
-    <title>听雨博客，诚意推荐</title>
+    <title>友情链接</title>
     <meta name="keywords" content="Listeningrain,听雨,博客" />
     <meta name="description" content="小清新风个人博客,简洁风" />
 </head>
@@ -14,8 +14,25 @@
 
      <div th:replace="common/left :: left"></div>
 
-    <div class="blogitem">
+    <div class="blogitem" >
+        <article style="border-color: white;">
+            <h2 style="padding-top: 20px;padding-left: 40px;font-weight: bold;"><a href="/" style="color: black;font-size: 25px;">友情链接</a>
+            </h2>
 
+            <ul style="padding-top: 50px; padding-left:60px; list-style: disc;font-size: 17px;">
+                <label th:each="link : ${links.data}">
+                <li> 🔒 <a th:href="@{${link.slug}}" style="color:#2479cc;" target="_blank"><label th:text="${link.name}"/></a></li>
+                </label>
+            </ul>
+        </article>
+
+        <div class="comment">
+            <div >
+                暂无评论
+            </div>
+        </div>
+
+        <div th:replace="common/comment :: comment"></div>
 
     </div>
 

@@ -18,6 +18,9 @@
     <dubbo:reference interface="listeningrain.cn.blog.service.api.ContentsService"
                      id="contentsService" check="false"/>
 
+    <dubbo:reference interface="listeningrain.cn.blog.service.api.MetasService"
+                     id="metasService" check="false"/>
+
     <!-- 设置超时时间 -->
     <dubbo:consumer timeout="600000"/>
 

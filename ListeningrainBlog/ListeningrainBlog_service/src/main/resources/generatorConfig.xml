@@ -24,10 +24,11 @@
         </javaClientGenerator>
 
         <!--数据表-->
-        <table tableName="contents" domainObjectName="Contents"/>
+        <!--<table tableName="contents" domainObjectName="Contents"/>
         <table tableName="comments" domainObjectName="Comments"/>
         <table tableName="tags" domainObjectName="Tags"/>
         <table tableName="user_show_information" domainObjectName="UserShowInformation"/>
-        <table tableName="users" domainObjectName="Users"/>
+        <table tableName="users" domainObjectName="Users"/>-->
+        <table tableName="metas" domainObjectName="Metas"/>
     </context>
 </generatorConfiguration>

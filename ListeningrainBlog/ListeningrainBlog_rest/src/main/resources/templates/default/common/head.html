@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <link href="/css/styles.css" rel="stylesheet">
+    <link href="/css/btn.css" rel="stylesheet">
     <!--[if lt IE 9]>
     <script src="/js/modernizr.js"></script>
     <![endif]-->
@@ -12,11 +13,11 @@
 <header th:fragment="head">
     <nav id="nav">
         <ul>
-            <li><a href="*">网站首页</a></li>
-            <li><a href="*" target="_blank">归档</a></li>
-            <li><a href="*" target="_blank">友链</a></li>
-            <li><a href="*"  target="_blank">关于本博客</a></li>
-            <li><a href="*" target="_blank">联系作者</a></li>
+            <li><a href="/">首页</a></li>
+            <li><a href="/index/archive" >归档</a></li>
+            <li><a href="/index/link">友链</a></li>
+            <li><a href="javascript:void(0)" >关于</a></li>
+            <li><a href="javascript:void(0)" >联系作者</a></li>
         </ul>
     </nav>
     <script src="/js/silder.js"></script><!--获取当前页导航 高亮显示标题-->
