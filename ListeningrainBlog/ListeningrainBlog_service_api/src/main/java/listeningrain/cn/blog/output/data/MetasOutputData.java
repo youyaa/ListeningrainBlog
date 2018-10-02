@@ -27,4 +27,6 @@ public class MetasOutputData extends CommonOutputData {
     private Integer parent;
 
     private Byte status;
+
+    private String content;
 }

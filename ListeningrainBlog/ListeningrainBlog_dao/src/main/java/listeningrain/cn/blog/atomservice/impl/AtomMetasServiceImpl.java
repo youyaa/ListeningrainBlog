@@ -24,7 +24,7 @@ public class AtomMetasServiceImpl implements AtomMetasService {
     @Override
     public List<Metas> getAllMetas(Metas metas) {
         MetasExample metasExample = new MetasExample();
-        metasExample.createCriteria().andTypeEqualTo("LINK");
+        metasExample.createCriteria().andTypeEqualTo(metas.getType());
         List<Metas> metasLINK = metasMapper.selectByExample(metasExample);
         return metasLINK;
     }

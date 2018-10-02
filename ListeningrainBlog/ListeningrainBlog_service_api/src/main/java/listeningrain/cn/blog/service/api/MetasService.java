@@ -16,5 +16,5 @@ public interface MetasService {
     /**
      * 获取所有的友链
      */
-    PageOutputDTO<MetasOutputData> getAllLinks(PojoInputDTO<MetasInputData> pojoInputDTO);
+    PageOutputDTO<MetasOutputData> getMetasByType(PojoInputDTO<MetasInputData> pojoInputDTO);
 }

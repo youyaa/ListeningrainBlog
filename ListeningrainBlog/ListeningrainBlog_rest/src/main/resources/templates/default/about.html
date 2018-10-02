@@ -15,7 +15,14 @@
      <div th:replace="common/left :: left"></div>
 
     <div class="blogitem">
+        <article style="border-color: white;">
+            <h2 style="padding-top: 20px;padding-left: 40px;font-weight: bold;"><a href="/" style="color: black;font-size: 25px;">关于</a>
+            </h2>
 
+            <div th:each="about : ${about.data}">
+                <ul class="text" th:utext="${about.content}"></ul>
+            </div>
+        </article>
 
     </div>
 

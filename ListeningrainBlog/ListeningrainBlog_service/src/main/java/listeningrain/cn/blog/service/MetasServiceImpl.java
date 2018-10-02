@@ -7,6 +7,7 @@ import listeningrain.cn.blog.input.dto.PojoInputDTO;
 import listeningrain.cn.blog.output.data.MetasOutputData;
 import listeningrain.cn.blog.output.dto.PageOutputDTO;
 import listeningrain.cn.blog.service.api.MetasService;
+import listeningrain.cn.blog.utils.ThemeUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,18 +29,23 @@ public class MetasServiceImpl implements MetasService {
 
 
     @Override
-    public PageOutputDTO<MetasOutputData> getAllLinks(PojoInputDTO<MetasInputData> pojoInputDTO) {
-        //此处不需要
-        List<Metas> allMetas = atomMetasService.getAllMetas(new Metas());
+    public PageOutputDTO<MetasOutputData> getMetasByType(PojoInputDTO<MetasInputData> pojoInputDTO) {
+        Metas metas = new Metas();
+        metas.setType(pojoInputDTO.getData().getType());
+        List<Metas> allMetas = atomMetasService.getAllMetas(metas);
 
         //构建返回对象
         PageOutputDTO<MetasOutputData> pageOutputDTO = new PageOutputDTO<>();
         List<MetasOutputData> list = new ArrayList<>();
 
         if(null != allMetas && 0<allMetas.size()){
-            for (Metas metas : allMetas){
+            for (Metas meta : allMetas){
                 MetasOutputData metasOutputData = new MetasOutputData();
-                BeanUtils.copyProperties(metas,metasOutputData);
+                if("MARKDOWN".equals(meta.getDescription())){
+                    String content = ThemeUtils.articleTransfer(meta.getContent());
+                    meta.setContent(content);
+                }
+                BeanUtils.copyProperties(meta,metasOutputData);
                 list.add(metasOutputData);
             }
         }

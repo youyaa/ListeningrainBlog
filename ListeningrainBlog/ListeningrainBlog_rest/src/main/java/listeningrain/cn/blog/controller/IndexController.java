@@ -1,6 +1,7 @@
 package listeningrain.cn.blog.controller;
 
 import listeningrain.cn.blog.input.data.ContentsInputData;
+import listeningrain.cn.blog.input.data.MetasInputData;
 import listeningrain.cn.blog.input.dto.PageInputDTO;
 import listeningrain.cn.blog.input.dto.PojoInputDTO;
 import listeningrain.cn.blog.output.data.ContentsOutputData;
@@ -27,7 +28,7 @@ import java.util.List;
  * author: listeningrain
  * Date: 2018/9/16
  * Time: 15:08
- * Description:
+ * Description: 前端页面控制器
  */
 @Controller
 public class IndexController {
@@ -69,7 +70,11 @@ public class IndexController {
     //友链
     @RequestMapping(path = "/index/link",method = RequestMethod.GET)
     public String link(ModelMap modelMap){
-        PageOutputDTO<MetasOutputData> allLinks = metasService.getAllLinks(new PojoInputDTO<>());
+        PojoInputDTO pojoInputDTO = new PojoInputDTO<>();
+        MetasInputData metasInputData = new MetasInputData();
+        metasInputData.setType("LINK");
+        pojoInputDTO.setData(metasInputData);
+        PageOutputDTO<MetasOutputData> allLinks = metasService.getMetasByType(pojoInputDTO);
         modelMap.addAttribute("links",allLinks);
         return "link";
     }
@@ -103,5 +108,17 @@ public class IndexController {
         }
         modelMap.addAttribute("archives",map);
         return "archive";
+    }
+
+    //关于
+    @RequestMapping(path = "/index/about", method = RequestMethod.GET)
+    public String about(ModelMap modelMap){
+        PojoInputDTO pojoInputDTO = new PojoInputDTO<>();
+        MetasInputData metasInputData = new MetasInputData();
+        metasInputData.setType("ABOUT");
+        pojoInputDTO.setData(metasInputData);
+        PageOutputDTO<MetasOutputData> pageOutputDTO = metasService.getMetasByType(pojoInputDTO);
+        modelMap.addAttribute("about",pageOutputDTO);
+        return "about";
     }
 }
