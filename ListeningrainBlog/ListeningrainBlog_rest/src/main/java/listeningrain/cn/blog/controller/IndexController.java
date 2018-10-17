@@ -90,7 +90,7 @@ public class IndexController {
         Iterator iterator = contentsByPage.getData().iterator();
 
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM");
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        //SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         ContentsOutputData contentsOutputData = null;
         while (iterator.hasNext()) {
             contentsOutputData =(ContentsOutputData) iterator.next();

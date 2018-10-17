@@ -23,5 +23,6 @@
     <!-- 暴露的接口 -->
     <dubbo:service interface="listeningrain.cn.blog.service.api.ContentsService" ref="contentsService"/>
     <dubbo:service interface="listeningrain.cn.blog.service.api.MetasService" ref="metasService"/>
+   <dubbo:service interface="listeningrain.cn.blog.service.api.UsersService" ref="usersService"/>
     <dubbo:provider timeout="180000" />
 </beans>

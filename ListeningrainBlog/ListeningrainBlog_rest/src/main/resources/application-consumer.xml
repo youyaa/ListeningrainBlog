@@ -6,7 +6,7 @@
         http://code.alibabatech.com/schema/dubbo
         http://code.alibabatech.com/schema/dubbo/dubbo.xsd ">
 
-        <!-- Dubbo的消费方 -->
+    <!-- Dubbo的消费方 -->
     <!-- 计算机用名，不与提供者同名 -->
     <dubbo:application name="babasport-console"/>
 
@@ -20,6 +20,9 @@
 
     <dubbo:reference interface="listeningrain.cn.blog.service.api.MetasService"
                      id="metasService" check="false"/>
+
+    <dubbo:reference interface="listeningrain.cn.blog.service.api.UsersService"
+                     id="usersService" check="false"/>
 
     <!-- 设置超时时间 -->
     <dubbo:consumer timeout="600000"/>
