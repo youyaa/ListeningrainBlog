@@ -20,4 +20,7 @@ public interface ContentsService {
 
     //根据id查询文章详情页
     PojoOutputDTO<ContentsOutputData> getContentsById(PojoInputDTO<ContentsInputData> pojoInputDTO);
+
+    //插入文章
+    PojoOutputDTO addContent(PojoInputDTO<ContentsInputData> pojoInputDTO);
 }

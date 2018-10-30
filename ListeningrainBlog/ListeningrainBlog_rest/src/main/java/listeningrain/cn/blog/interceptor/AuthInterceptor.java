@@ -9,9 +9,10 @@ import javax.servlet.http.HttpServletResponse;
  * author: listeningrain
  * Date: 2018/10/4
  * Time: 12:47
- * Description:
+ * Description:校验用户是否登录
  */
 public class AuthInterceptor implements HandlerInterceptor {
+
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {

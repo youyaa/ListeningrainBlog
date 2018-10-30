@@ -26,7 +26,9 @@ public class AtomContentsServiceImpl implements AtomContensService {
      * @return
      */
     public List<Contents> getContentsByPage(){
-        List<Contents> contents = contentsMapper.selectByExampleWithBLOBs(new ContentsExample());
+       ContentsExample contentsExample = new ContentsExample();
+       contentsExample.setOrderByClause("created DESC");
+        List<Contents> contents = contentsMapper.selectByExampleWithBLOBs(contentsExample);
         return contents;
     }
 
@@ -35,5 +37,11 @@ public class AtomContentsServiceImpl implements AtomContensService {
     public Contents getContentsById(Integer id) {
         Contents contents = contentsMapper.selectByPrimaryKey(id);
         return contents;
+    }
+
+    @Override
+    public Integer insertContent(Contents contents) {
+        int i = contentsMapper.insertSelective(contents);
+        return i;
     }
 }

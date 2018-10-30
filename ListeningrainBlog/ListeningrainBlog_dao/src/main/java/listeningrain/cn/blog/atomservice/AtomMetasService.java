@@ -19,4 +19,9 @@ public interface AtomMetasService {
      */
     List<Metas> getAllMetas(Metas metas);
 
+    /**
+     * 根据id获取友链
+     */
+    Metas getMetasById(Metas metas);
+
 }

@@ -22,4 +22,9 @@ public interface AtomContensService {
      * 根据id查询文章
      */
     Contents getContentsById(Integer id);
+
+    /**
+     * 增加一篇文章
+     */
+    Integer insertContent(Contents contents);
 }

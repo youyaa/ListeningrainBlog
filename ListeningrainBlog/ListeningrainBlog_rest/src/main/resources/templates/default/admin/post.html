@@ -5,6 +5,8 @@
     <script type="text/javascript" src="/admin_/WangEditor/wangEditor.min.js"></script>
     <script type="text/javascript" src="/admin_/meditor/editormd.js"></script>
     <link rel="stylesheet"href="/admin_/meditor/css/editormd.css" />
+    <link href="/xcConfirm/css/xcConfirm.css" rel="stylesheet">
+    <script src="/xcConfirm/js/xcConfirm.js"></script>
 </head>
 
 <body>
@@ -74,7 +76,8 @@
 </div>
 
 <script >
-    var editor;
+    var Htmleditor;
+    var Mdeditor;
 
     $(function() {
         //页面加载完毕后先渲染富文本编辑器
@@ -85,17 +88,17 @@
     //渲染富文本编辑器
     function fuwenben() {
         var E = window.wangEditor
-        editor = new E('#html-container')
-        editor.customConfig.uploadImgServer = '/admin/upload'  // 上传图片到服务器
-        editor.customConfig.uploadImgTimeout = 300000000
-        editor.customConfig.uploadFileName = 'file'
-        editor.customConfig.debug = true
-        editor.create()
+        Htmleditor = new E('#html-container')
+        Htmleditor.customConfig.uploadImgServer = '/admin/upload'  // 上传图片到服务器
+        Htmleditor.customConfig.uploadImgTimeout = 300000000
+        Htmleditor.customConfig.uploadFileName = 'file'
+        Htmleditor.customConfig.debug = true
+        Htmleditor.create()
     }
 
     //渲染markdown编辑器
     function md() {
-        var editor = editormd("my-editormd", {//注意1：这里的就是上面的DIV的id属性值
+        Mdeditor = editormd("my-editormd", {//注意1：这里的就是上面的DIV的id属性值
             width   : "99%",
             height  : 350,
             syncScrolling : "single",
@@ -133,6 +136,50 @@
             $("#content_type").val("html");
             $("#switch-btn").text("切换为Markdown 编辑器");
         }
+    }
+
+    function subArticle(type) {
+        alert(JSON.stringify(GetJsonData()));
+        $.ajax({
+            type:'post',
+            url:'/admin/index/save',
+            data:JSON.stringify(GetJsonData()),
+            cache:false,
+            dataType:'json',
+            contentType:"application/json",
+            success:function(data){
+                var txt=  "保存文章成功，到首页去查看吧";
+                window.wxc.xcConfirm(txt, window.wxc.xcConfirm.typeEnum.success);
+                setTimeout(function () {
+                    window.location.href = '/admin/index/save';
+                }, 1000);
+            },
+            error:function(data){
+                var txt=  "保存文章失败";
+                window.wxc.xcConfirm(txt, window.wxc.xcConfirm.typeEnum.error);
+            }
+        });
+    }
+
+    function GetJsonData() {
+        var content;
+        if($("#content_type").val() == "html"){
+            content = Htmleditor.txt.html();
+        }else{
+            console.log("markdown---"+$("#mdConetnt").val());
+            content = Mdeditor.getHTML();
+        }
+
+        var pojoInputDTO = {
+                data:{
+                    "title": $("input[name='title']").val(),
+                    "categories": $("select[name='categories']").val(),
+                    "tags": $("input[name='tags']").val(),
+                    "content": content,
+                    "type": $("#content_type").val()
+            }
+        };
+        return pojoInputDTO;
     }
 </script>
 

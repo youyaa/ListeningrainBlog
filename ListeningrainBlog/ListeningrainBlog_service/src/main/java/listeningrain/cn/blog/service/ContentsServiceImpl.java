@@ -46,6 +46,7 @@ public class ContentsServiceImpl implements ContentsService {
                for(Contents contents: contentsByPage){
                    ContentsOutputData contentsOutputData = new ContentsOutputData();
                    BeanUtils.copyProperties(contents,contentsOutputData);
+                   //contentsOutputData.setStatus(ArticleStatusEnum.getMsg(contents.getStatus()));
                    list.add(contentsOutputData);
                }
         }
@@ -87,6 +88,16 @@ public class ContentsServiceImpl implements ContentsService {
             }
 
             return response;
+    }
 
+    @Override
+    public PojoOutputDTO addContent(PojoInputDTO<ContentsInputData> pojoInputDTO) {
+        Contents contents = new Contents();
+        BeanUtils.copyProperties(pojoInputDTO.getData(),contents);
+        Integer integer = atomContensService.insertContent(contents);
+        if(0 > integer){
+            return new PojoOutputDTO();
+        }
+        return null;
     }
 }

@@ -6,6 +6,7 @@ import listeningrain.cn.blog.input.data.MetasInputData;
 import listeningrain.cn.blog.input.dto.PojoInputDTO;
 import listeningrain.cn.blog.output.data.MetasOutputData;
 import listeningrain.cn.blog.output.dto.PageOutputDTO;
+import listeningrain.cn.blog.output.dto.PojoOutputDTO;
 import listeningrain.cn.blog.service.api.MetasService;
 import listeningrain.cn.blog.utils.ThemeUtils;
 import org.springframework.beans.BeanUtils;
@@ -51,5 +52,17 @@ public class MetasServiceImpl implements MetasService {
         }
         pageOutputDTO.setData(list);
         return pageOutputDTO;
+    }
+
+    @Override
+    public PojoOutputDTO<MetasOutputData> getMetasById(PojoInputDTO<MetasInputData> pojoInputDTO) {
+        Metas metas = new Metas();
+        metas.setMid(pojoInputDTO.getData().getMid());
+        PojoOutputDTO<MetasOutputData> pojoOutputDTO = new PojoOutputDTO<>();
+        MetasOutputData metasOutputData = new MetasOutputData();
+        Metas metasById = atomMetasService.getMetasById(metas);
+        BeanUtils.copyProperties(metasById,metasOutputData);
+        pojoOutputDTO.setData(metasOutputData);
+        return pojoOutputDTO;
     }
 }

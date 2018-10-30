@@ -28,4 +28,15 @@ public class AtomMetasServiceImpl implements AtomMetasService {
         List<Metas> metasLINK = metasMapper.selectByExample(metasExample);
         return metasLINK;
     }
+
+    @Override
+    public Metas getMetasById(Metas metas) {
+        MetasExample metasExample = new MetasExample();
+        metasExample.createCriteria().andMidEqualTo(metas.getMid());
+        List<Metas> metasLINK = metasMapper.selectByExample(metasExample);
+        if(null != metasLINK && metasLINK.size()>0){
+            return metasLINK.get(0);
+        }
+        return null;
+    }
 }
