@@ -7,6 +7,14 @@
     <link rel="stylesheet"href="/admin_/meditor/css/editormd.css" />
     <link href="/xcConfirm/css/xcConfirm.css" rel="stylesheet">
     <script src="/xcConfirm/js/xcConfirm.js"></script>
+
+    <style type="text/css">
+        .border_show{
+            border: 1px solid #ccc;
+            background-color: #ffffff;
+        }
+    </style>
+
 </head>
 
 <body>
@@ -38,8 +46,6 @@
                    <input name="tags" id="tags" type="text" class="form-control" placeholder="请填写文章标签"/>
                </div>
 
-               <div class="clearfix"></div>
-
                <div class="form-group col-xs-12">
                    <div class="pull-right" style="margin-right: 10px">
                        <button id="switch-btn" type="button" class="btn btn-success waves-effect waves-light" onclick="switchEditor()">切换为富文本编辑器</button>  &nbsp;&nbsp;切换将丢失当前所有内容
@@ -52,12 +58,14 @@
                    <textarea id="my-editormd-html-code" name="my-editormd-html-code" style="display:none;"></textarea>
                </div>
 
-               <div id="toolbar" class="toolbar" style="border: 1px solid #ccc;"></div>
-               <div style="padding: 2px 0; color: #ccc"></div>
-               <div id="html-container" class="form-group col-md-12" style="border: 1px solid #ccc;height: 450px;z-index: 0;display: none;" >
-                   <p>在这里开始写您的文章哦</p>
-               </div>
-
+                <div id="html-div" style="width: 100%;height: auto;display: none">
+                   <div id="toolbar" class="toolbar border_show" style="width: 100%">
+                   </div>
+                   <div style="padding: 2px 0; color: #ccc"></div>
+                   <div id="html-container" class="form-group col-md-12 border_show" style="height: 450px;" >
+                        <p>在这里开始写您的文章哦</p>
+                    </div>
+                </div>
                <input id="content_type" type="hidden" value="md">
 
                <div class="clearfix"></div>
@@ -90,21 +98,12 @@
     //渲染富文本编辑器
     function fuwenben() {
         var E = window.wangEditor
-<<<<<<< Updated upstream
-        Htmleditor = new E('#html-container')
+        Htmleditor = new E('#toolbar','#html-container')
         Htmleditor.customConfig.uploadImgServer = '/admin/upload'  // 上传图片到服务器
         Htmleditor.customConfig.uploadImgTimeout = 300000000
         Htmleditor.customConfig.uploadFileName = 'file'
         Htmleditor.customConfig.debug = true
         Htmleditor.create()
-=======
-        editor = new E("#toolbar",'#html-container')
-        editor.customConfig.uploadImgServer = '/admin/upload'  // 上传图片到服务器
-        editor.customConfig.uploadImgTimeout = 300000000
-        editor.customConfig.uploadFileName = 'file'
-        editor.customConfig.debug = true
-        editor.create()
->>>>>>> Stashed changes
     }
 
     //渲染markdown编辑器
@@ -128,7 +127,7 @@
         console.log("当前类型为---"+type);
         //切换为markdown
         if(type == "html"){
-            $("#html-container").css("display","none");
+            $("#html-div").css("display","none");
             md();
             if('none' == $("#my-editormd").css("display")){
                 $("#my-editormd").css("display","block");
@@ -141,8 +140,8 @@
         if(type == "md"){
             $("#my-editormd").css("display","none");
             //fuwenben();
-            if('none' == $("#html-container").css("display")){
-                $("#html-container").css("display","block");
+            if('none' == $("#html-div").css("display")){
+                $("#html-div").css("display","block");
             }
             $("#content_type").val("html");
             $("#switch-btn").text("切换为Markdown 编辑器");
