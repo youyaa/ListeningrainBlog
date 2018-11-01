@@ -1,0 +1,28 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+   		http://code.alibabatech.com/schema/dubbo
+        http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+
+
+    <!-- 配置Dubbo提供方 -->
+    <!-- 配置提供方的名称 计算名 -->
+    <dubbo:application name="babasport-service-product"/>
+
+    <!-- 配置注册中心 -->
+    <!-- 	<dubbo:registry
+            address="192.168.200.128:2181,192.168.200.129:2181,192.168.200.130:2181"
+            protocol="zookeeper"/> -->
+    <dubbo:registry
+            address="zookeeper://localhost:2181" protocol="zookeeper"/>
+    <!-- 设置端口号  默认  20880 -->
+    <dubbo:protocol port="20880" name="dubbo"/>
+
+    <!-- 暴露的接口 -->
+    <dubbo:service interface="listeningrain.cn.blog.service.api.ContentsService" ref="contentsService"/>
+    <dubbo:service interface="listeningrain.cn.blog.service.api.MetasService" ref="metasService"/>
+   <dubbo:service interface="listeningrain.cn.blog.service.api.UsersService" ref="usersService"/>
+    <dubbo:provider timeout="180000" />
+</beans>

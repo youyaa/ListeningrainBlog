@@ -1,0 +1,36 @@
+article pre code {
+    position: relative;
+    display: block;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    border-radius: 0;
+    background-color: transparent;
+    font-size: 100%;
+}
+
+article code {
+    margin: 0 2px;
+    padding: 4px 5px;
+    border-radius: 5px;
+    background-color: #eee;
+    vertical-align: middle;
+    font-size: 80%;
+    font-family: Consolas,Monaco,Andale Mono,monospace;
+}
+
+article pre {
+    margin-top:15px;
+    margin-bottom:15px;
+    position: relative;
+    overflow: hidden;
+    padding: .6em;
+    border-left: 5px solid #ccc;
+    background-color: #f8f8f8;
+    color: #5d6a6a;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    font-size: 14px;
+    line-height: 1.6;
+    word-break: break-word;
+}

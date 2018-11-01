@@ -43,4 +43,11 @@ public class UsersServiceImpl implements UsersService {
         }
         return null;
     }
+
+    @Override
+    public void insertAdmin(AdminInputData adminInputData) {
+        Users users = new Users();
+        users.setUsername(adminInputData.getUsername());
+        atomUsersService.insertUser(users);
+    }
 }

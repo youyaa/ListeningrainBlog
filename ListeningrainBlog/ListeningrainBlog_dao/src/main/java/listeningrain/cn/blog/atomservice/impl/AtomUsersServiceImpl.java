@@ -6,6 +6,7 @@ import listeningrain.cn.blog.entity.Users;
 import listeningrain.cn.blog.entity.UsersExample;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -30,5 +31,12 @@ public class AtomUsersServiceImpl implements AtomUsersService {
             return admins.get(0);
         }
         return null;
+    }
+
+    @Override
+    @Transactional
+    public void insertUser(Users users) {
+        usersMapper.insertSelective(users);
+        throw new RuntimeException("测试事务，手动抛出异常");
     }
 }

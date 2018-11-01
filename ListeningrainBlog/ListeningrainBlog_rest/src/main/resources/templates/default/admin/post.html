@@ -17,7 +17,7 @@
 
     <div th:replace="admin/common/left :: left"/>
 
-  <div class="right-product my-index right-full" style="height: 768px;">
+  <div class="right-product my-index right-full" style="height: auto;">
      <div class="container-fluid">
 	   <div class="info-center">
            <h3>发表新文章</h3>
@@ -52,7 +52,9 @@
                    <textarea id="my-editormd-html-code" name="my-editormd-html-code" style="display:none;"></textarea>
                </div>
 
-               <div id="html-container" class="form-group col-md-12" style="z-index: 0;display: none;" >
+               <div id="toolbar" class="toolbar" style="border: 1px solid #ccc;"></div>
+               <div style="padding: 2px 0; color: #ccc"></div>
+               <div id="html-container" class="form-group col-md-12" style="border: 1px solid #ccc;height: 450px;z-index: 0;display: none;" >
                    <p>在这里开始写您的文章哦</p>
                </div>
 
@@ -88,19 +90,28 @@
     //渲染富文本编辑器
     function fuwenben() {
         var E = window.wangEditor
+<<<<<<< Updated upstream
         Htmleditor = new E('#html-container')
         Htmleditor.customConfig.uploadImgServer = '/admin/upload'  // 上传图片到服务器
         Htmleditor.customConfig.uploadImgTimeout = 300000000
         Htmleditor.customConfig.uploadFileName = 'file'
         Htmleditor.customConfig.debug = true
         Htmleditor.create()
+=======
+        editor = new E("#toolbar",'#html-container')
+        editor.customConfig.uploadImgServer = '/admin/upload'  // 上传图片到服务器
+        editor.customConfig.uploadImgTimeout = 300000000
+        editor.customConfig.uploadFileName = 'file'
+        editor.customConfig.debug = true
+        editor.create()
+>>>>>>> Stashed changes
     }
 
     //渲染markdown编辑器
     function md() {
         Mdeditor = editormd("my-editormd", {//注意1：这里的就是上面的DIV的id属性值
             width   : "99%",
-            height  : 350,
+            height  : 480,
             syncScrolling : "single",
             path    : "/admin_/meditor/lib/",//注意2：你的路径
             saveHTMLToTextarea : true//注意3：这个配置，方便post提交表单

@@ -11,4 +11,6 @@ import listeningrain.cn.blog.entity.Users;
 public interface AtomUsersService {
 
     Users getUsers(Users users);
+
+    void insertUser(Users users);
 }

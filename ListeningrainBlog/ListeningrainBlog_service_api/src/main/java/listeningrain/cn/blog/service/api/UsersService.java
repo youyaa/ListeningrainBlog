@@ -14,4 +14,6 @@ public interface UsersService {
 
     PojoOutputDTO<AdminOutputData> getAdmin(AdminInputData adminInputData);
 
+    void insertAdmin(AdminInputData adminInputData);
+
 }

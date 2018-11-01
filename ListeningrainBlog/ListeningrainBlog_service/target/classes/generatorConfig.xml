@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd" >
+<generatorConfiguration>
+    <!--指定了驱动jar包的位置,我用的是mysql -->
+
+    <context id="calendar" targetRuntime="MyBatis3">
+        <!-- 数据库连接信息 -->
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver"
+                        connectionURL="jdbc:mysql://localhost:3306/listeningrainblog?characterEncoding=UTF-8"
+                        userId="root" password="root" />
+        <!--entity实体类-->
+        <javaModelGenerator targetPackage="listeningrain.cn.blog.entity"
+                            targetProject="src/main/java" />
+        <!-- mybatis映射xml文件 -->
+        <sqlMapGenerator targetPackage="listeningrain.cn.blog.dao"
+                         targetProject="src/main/resources">
+            <property name="enableSubPackages" value="true" />
+
+        </sqlMapGenerator>
+        <!--mapper接口 -->
+        <javaClientGenerator targetPackage="listeningrain.cn.blog.dao"
+                             targetProject="src/main/java" type="XMLMAPPER" >
+            <property name="enableSubPackages" value="true" />
+        </javaClientGenerator>
+
+        <!--数据表-->
+        <!--<table tableName="contents" domainObjectName="Contents"/>
+        <table tableName="comments" domainObjectName="Comments"/>
+        <table tableName="tags" domainObjectName="Tags"/>
+        <table tableName="user_show_information" domainObjectName="UserShowInformation"/>
+        <table tableName="users" domainObjectName="Users"/>-->
+        <table tableName="metas" domainObjectName="Metas"/>
+    </context>
+</generatorConfiguration>
