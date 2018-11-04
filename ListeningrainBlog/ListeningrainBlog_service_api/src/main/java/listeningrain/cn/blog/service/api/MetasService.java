@@ -20,4 +20,6 @@ public interface MetasService {
     PageOutputDTO<MetasOutputData> getMetasByType(PojoInputDTO<MetasInputData> pojoInputDTO);
 
     PojoOutputDTO<MetasOutputData> getMetasById(PojoInputDTO<MetasInputData> pojoInputDTO);
+
+    PojoOutputDTO updateMetas(PojoInputDTO<MetasInputData> pojoInputDTO);
 }

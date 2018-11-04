@@ -1,7 +1,9 @@
 package listeningrain.cn.blog.service;
 
 import listeningrain.cn.blog.atomservice.AtomMetasService;
+import listeningrain.cn.blog.constant.ReturnErrCodeEnum;
 import listeningrain.cn.blog.entity.Metas;
+import listeningrain.cn.blog.exception.BlogServiceException;
 import listeningrain.cn.blog.input.data.MetasInputData;
 import listeningrain.cn.blog.input.dto.PojoInputDTO;
 import listeningrain.cn.blog.output.data.MetasOutputData;
@@ -64,5 +66,18 @@ public class MetasServiceImpl implements MetasService {
         BeanUtils.copyProperties(metasById,metasOutputData);
         pojoOutputDTO.setData(metasOutputData);
         return pojoOutputDTO;
+    }
+
+    @Override
+    public PojoOutputDTO updateMetas(PojoInputDTO<MetasInputData> pojoInputDTO) {
+        Metas metas = new Metas();
+        if(null != pojoInputDTO.getData()){
+            BeanUtils.copyProperties(pojoInputDTO.getData(),metas);
+        }
+        int i = atomMetasService.updateMetaById(metas);
+        if(i <= 0){
+            throw new BlogServiceException(ReturnErrCodeEnum.SQL_EXCEPTION_UPDATE);
+        }
+        return new PojoOutputDTO();
     }
 }

@@ -24,6 +24,9 @@ public class AtomMetasServiceImpl implements AtomMetasService {
     @Override
     public List<Metas> getAllMetas(Metas metas) {
         MetasExample metasExample = new MetasExample();
+        if("LINK".equals(metas.getType())){
+            metasExample.setOrderByClause("sort ASC");
+        }
         metasExample.createCriteria().andTypeEqualTo(metas.getType());
         List<Metas> metasLINK = metasMapper.selectByExample(metasExample);
         return metasLINK;
@@ -38,5 +41,11 @@ public class AtomMetasServiceImpl implements AtomMetasService {
             return metasLINK.get(0);
         }
         return null;
+    }
+
+    @Override
+    public int updateMetaById(Metas metas) {
+        int i = metasMapper.updateByPrimaryKeySelective(metas);
+        return i;
     }
 }

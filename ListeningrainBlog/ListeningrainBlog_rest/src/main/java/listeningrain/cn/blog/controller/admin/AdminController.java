@@ -77,7 +77,7 @@ public class AdminController {
     }
 
     /**
-     * 接收前端的ajax请求
+     * 接收前端的ajax请求(根据友链的id获取内容)
      */
     @RequestMapping(path = "/index/editLink", method = RequestMethod.GET)
     @ResponseBody
@@ -88,5 +88,12 @@ public class AdminController {
         pojoInputDTO.setData(metasInputData);
         PojoOutputDTO<MetasOutputData> metasById = metasService.getMetasById(pojoInputDTO);
         return  metasById;
+    }
+
+    @RequestMapping(path = "/index/updateLink", method = RequestMethod.POST)
+    @ResponseBody
+    public PojoOutputDTO updateLink(@RequestBody PojoInputDTO<MetasInputData> pojoInputDTO){
+        PojoOutputDTO pojoOutputDTO = metasService.updateMetas(pojoInputDTO);
+        return pojoOutputDTO;
     }
 }

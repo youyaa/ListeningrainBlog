@@ -24,4 +24,8 @@ public interface AtomMetasService {
      */
     Metas getMetasById(Metas metas);
 
+    /**
+     * 更新友链
+     */
+    int updateMetaById(Metas metas);
 }

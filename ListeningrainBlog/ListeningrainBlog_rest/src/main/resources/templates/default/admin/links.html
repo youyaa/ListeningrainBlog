@@ -100,7 +100,7 @@
                                        <input type="number" id="sort" name="sort" class="form-control" value="0"/>
                                    </div>
 
-                                   <button type="submit" class="btn btn-success waves-effect waves-light m-l-10">保存链接</button>
+                                   <button onclick="updateLink()" type="button" class="btn btn-success waves-effect waves-light m-l-10">保存链接</button>
                                </form>
                            </div>
                        </div>
@@ -113,6 +113,8 @@
   </div>
 </div>
 
+<link href="/xcConfirm/css/xcConfirm.css" rel="stylesheet">
+<script src="/xcConfirm/js/xcConfirm.js"></script>
 <script type="application/javascript">
     function editLink(name) {
         alert(name);
@@ -129,11 +131,46 @@
                 $("#url").val(data.data.slug);
                 $("#logo").val(data.data.logo);
                 $("#sort").val(data.data.sort);
+                $("#mid").val(mid);
             },
             "error":function (data) {
 
             }
         })
+    }
+
+    function updateLink() {
+        $.post({
+            "url":"/admin/index/updateLink",
+            data:JSON.stringify(GetJsonData()),
+            cache:false,
+            dataType:'json',
+            contentType:"application/json",
+            "success":function (data) {
+                var txt=  "骚年，修改成功！";
+                window.wxc.xcConfirm(txt, window.wxc.xcConfirm.typeEnum.success);
+                setTimeout(function () {
+                    window.location.href = '/admin/index/link';
+                }, 1000);
+            },
+            "error":function (XMLHttpRequest, textStatus, errorThrown) {
+                var txt=  "啊哦，修改失败了，稍后再试吧！";
+                window.wxc.xcConfirm(txt, window.wxc.xcConfirm.typeEnum.success);
+            }
+        })
+    }
+
+    function GetJsonData() {
+
+        var pojoInputDTO = {
+            data:{
+                "mid":$("#mid").val(),
+                "name": $("#title").val(),
+                "slug": $("#url").val(),
+                "sort":$("#sort").val(),
+            }
+        };
+        return pojoInputDTO;
     }
 </script>
 
