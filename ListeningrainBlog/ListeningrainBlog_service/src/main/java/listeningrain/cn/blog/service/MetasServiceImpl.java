@@ -1,10 +1,13 @@
 package listeningrain.cn.blog.service;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import listeningrain.cn.blog.atomservice.AtomMetasService;
 import listeningrain.cn.blog.constant.ReturnErrCodeEnum;
 import listeningrain.cn.blog.entity.Metas;
 import listeningrain.cn.blog.exception.BlogServiceException;
 import listeningrain.cn.blog.input.data.MetasInputData;
+import listeningrain.cn.blog.input.dto.PageInputDTO;
 import listeningrain.cn.blog.input.dto.PojoInputDTO;
 import listeningrain.cn.blog.output.data.MetasOutputData;
 import listeningrain.cn.blog.output.dto.PageOutputDTO;
@@ -32,11 +35,12 @@ public class MetasServiceImpl implements MetasService {
 
 
     @Override
-    public PageOutputDTO<MetasOutputData> getMetasByType(PojoInputDTO<MetasInputData> pojoInputDTO) {
+    public PageOutputDTO<MetasOutputData> getMetasByType(PageInputDTO<MetasInputData> pageInputDTO) {
         Metas metas = new Metas();
-        metas.setType(pojoInputDTO.getData().getType());
+        metas.setType(pageInputDTO.getData().getType());
+        PageHelper.startPage(pageInputDTO.getPageNum(),pageInputDTO.getPageSize());
         List<Metas> allMetas = atomMetasService.getAllMetas(metas);
-
+        PageInfo<Metas> of = PageInfo.of(allMetas);
         //构建返回对象
         PageOutputDTO<MetasOutputData> pageOutputDTO = new PageOutputDTO<>();
         List<MetasOutputData> list = new ArrayList<>();
@@ -52,6 +56,25 @@ public class MetasServiceImpl implements MetasService {
                 list.add(metasOutputData);
             }
         }
+        //设置其他参数
+        pageOutputDTO.setPageNum(pageInputDTO.getPageNum());
+        pageOutputDTO.setPageSize(pageInputDTO.getPageSize());
+        pageOutputDTO.setTotal((int)of.getTotal());
+        pageOutputDTO.setData(list);
+
+        //设置分页参数
+        Integer pageNum = null;
+        if(pageOutputDTO.getTotal() % pageOutputDTO.getPageSize() == 0){
+            pageNum = pageOutputDTO.getTotal() / pageOutputDTO.getPageSize();
+        }else{
+            pageNum = pageOutputDTO.getTotal() / pageOutputDTO.getPageSize() +1;
+        }
+
+        Integer[] pageBar = new Integer[pageNum];
+        for(int i =1;i<=pageNum;i++){
+            pageBar[i-1] = i;
+        }
+        pageOutputDTO.setPageBar(pageBar);
         pageOutputDTO.setData(list);
         return pageOutputDTO;
     }
@@ -77,6 +100,18 @@ public class MetasServiceImpl implements MetasService {
         int i = atomMetasService.updateMetaById(metas);
         if(i <= 0){
             throw new BlogServiceException(ReturnErrCodeEnum.SQL_EXCEPTION_UPDATE);
+        }
+        return new PojoOutputDTO();
+    }
+
+    @Override
+    public PojoOutputDTO addMetas(PojoInputDTO<MetasInputData> pojoInputDTO) {
+        Metas metas = new Metas();
+        BeanUtils.copyProperties(pojoInputDTO.getData(),metas);
+        metas.setType("LINK");
+        int i = atomMetasService.addMeta(metas);
+        if(i <= 0){
+            throw new BlogServiceException(ReturnErrCodeEnum.SQL_EXCEPTION_INSERT);
         }
         return new PojoOutputDTO();
     }

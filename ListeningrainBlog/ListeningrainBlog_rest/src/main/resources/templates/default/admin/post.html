@@ -11,7 +11,6 @@
     <style type="text/css">
         .border_show{
             border: 1px solid #ccc;
-            background-color: #ffffff;
         }
     </style>
 
@@ -26,7 +25,7 @@
     <div th:replace="admin/common/left :: left"/>
 
   <div class="right-product my-index right-full" style="height: auto;">
-     <div class="container-fluid">
+     <div class="container-fluid" style="background-color: #eceff3">
 	   <div class="info-center">
            <h3>发表新文章</h3>
            <form id="articleForm" >
@@ -43,7 +42,7 @@
                </div>
 
                <div class="form-group col-md-6" style="padding: 0 10px 0 0;">
-                   <input name="tags" id="tags" type="text" class="form-control" placeholder="请填写文章标签"/>
+                   <input name="tags" id="tags" type="text" class="form-control" placeholder="请填写文章标签" />
                </div>
 
                <div class="form-group col-xs-12">
@@ -52,20 +51,19 @@
                    </div>
                </div>
 
-               <div id="my-editormd" class="form-group col-md-12" >
+            <div id="my-editormd" class="form-group col-md-12" >
                    <textarea id="my-editormd-markdown-doc" name="my-editormd-markdown-doc" style="display:none;"></textarea>
-                   <!-- 注意：name属性的值-->
                    <textarea id="my-editormd-html-code" name="my-editormd-html-code" style="display:none;"></textarea>
                </div>
 
-                <div id="html-div" style="width: 100%;height: auto;display: none">
-                   <div id="toolbar" class="toolbar border_show" style="width: 100%">
-                   </div>
-                   <div style="padding: 2px 0; color: #ccc"></div>
-                   <div id="html-container" class="form-group col-md-12 border_show" style="height: 450px;" >
-                        <p>在这里开始写您的文章哦</p>
-                    </div>
+             <div id="html-div" style="width: 100%;height: auto;display: none">
+                <div id="toolbar" class="toolbar border_show" style="width: 100%;background-color: white;">
                 </div>
+                <div style="padding: 2px 0; color: #ccc"></div>
+                <div id="html-container" class="form-group col-md-12 border_show" style="background-color: white;height: 450px;" >
+                     <p>在这里开始写您的文章哦</p>
+                 </div>
+             </div>
                <input id="content_type" type="hidden" value="md">
 
                <div class="clearfix"></div>
@@ -149,7 +147,26 @@
     }
 
     function subArticle(type) {
-        alert(JSON.stringify(GetJsonData()));
+        if("" == $("input[name='title']").val()){
+            var txt=  "请先填写文章标题哦";
+            window.wxc.xcConfirm(txt, window.wxc.xcConfirm.typeEnum.info);
+            return;
+        }
+
+        var content;
+        if($("#content_type").val() == "html"){
+            content = Htmleditor.txt.html();
+        }else{
+            console.log("markdown---"+$("#mdConetnt").val());
+            content = Mdeditor.getHTML();
+        }
+
+        if("" == content){
+            var txt=  "您还未开始写文章哦";
+            window.wxc.xcConfirm(txt, window.wxc.xcConfirm.typeEnum.info);
+            return;
+        }
+
         $.ajax({
             type:'post',
             url:'/admin/index/save',
@@ -161,7 +178,7 @@
                 var txt=  "保存文章成功，到首页去查看吧";
                 window.wxc.xcConfirm(txt, window.wxc.xcConfirm.typeEnum.success);
                 setTimeout(function () {
-                    window.location.href = '/admin/index/save';
+                    window.location.href = '/admin/index/list';
                 }, 1000);
             },
             error:function(data){

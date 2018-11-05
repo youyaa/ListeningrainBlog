@@ -66,41 +66,69 @@
 
                        </tbody>
                    </table>
+                   <div id="page" style="width: 100%;height: auto;text-align: right;margin-top: -20px">
+
+                       <label  th:each="pagebar : ${links.pageBar}">
+
+                           <label th:if="${pagebar} eq ${links.pageNum}">
+                               <ul class="pagination">
+                                   <li class="active">
+                                       <a th:href="@{'/admin/index/link?pageNum='+${pagebar}}">
+                                           <label th:text="${pagebar}"/>
+                                       </a>
+                                   </li>
+                               </ul>
+                           </label>
+
+                           <label th:if="${pagebar} ne ${links.pageNum}">
+                               <ul class="pagination">
+                                   <li >
+                                       <a th:href="@{'/admin/index/link?pageNum='+${pagebar}}">
+                                           <label th:text="${pagebar}"/>
+                                       </a>
+                                   </li>
+                               </ul>
+                           </label>
+
+                       </label>
+
+                   </div>
                </div>
                <div class="row">
-                   <div class="col-md-12" style="padding: 20px;">
+                   <div class="col-md-12" style="padding: 20px;margin-top: -20px">
                        <div class="panel panel-primary">
-                           <div class="panel-heading"><h3 class="panel-title">修改</h3></div>
+                           <div class="panel-heading"><h3 class="panel-title">新增/修改</h3></div>
                            <div class="panel-body">
 
-                               <form id="linkForm" class="form-inline" role="form" novalidate="novalidate">
+                               <form id="linkForm" class="form-inline" role="form">
 
                                    <input type="hidden" id="mid" name="mid"/>
 
                                    <div class="form-group">
                                        <label class="sr-only">链接标题</label>
                                        <input type="text" id="title" name="title" class="form-control" placeholder="请输入链接标题"
-                                              required aria-required="true"/>
+                                              required aria-required="true" style="width: 230px"/>
                                    </div>
 
                                    <div class="form-group">
                                        <label class="sr-only">链接URL</label>
                                        <input type="url" id="url" name="url" class="form-control" placeholder="请输入链接地址" required
-                                              aria-required="true"/>
+                                              aria-required="true" style="width: 230px"/>
                                    </div>
 
                                    <div class="form-group">
                                        <label class="sr-only">链接LOGO</label>
                                        <input type="url" id="logo" name="logo" class="form-control"
-                                              placeholder="请输入链接LOGO，没有则不输入"/>
+                                              placeholder="请输入链接LOGO，没有则不输入" style="width: 250px"/>
                                    </div>
 
                                    <div class="form-group">
                                        <label class="sr-only">链接排序</label>
-                                       <input type="number" id="sort" name="sort" class="form-control" value="0"/>
+                                       <input type="number" id="sort" name="sort" class="form-control" value="0" style="width: 200px"/>
                                    </div>
 
-                                   <button onclick="updateLink()" type="button" class="btn btn-success waves-effect waves-light m-l-10">保存链接</button>
+                                   <button style="margin-left: 7px" onclick="updateLink()" type="button" class="btn btn-success waves-effect waves-light m-l-10">保存</button>
+                                   <button onclick="clearLink()" type="button" class="btn btn-success waves-effect waves-light m-l-10">清空</button>
                                </form>
                            </div>
                        </div>
@@ -117,7 +145,6 @@
 <script src="/xcConfirm/js/xcConfirm.js"></script>
 <script type="application/javascript">
     function editLink(name) {
-        alert(name);
         getLink(name);
     }
     
@@ -139,7 +166,20 @@
         })
     }
 
+    function clearLink() {
+        $("#title").val(null);
+        $("#url").val(null);
+        $("#logo").val(null);
+        $("#sort").val(null);
+        $("#mid").val(null);
+    }
+
     function updateLink() {
+        if("" == $("#title").val() || "" == $("#url").val() ){
+            var txt=  "请先填写相关信息哦！";
+            window.wxc.xcConfirm(txt, window.wxc.xcConfirm.typeEnum.info);
+            return;
+        }
         $.post({
             "url":"/admin/index/updateLink",
             data:JSON.stringify(GetJsonData()),
@@ -147,15 +187,15 @@
             dataType:'json',
             contentType:"application/json",
             "success":function (data) {
-                var txt=  "骚年，修改成功！";
+                var txt=  "骚年，操作成功！";
                 window.wxc.xcConfirm(txt, window.wxc.xcConfirm.typeEnum.success);
                 setTimeout(function () {
                     window.location.href = '/admin/index/link';
                 }, 1000);
             },
             "error":function (XMLHttpRequest, textStatus, errorThrown) {
-                var txt=  "啊哦，修改失败了，稍后再试吧！";
-                window.wxc.xcConfirm(txt, window.wxc.xcConfirm.typeEnum.success);
+                var txt=  "啊哦，操作失败了，稍后再试吧！";
+                window.wxc.xcConfirm(txt, window.wxc.xcConfirm.typeEnum.error);
             }
         })
     }

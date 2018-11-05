@@ -70,11 +70,11 @@ public class IndexController {
     //友链
     @RequestMapping(path = "/index/link",method = RequestMethod.GET)
     public String link(ModelMap modelMap){
-        PojoInputDTO pojoInputDTO = new PojoInputDTO<>();
+        PageInputDTO<MetasInputData> pageInputDTO = new PageInputDTO<>();
         MetasInputData metasInputData = new MetasInputData();
         metasInputData.setType("LINK");
-        pojoInputDTO.setData(metasInputData);
-        PageOutputDTO<MetasOutputData> allLinks = metasService.getMetasByType(pojoInputDTO);
+        pageInputDTO.setData(metasInputData);
+        PageOutputDTO<MetasOutputData> allLinks = metasService.getMetasByType(pageInputDTO);
         modelMap.addAttribute("links",allLinks);
         return "link";
     }
@@ -113,11 +113,11 @@ public class IndexController {
     //关于
     @RequestMapping(path = "/index/about", method = RequestMethod.GET)
     public String about(ModelMap modelMap){
-        PojoInputDTO pojoInputDTO = new PojoInputDTO<>();
+        PageInputDTO<MetasInputData> pageInputDTO = new PageInputDTO<>();
         MetasInputData metasInputData = new MetasInputData();
         metasInputData.setType("ABOUT");
-        pojoInputDTO.setData(metasInputData);
-        PageOutputDTO<MetasOutputData> pageOutputDTO = metasService.getMetasByType(pojoInputDTO);
+        pageInputDTO.setData(metasInputData);
+        PageOutputDTO<MetasOutputData> pageOutputDTO = metasService.getMetasByType(pageInputDTO);
         modelMap.addAttribute("about",pageOutputDTO);
         return "about";
     }

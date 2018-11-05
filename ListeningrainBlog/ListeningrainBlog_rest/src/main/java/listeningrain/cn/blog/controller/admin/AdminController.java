@@ -13,6 +13,7 @@ import listeningrain.cn.blog.service.api.MetasService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -57,21 +58,30 @@ public class AdminController {
 
     //文章列表页
     @RequestMapping(path = "/index/list", method = RequestMethod.GET)
-    public String index(ModelMap modelMap){
+    public String index(ModelMap modelMap,Integer pageNum){
         PageInputDTO pageInputDTO = new PageInputDTO<>();
         pageInputDTO.setPageSize(10);
+        if(null == pageNum){
+            pageNum = 1;
+        }
+        pageInputDTO.setPageNum(pageNum);
         PageOutputDTO<ContentsOutputData> contentsByPage = contentsService.getContentsByPage(pageInputDTO);
         modelMap.addAttribute("contents",contentsByPage);
         return "admin/list";
     }
 
     @RequestMapping(path = "/index/link",method = RequestMethod.GET)
-    public String link(ModelMap modelMap){
-        PojoInputDTO pojoInputDTO = new PojoInputDTO<>();
+    public String link(ModelMap modelMap, Integer pageNum){
+        PageInputDTO<MetasInputData> pageInputDTO = new PageInputDTO();
         MetasInputData metasInputData = new MetasInputData();
         metasInputData.setType("LINK");
-        pojoInputDTO.setData(metasInputData);
-        PageOutputDTO<MetasOutputData> allLinks = metasService.getMetasByType(pojoInputDTO);
+        pageInputDTO.setData(metasInputData);
+        if(null == pageNum){
+            pageNum = 1;
+        }
+        pageInputDTO.setPageNum(pageNum);
+        pageInputDTO.setPageSize(5);
+        PageOutputDTO<MetasOutputData> allLinks = metasService.getMetasByType(pageInputDTO);
         modelMap.addAttribute("links",allLinks);
         return "admin/links";
     }
@@ -92,8 +102,26 @@ public class AdminController {
 
     @RequestMapping(path = "/index/updateLink", method = RequestMethod.POST)
     @ResponseBody
-    public PojoOutputDTO updateLink(@RequestBody PojoInputDTO<MetasInputData> pojoInputDTO){
-        PojoOutputDTO pojoOutputDTO = metasService.updateMetas(pojoInputDTO);
+    public PojoOutputDTO updateLinkOrAdd(@RequestBody PojoInputDTO<MetasInputData> pojoInputDTO){
+        PojoOutputDTO pojoOutputDTO = null;
+        if(!StringUtils.isEmpty(pojoInputDTO.getData().getMid())){
+            //存在id，执行更新操作
+           pojoOutputDTO = metasService.updateMetas(pojoInputDTO);
+        }else{
+            //不存在，则执行新增操作
+         pojoOutputDTO = metasService.addMetas(pojoInputDTO);
+        }
         return pojoOutputDTO;
+    }
+
+    @RequestMapping(path = "/index/classify",method = RequestMethod.GET)
+    public String classify(ModelMap modelMap){
+        PageInputDTO<MetasInputData> pojoInputDTO = new PageInputDTO();
+        MetasInputData metasInputData = new MetasInputData();
+        metasInputData.setType("CLASSIFY");
+        pojoInputDTO.setData(metasInputData);
+        PageOutputDTO<MetasOutputData> allClassify = metasService.getMetasByType(pojoInputDTO);
+        modelMap.addAttribute("allClassify",allClassify);
+        return "admin/links";
     }
 }

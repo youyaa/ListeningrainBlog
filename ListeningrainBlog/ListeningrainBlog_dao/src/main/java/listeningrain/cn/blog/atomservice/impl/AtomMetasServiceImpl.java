@@ -48,4 +48,10 @@ public class AtomMetasServiceImpl implements AtomMetasService {
         int i = metasMapper.updateByPrimaryKeySelective(metas);
         return i;
     }
+
+    @Override
+    public int addMeta(Metas metas) {
+        int i = metasMapper.insertSelective(metas);
+        return i;
+    }
 }

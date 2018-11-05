@@ -51,6 +51,33 @@
 
                </tbody>
            </table>
+           <div id="page" style="width: 100%;height: auto;text-align: right;margin-top: -10px">
+
+                   <label  th:each="pagebar : ${contents.pageBar}">
+
+                               <label th:if="${pagebar} eq ${contents.pageNum}">
+                                   <ul class="pagination">
+                                       <li class="active">
+                                           <a th:href="@{'/admin/index/list?pageNum='+${pagebar}}">
+                                                <label th:text="${pagebar}"/>
+                                           </a>
+                                       </li>
+                                   </ul>
+                               </label>
+
+                               <label th:if="${pagebar} ne ${contents.pageNum}">
+                                   <ul class="pagination">
+                                       <li >
+                                           <a th:href="@{'/admin/index/list?pageNum='+${pagebar}}">
+                                               <label th:text="${pagebar}"/>
+                                           </a>
+                                       </li>
+                                   </ul>
+                               </label>
+
+                   </label>
+
+           </div>
        </div>			
 	 </div>
   </div>

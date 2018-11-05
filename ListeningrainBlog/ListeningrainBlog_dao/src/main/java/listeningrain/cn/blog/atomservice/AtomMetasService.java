@@ -13,19 +13,24 @@ import java.util.List;
 public interface AtomMetasService {
 
     /**
-     * 获取所有的友链
+     * 获取所有的
      * @param metas
      * @return
      */
     List<Metas> getAllMetas(Metas metas);
 
     /**
-     * 根据id获取友链
+     * 根据id获取
      */
     Metas getMetasById(Metas metas);
 
     /**
-     * 更新友链
+     * 更新
      */
     int updateMetaById(Metas metas);
+
+    /**
+     * 新增
+     */
+    int addMeta(Metas metas);
 }
