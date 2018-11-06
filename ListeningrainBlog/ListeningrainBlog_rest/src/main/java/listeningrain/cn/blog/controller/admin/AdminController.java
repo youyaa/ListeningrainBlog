@@ -78,6 +78,21 @@ public class AdminController {
         return pojoOutputDTO;
     }
 
+    //编辑文章
+    @RequestMapping(path = "/index/editContent", method = RequestMethod.GET)
+    public String toEditPage(ModelMap modelMap ,@RequestParam Integer cid){
+        PojoInputDTO<ContentsInputData> pojoInputDTO = new PojoInputDTO<>();
+        ContentsInputData contentsInputData = new ContentsInputData();
+        if(null != contentsInputData){
+            contentsInputData.setCid(cid);
+        }
+        pojoInputDTO.setData(contentsInputData);
+        PojoOutputDTO<ContentsOutputData> contentsById = contentsService.getContentsById(pojoInputDTO);
+        modelMap.put("content",contentsById);
+        return "/admin/post";
+
+    }
+
     @RequestMapping(path = "/index/link",method = RequestMethod.GET)
     public String link(ModelMap modelMap, Integer pageNum){
         PageInputDTO<MetasInputData> pageInputDTO = new PageInputDTO();

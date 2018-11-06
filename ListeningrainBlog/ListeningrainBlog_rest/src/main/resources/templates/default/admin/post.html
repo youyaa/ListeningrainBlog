@@ -30,7 +30,12 @@
            <h3>发表新文章</h3>
            <form id="articleForm" >
                <div class="form-group col-md-6" style="padding: 0 10px 0 0;">
-                   <input class="form-control" placeholder="请输入文章标题（必须）" name="title" required/>
+                   <div th:if="null ne ${content}">
+                        <input class="form-control" th:value="${content.data.title}" placeholder="请输入文章标题（必须）" name="title" required/>
+                   </div>
+                   <div th:if="null eq ${content}">
+                       <input class="form-control"  placeholder="请输入文章标题（必须）" name="title" required/>
+                   </div>
                </div>
 
                <div class="form-group col-md-6" style="padding: 0 0 0 10px;">
@@ -42,18 +47,30 @@
                </div>
 
                <div class="form-group col-md-6" style="padding: 0 10px 0 0;">
-                   <input name="tags" id="tags" type="text" class="form-control" placeholder="请填写文章标签" />
+                   <div th:if="null ne ${content}">
+                        <input name="tags" th:value="${content.data.tags}" type="text" class="form-control" placeholder="请填写文章标签" />
+                   </div>
+                   <div th:if="null eq ${content}">
+                        <input name="tags" type="text" class="form-control" placeholder="请填写文章标签" />
+                   </div>
                </div>
 
                <div class="form-group col-xs-12">
                    <div class="pull-right" style="margin-right: 10px">
-                       <button id="switch-btn" type="button" class="btn btn-success waves-effect waves-light" onclick="switchEditor()">切换为富文本编辑器</button>  &nbsp;&nbsp;切换将丢失当前所有内容
-                   </div>
+                           <div th:if="null ne ${content}">
+                                <button disabled="disabled" type="button" class="switch-btn btn btn-success waves-effect waves-light" onclick="switchEditor()">切换为富文本编辑器</button>  &nbsp;&nbsp;切换将丢失当前所有内容
+                           </div>
+                           <div th:if="null eq ${content}">
+                                <button type="button" class="switch-btn btn btn-success waves-effect waves-light" onclick="switchEditor()">切换为富文本编辑器</button>  &nbsp;&nbsp;切换将丢失当前所有内容
+                           </div>
+                       </div>
                </div>
 
             <div id="my-editormd" class="form-group col-md-12" >
                    <textarea id="my-editormd-markdown-doc" name="my-editormd-markdown-doc" style="display:none;"></textarea>
                    <textarea id="my-editormd-html-code" name="my-editormd-html-code" style="display:none;"></textarea>
+
+                   <textarea class="editormd-markdown-textarea" name="test-editormd-markdown-doc" style="display: none;"></textarea>
                </div>
 
              <div id="html-div" style="width: 100%;height: auto;display: none">
@@ -64,7 +81,17 @@
                      <p>在这里开始写您的文章哦</p>
                  </div>
              </div>
-               <input id="content_type" type="hidden" value="md">
+
+               <div th:if="null ne ${content}">
+                    <input class="content_type" th:value="${content.data.type}" type="hidden" >
+               </div>
+               <div th:if="null eq ${content}">
+                    <input class="content_type" value="md" type="hidden">
+               </div>
+
+               <div th:if="null ne ${content}">
+                   <input class="content_content" th:value="${content.data.content}" type="hidden" >
+               </div>
 
                <div class="clearfix"></div>
 
@@ -91,6 +118,32 @@
         //页面加载完毕后先渲染富文本编辑器
         md();
         fuwenben();
+
+
+         // 判断是否是来自文章编辑模块的请求
+       var i = $(".switch-btn").attr("disabled");
+       if (i == undefined){
+           //如果不是，则不进行处理
+       }else{
+
+           //是来自编辑的请求，将值设置对应的编辑器
+           var type = $(".content_type").val();
+           if(type == "html"){
+               //将markdown编辑器隐藏
+              $("#my-editormd").css("display","none");
+               $("#html-div").css("display","block");
+              //将值设置进富文本编辑器
+               Htmleditor.txt.html($(".content_content").val())
+           }
+
+           if(type == "md"){
+               $("#html-div").css("display","none");
+               $("#my-editormd").css("display","block");
+               $(".editormd-markdown-textarea").text($(".content_content").val());
+           }
+
+       }
+
     })
 
     //渲染富文本编辑器
@@ -121,7 +174,7 @@
 
     //切换编辑器
     function switchEditor() {
-        var type = $("#content_type").val();
+        var type = $(".content_type").val();
         console.log("当前类型为---"+type);
         //切换为markdown
         if(type == "html"){
@@ -130,8 +183,8 @@
             if('none' == $("#my-editormd").css("display")){
                 $("#my-editormd").css("display","block");
             }
-            $("#content_type").val("md");
-            $("#switch-btn").text("切换为富文本编辑器");
+            $(".content_type").val("md");
+            $(".switch-btn").text("切换为富文本编辑器");
         }
 
         //切换为富文本
@@ -141,8 +194,8 @@
             if('none' == $("#html-div").css("display")){
                 $("#html-div").css("display","block");
             }
-            $("#content_type").val("html");
-            $("#switch-btn").text("切换为Markdown 编辑器");
+            $(".content_type").val("html");
+            $(".switch-btn").text("切换为Markdown 编辑器");
         }
     }
 
@@ -154,7 +207,7 @@
         }
 
         var content;
-        if($("#content_type").val() == "html"){
+        if($(".content_type").val() == "html"){
             content = Htmleditor.txt.html();
         }else{
             console.log("markdown---"+$("#mdConetnt").val());
@@ -190,11 +243,11 @@
 
     function GetJsonData() {
         var content;
-        if($("#content_type").val() == "html"){
+        if($(".content_type").val() == "html"){
             content = Htmleditor.txt.html();
         }else{
             console.log("markdown---"+$("#mdConetnt").val());
-            content = Mdeditor.getHTML();
+            content = Mdeditor.getMarkdown();
         }
 
         var pojoInputDTO = {
@@ -203,7 +256,7 @@
                     "categories": $("select[name='categories']").val(),
                     "tags": $("input[name='tags']").val(),
                     "content": content,
-                    "type": $("#content_type").val()
+                    "type": $(".content_type").val()
             }
         };
         return pojoInputDTO;
