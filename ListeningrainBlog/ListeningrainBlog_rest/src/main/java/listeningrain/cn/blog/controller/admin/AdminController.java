@@ -70,6 +70,14 @@ public class AdminController {
         return "admin/list";
     }
 
+    //删除文章
+    @RequestMapping(path = "/index/deleteContent", method = RequestMethod.POST)
+    @ResponseBody
+    public PojoOutputDTO deleteContent(@RequestBody PojoInputDTO<ContentsInputData> pojoInputDTO){
+        PojoOutputDTO pojoOutputDTO = contentsService.deleteContent(pojoInputDTO);
+        return pojoOutputDTO;
+    }
+
     @RequestMapping(path = "/index/link",method = RequestMethod.GET)
     public String link(ModelMap modelMap, Integer pageNum){
         PageInputDTO<MetasInputData> pageInputDTO = new PageInputDTO();
@@ -100,6 +108,13 @@ public class AdminController {
         return  metasById;
     }
 
+    @RequestMapping(path = "/index/deleteLink", method = RequestMethod.POST)
+    @ResponseBody
+    public PojoOutputDTO deleteLink(@RequestBody PojoInputDTO<MetasInputData> pojoInputDTO){
+        PojoOutputDTO pojoOutputDTO = metasService.deleteMetasById(pojoInputDTO);
+        return pojoOutputDTO;
+    }
+
     @RequestMapping(path = "/index/updateLink", method = RequestMethod.POST)
     @ResponseBody
     public PojoOutputDTO updateLinkOrAdd(@RequestBody PojoInputDTO<MetasInputData> pojoInputDTO){
@@ -114,6 +129,7 @@ public class AdminController {
         return pojoOutputDTO;
     }
 
+    //获取分类
     @RequestMapping(path = "/index/classify",method = RequestMethod.GET)
     public String classify(ModelMap modelMap){
         PageInputDTO<MetasInputData> pojoInputDTO = new PageInputDTO();

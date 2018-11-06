@@ -14,7 +14,8 @@ public enum ReturnErrCodeEnum {
      * 数据库异常相关的错误码定义
      */
     SQL_EXCEPTION_UPDATE("BIE0000","数据库执行更新操作失败"),
-    SQL_EXCEPTION_INSERT("BIE0001","数据库执行插入操作失败");
+    SQL_EXCEPTION_INSERT("BIE0001","数据库执行插入操作失败"),
+    SQL_EXCEPTION_DELETE("BIE0002","数据库执行删除操作失败");
 
     private String errCode;
     private String msg;

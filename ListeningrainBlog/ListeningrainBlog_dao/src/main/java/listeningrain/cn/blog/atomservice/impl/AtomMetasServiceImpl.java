@@ -54,4 +54,10 @@ public class AtomMetasServiceImpl implements AtomMetasService {
         int i = metasMapper.insertSelective(metas);
         return i;
     }
+
+    @Override
+    public int deleteMetaById(Integer mid) {
+        int i = metasMapper.deleteByPrimaryKey(mid);
+        return i;
+    }
 }

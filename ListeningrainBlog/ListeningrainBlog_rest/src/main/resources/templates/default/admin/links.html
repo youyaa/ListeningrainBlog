@@ -15,7 +15,7 @@
   <div class="right-product my-index right-full">
      <div class="container-fluid">
 	   <div class="info-center">
-           <div class="row">
+           <div class="row" >
 
                <h3 style="padding-left: 15px">友链管理</h3>
 
@@ -35,14 +35,9 @@
                            <td>王爵的github</td>
                            <td><a href="https://github.com/biezhi" target="_blank">https://github.com/biezhi</a></td>
                            <td></td>
-                           <td>2</td>
+                           <td>0</td>
                            <td>
-                               <!--<a href="javascript:void(0)" onclick="editLink(this);"
-                                  class="btn btn-primary btn-sm waves-effect waves-light m-b-5"><i
-                                       class="fa fa-edit"></i> <span>编辑</span></a>
-                               <a href="javascript:void(0)" onclick="delLink(8);"
-                                  class="btn btn-danger btn-sm waves-effect waves-light m-b-5"><i
-                                       class="fa fa-trash-o"></i> <span>删除</span></a>-->
+                               <label >暂不可操作</label>
                            </td>
                        </tr>
 
@@ -56,7 +51,7 @@
                                    <a href="javascript:void(0)"  th:onclick="'javascript:editLink('+${link.mid}+')'"
                                       class="btn btn-primary btn-sm waves-effect waves-light m-b-5"><i
                                            class="fa fa-edit"></i> <span>编辑</span></a>
-                                   <a href="javascript:void(0)" onclick="delLink(8);"
+                                   <a href="javascript:void(0)" th:onclick="'javascript:delLink('+${link.mid}+')'"
                                       class="btn btn-danger btn-sm waves-effect waves-light m-b-5"><i
                                            class="fa fa-trash-o"></i> <span>删除</span></a>
                                </td>
@@ -91,50 +86,56 @@
                            </label>
 
                        </label>
-
+                       <ul class="pagination">
+                           <li >
+                               <a href="#">
+                                   <label>共</label><label th:text="${links.totalPageNum}"/><label>页</label>
+                               </a>
+                           </li>
+                       </ul>
                    </div>
                </div>
-               <div class="row">
-                   <div class="col-md-12" style="padding: 20px;margin-top: -20px">
-                       <div class="panel panel-primary">
-                           <div class="panel-heading"><h3 class="panel-title">新增/修改</h3></div>
-                           <div class="panel-body">
+           </div>
+           <div class="row">
+               <div class="col-md-12" style="padding: 20px;margin-top: -20px">
+                   <div class="panel panel-primary">
+                       <div class="panel-heading"><h3 class="panel-title">新增/修改</h3></div>
+                       <div class="panel-body">
 
-                               <form id="linkForm" class="form-inline" role="form">
+                           <form id="linkForm" class="form-inline" role="form">
 
-                                   <input type="hidden" id="mid" name="mid"/>
+                               <input type="hidden" id="mid" name="mid"/>
 
-                                   <div class="form-group">
-                                       <label class="sr-only">链接标题</label>
-                                       <input type="text" id="title" name="title" class="form-control" placeholder="请输入链接标题"
-                                              required aria-required="true" style="width: 230px"/>
-                                   </div>
+                               <div class="form-group">
+                                   <label class="sr-only">链接标题</label>
+                                   <input type="text" id="title" name="title" class="form-control" placeholder="请输入链接标题"
+                                          required aria-required="true" style="width: 230px"/>
+                               </div>
 
-                                   <div class="form-group">
-                                       <label class="sr-only">链接URL</label>
-                                       <input type="url" id="url" name="url" class="form-control" placeholder="请输入链接地址" required
-                                              aria-required="true" style="width: 230px"/>
-                                   </div>
+                               <div class="form-group">
+                                   <label class="sr-only">链接URL</label>
+                                   <input type="url" id="url" name="url" class="form-control" placeholder="请输入链接地址" required
+                                          aria-required="true" style="width: 230px"/>
+                               </div>
 
-                                   <div class="form-group">
-                                       <label class="sr-only">链接LOGO</label>
-                                       <input type="url" id="logo" name="logo" class="form-control"
-                                              placeholder="请输入链接LOGO，没有则不输入" style="width: 250px"/>
-                                   </div>
+                               <div class="form-group">
+                                   <label class="sr-only">链接LOGO</label>
+                                   <input type="url" id="logo" name="logo" class="form-control"
+                                          placeholder="请输入链接LOGO，没有则不输入" style="width: 250px"/>
+                               </div>
 
-                                   <div class="form-group">
-                                       <label class="sr-only">链接排序</label>
-                                       <input type="number" id="sort" name="sort" class="form-control" value="0" style="width: 200px"/>
-                                   </div>
+                               <div class="form-group">
+                                   <label class="sr-only">链接排序</label>
+                                   <input type="number" id="sort" name="sort" class="form-control" value="0" style="width: 200px"/>
+                               </div>
 
-                                   <button style="margin-left: 7px" onclick="updateLink()" type="button" class="btn btn-success waves-effect waves-light m-l-10">保存</button>
-                                   <button onclick="clearLink()" type="button" class="btn btn-success waves-effect waves-light m-l-10">清空</button>
-                               </form>
-                           </div>
+                               <button style="margin-left: 7px" onclick="updateLink()" type="button" class="btn btn-success waves-effect waves-light m-l-10">保存</button>
+                               <button onclick="clearLink()" type="button" class="btn btn-success waves-effect waves-light m-l-10">清空</button>
+                           </form>
                        </div>
                    </div>
-
                </div>
+
            </div>
        </div>			
 	 </div>
@@ -162,6 +163,46 @@
             },
             "error":function (data) {
 
+            }
+        })
+    }
+
+    function delLink(mid) {
+        var txt=  "您确定要删除吗？";
+        window.wxc.xcConfirm(txt, window.wxc.xcConfirm.typeEnum.warning,{
+
+            /**
+             * 点击确定后的回调事件
+             */
+            onOk:function(){
+                del(mid);
+            }
+        });
+
+    }
+
+    function del(mid) {
+        var pojoInputDTO = {
+            data:{
+                "mid":mid
+            }
+        };
+        $.post({
+            "url":"/admin/index/deleteLink",
+            data:JSON.stringify(pojoInputDTO),
+            cache:false,
+            dataType:'json',
+            contentType:"application/json",
+            "success":function (data) {
+                var txt=  "骚年，删除成功！";
+                window.wxc.xcConfirm(txt, window.wxc.xcConfirm.typeEnum.success);
+                setTimeout(function () {
+                    window.location.href = '/admin/index/link';
+                }, 1000);
+            },
+            "error":function (XMLHttpRequest, textStatus, errorThrown) {
+                var txt=  "啊哦，操作失败了，稍后再试吧！";
+                window.wxc.xcConfirm(txt, window.wxc.xcConfirm.typeEnum.error);
             }
         })
     }

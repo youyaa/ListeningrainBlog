@@ -3,7 +3,9 @@ package listeningrain.cn.blog.service;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import listeningrain.cn.blog.atomservice.AtomContensService;
+import listeningrain.cn.blog.constant.ReturnErrCodeEnum;
 import listeningrain.cn.blog.entity.Contents;
+import listeningrain.cn.blog.exception.BlogServiceException;
 import listeningrain.cn.blog.input.data.ContentsInputData;
 import listeningrain.cn.blog.input.dto.PageInputDTO;
 import listeningrain.cn.blog.input.dto.PojoInputDTO;
@@ -70,6 +72,8 @@ public class ContentsServiceImpl implements ContentsService {
             pageBar[i-1] = i;
         }
         pageOutputDTO.setPageBar(pageBar);
+        //设置总页数
+        pageOutputDTO.setTotalPageNum(pageBar.length);
         return pageOutputDTO;
     }
 
@@ -95,9 +99,23 @@ public class ContentsServiceImpl implements ContentsService {
         Contents contents = new Contents();
         BeanUtils.copyProperties(pojoInputDTO.getData(),contents);
         Integer integer = atomContensService.insertContent(contents);
-        if(0 > integer){
-            return new PojoOutputDTO();
+        if(integer<0){
+            throw new BlogServiceException(ReturnErrCodeEnum.SQL_EXCEPTION_INSERT);
         }
-        return null;
+        return new PojoOutputDTO();
+    }
+
+    @Override
+    public PojoOutputDTO deleteContent(PojoInputDTO<ContentsInputData> pojoInputDTO) {
+        Contents contents = new Contents();
+        if(null != pojoInputDTO){
+            contents.setCid(pojoInputDTO.getData().getCid());
+        }
+
+        Integer integer = atomContensService.deleteContent(contents);
+        if(integer<0){
+            throw new BlogServiceException(ReturnErrCodeEnum.SQL_EXCEPTION_DELETE);
+        }
+        return new PojoOutputDTO();
     }
 }

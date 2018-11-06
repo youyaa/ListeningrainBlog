@@ -14,10 +14,11 @@ import java.util.concurrent.TimeUnit;
 public class Bootstrap {
 
     public static void main(String[] args){
-        ClassPathXmlApplicationContext applicationContext =
-                new ClassPathXmlApplicationContext("classpath:applicationContext.xml");
 
         System.out.println("开始启动listeningrain-service模块");
+
+        ClassPathXmlApplicationContext applicationContext =
+                new ClassPathXmlApplicationContext("classpath:applicationContext.xml");
 
         applicationContext.registerShutdownHook();
         applicationContext.start();

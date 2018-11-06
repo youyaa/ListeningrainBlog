@@ -20,9 +20,14 @@ public interface MetasService {
      */
     PageOutputDTO<MetasOutputData> getMetasByType(PageInputDTO<MetasInputData> pageInputDTO);
 
+    /**
+     * 根据id获取
+     */
     PojoOutputDTO<MetasOutputData> getMetasById(PojoInputDTO<MetasInputData> pojoInputDTO);
 
     PojoOutputDTO updateMetas(PojoInputDTO<MetasInputData> pojoInputDTO);
+
+    PojoOutputDTO deleteMetasById(PojoInputDTO<MetasInputData> pojoInputDTO);
 
     PojoOutputDTO addMetas(PojoInputDTO<MetasInputData> pojoInputDTO);
 }

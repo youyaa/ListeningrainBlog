@@ -14,14 +14,14 @@ import lombok.Setter;
 @Getter
 public class ReturnMessage<T> extends CommonOutputData {
 
-    private Integer status;
-    private T msg;
+    private Integer errno;
+    private T data;
 
     public ReturnMessage() {
     }
 
-    public ReturnMessage(Integer status, T msg) {
-        this.status = status;
-        this.msg = msg;
+    public ReturnMessage(Integer errno, T data) {
+        this.errno = errno;
+        this.data = data;
     }
 }

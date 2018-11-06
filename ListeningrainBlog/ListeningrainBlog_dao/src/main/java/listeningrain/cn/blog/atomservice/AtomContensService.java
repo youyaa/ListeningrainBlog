@@ -27,4 +27,10 @@ public interface AtomContensService {
      * 增加一篇文章
      */
     Integer insertContent(Contents contents);
+
+    /**
+     * 删除文章
+     */
+    Integer deleteContent(Contents contents);
+
 }

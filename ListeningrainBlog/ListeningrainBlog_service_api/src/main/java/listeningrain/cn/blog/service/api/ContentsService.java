@@ -23,4 +23,7 @@ public interface ContentsService {
 
     //插入文章
     PojoOutputDTO addContent(PojoInputDTO<ContentsInputData> pojoInputDTO);
+
+    //删除文章
+    PojoOutputDTO deleteContent(PojoInputDTO<ContentsInputData> pojoInputDTO);
 }

@@ -44,4 +44,10 @@ public class AtomContentsServiceImpl implements AtomContensService {
         int i = contentsMapper.insertSelective(contents);
         return i;
     }
+
+    @Override
+    public Integer deleteContent(Contents contents) {
+        int i = contentsMapper.deleteByPrimaryKey(contents.getCid());
+        return i;
+    }
 }

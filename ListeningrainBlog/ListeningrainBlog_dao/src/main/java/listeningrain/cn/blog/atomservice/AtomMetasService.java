@@ -30,6 +30,11 @@ public interface AtomMetasService {
     int updateMetaById(Metas metas);
 
     /**
+     * 删除
+     */
+    int deleteMetaById(Integer mid);
+
+    /**
      * 新增
      */
     int addMeta(Metas metas);

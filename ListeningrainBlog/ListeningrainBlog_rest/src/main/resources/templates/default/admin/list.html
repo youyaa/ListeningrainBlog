@@ -35,7 +35,15 @@
                            <td><span th:text="${content.hits}"/></td>
                            <td><span class="label label-success" th:text="已发布"/> </td>
                            <td><span th:text="${content.categories}"/></td>
-                           <td>未完待续</td>
+                           <td><a href="javascript:void(0)"  th:onclick="'javascript:editLink('+${content.cid}+')'"
+                                  class="btn btn-primary btn-sm waves-effect waves-light m-b-5"><i
+                                   class="fa fa-edit"></i> <span>编辑</span></a>
+                               <a href="javascript:void(0)" th:onclick="'javascript:delLink('+${content.cid}+')'"
+                                  class="btn btn-danger btn-sm waves-effect waves-light m-b-5"><i
+                                       class="fa fa-trash-o"></i> <span>删除</span></a>
+                               <a href="javascript:void(0)" target="_blank" th:href="@{'/index/post/'+${content.cid}}"
+                                  class="btn btn-info btn-sm waves-effect waves-light m-b-5"><i
+                                       class="fa fa-trash-o"></i> <span>预览</span></a></td>
                        </tr>
                    </div>
                    <div th:if=" draft eq ${content.status}">
@@ -45,7 +53,14 @@
                            <td><span th:text="${content.hits}"/></td>
                            <td><span class="label label-default" th:text="草稿"/></td>
                            <td><span th:text="${content.categories}"/></td>
-                           <td>未完待续</td>
+                           <td>
+                               <a href="javascript:void(0)"  th:onclick="'javascript:editLink('+${content.cid}+')'"
+                                  class="btn btn-primary btn-sm waves-effect waves-light m-b-5"><i
+                                       class="fa fa-edit"></i> <span>编辑</span></a>
+                               <a href="javascript:void(0)" th:onclick="'javascript:delLink('+${content.cid}+')'"
+                                  class="btn btn-danger btn-sm waves-effect waves-light m-b-5"><i
+                                       class="fa fa-trash-o"></i> <span>删除</span></a>
+                           </td>
                        </tr>
                    </div>
 
@@ -74,13 +89,64 @@
                                        </li>
                                    </ul>
                                </label>
-
                    </label>
 
+                   <ul class="pagination">
+                       <li >
+                           <a href="#">
+                               <label>共</label><label th:text="${contents.totalPageNum}"/><label>页</label>
+                           </a>
+                       </li>
+                   </ul>
            </div>
        </div>			
 	 </div>
   </div>
 </div>
+
+<link href="/xcConfirm/css/xcConfirm.css" rel="stylesheet">
+<script src="/xcConfirm/js/xcConfirm.js"></script>
+
+<script type="application/javascript">
+    function delLink(cid) {
+        var txt=  "您确定要删除吗？";
+        window.wxc.xcConfirm(txt, window.wxc.xcConfirm.typeEnum.warning,{
+            /**
+             * 点击确定后的回调事件
+             */
+            onOk:function(){
+                del(cid);
+            }
+        });
+
+    }
+
+    function del(cid) {
+        var pojoInputDTO = {
+            data:{
+                "cid":cid
+            }
+        };
+        $.post({
+            "url":"/admin/index/deleteContent",
+            data:JSON.stringify(pojoInputDTO),
+            cache:false,
+            dataType:'json',
+            contentType:"application/json",
+            "success":function (data) {
+                var txt=  "骚年，删除成功！";
+                window.wxc.xcConfirm(txt, window.wxc.xcConfirm.typeEnum.success);
+                setTimeout(function () {
+                    window.location.href = '/admin/index/list';
+                }, 1000);
+            },
+            "error":function (XMLHttpRequest, textStatus, errorThrown) {
+                var txt=  "啊哦，操作失败了，稍后再试吧！";
+                window.wxc.xcConfirm(txt, window.wxc.xcConfirm.typeEnum.error);
+            }
+        })
+    }
+</script>
+
 </body>
 </html>

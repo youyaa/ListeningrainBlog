@@ -76,6 +76,9 @@ public class MetasServiceImpl implements MetasService {
         }
         pageOutputDTO.setPageBar(pageBar);
         pageOutputDTO.setData(list);
+
+        //设置总页数
+        pageOutputDTO.setTotalPageNum(pageBar.length);
         return pageOutputDTO;
     }
 
@@ -112,6 +115,19 @@ public class MetasServiceImpl implements MetasService {
         int i = atomMetasService.addMeta(metas);
         if(i <= 0){
             throw new BlogServiceException(ReturnErrCodeEnum.SQL_EXCEPTION_INSERT);
+        }
+        return new PojoOutputDTO();
+    }
+
+    @Override
+    public PojoOutputDTO deleteMetasById(PojoInputDTO<MetasInputData> pojoInputDTO) {
+        Integer mid = null;
+        if(null != pojoInputDTO){
+            mid = pojoInputDTO.getData().getMid();
+        }
+        int i = atomMetasService.deleteMetaById(mid);
+        if(i <= 0){
+            throw new BlogServiceException(ReturnErrCodeEnum.SQL_EXCEPTION_DELETE);
         }
         return new PojoOutputDTO();
     }

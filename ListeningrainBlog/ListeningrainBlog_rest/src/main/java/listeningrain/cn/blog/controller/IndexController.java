@@ -74,6 +74,8 @@ public class IndexController {
         MetasInputData metasInputData = new MetasInputData();
         metasInputData.setType("LINK");
         pageInputDTO.setData(metasInputData);
+        //友链默认查十条
+        pageInputDTO.setPageSize(10);
         PageOutputDTO<MetasOutputData> allLinks = metasService.getMetasByType(pageInputDTO);
         modelMap.addAttribute("links",allLinks);
         return "link";
