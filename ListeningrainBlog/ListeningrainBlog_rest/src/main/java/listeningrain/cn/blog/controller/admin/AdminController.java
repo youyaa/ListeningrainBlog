@@ -158,6 +158,20 @@ public class AdminController {
         pojoInputDTO.setData(metasInputData);
         PageOutputDTO<MetasOutputData> allClassify = metasService.getMetasByType(pojoInputDTO);
         modelMap.addAttribute("allClassify",allClassify);
-        return "admin/links";
+        return "admin/category";
+    }
+
+    @RequestMapping(path = "/index/updateCategory", method = RequestMethod.POST)
+    @ResponseBody
+    public PojoOutputDTO updateCategoryOrAdd(@RequestBody PojoInputDTO<MetasInputData> pojoInputDTO){
+        PojoOutputDTO pojoOutputDTO = null;
+        if(!StringUtils.isEmpty(pojoInputDTO.getData().getMid())){
+            //存在id，执行更新操作
+            pojoOutputDTO = metasService.updateMetas(pojoInputDTO);
+        }else{
+            //不存在，则执行新增操作
+            pojoOutputDTO = metasService.addMetas(pojoInputDTO);
+        }
+        return pojoOutputDTO;
     }
 }

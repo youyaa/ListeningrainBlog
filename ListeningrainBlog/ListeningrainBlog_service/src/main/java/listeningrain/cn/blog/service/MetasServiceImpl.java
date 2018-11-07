@@ -111,7 +111,6 @@ public class MetasServiceImpl implements MetasService {
     public PojoOutputDTO addMetas(PojoInputDTO<MetasInputData> pojoInputDTO) {
         Metas metas = new Metas();
         BeanUtils.copyProperties(pojoInputDTO.getData(),metas);
-        metas.setType("LINK");
         int i = atomMetasService.addMeta(metas);
         if(i <= 0){
             throw new BlogServiceException(ReturnErrCodeEnum.SQL_EXCEPTION_INSERT);

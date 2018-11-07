@@ -17,41 +17,30 @@
 	   <div class="info-center">
            <div class="row" >
 
-               <h3 style="padding-left: 15px">友链管理</h3>
+               <h3 style="padding-left: 15px">分类管理</h3>
 
                <div class="col-md-12">
                    <table class="table table-striped table-bordered">
                        <thead>
                        <tr>
-                           <th>链接名称</th>
-                           <th>链接地址</th>
-                           <th>链接LOGO</th>
-                           <th>链接排序</th>
+                           <th>分类名称</th>
+                           <th>分类描述</th>
+                           <th>文章数</th>
                            <th>操作</th>
                        </tr>
                        </thead>
                        <tbody>
-                       <tr mid="8">
-                           <td>王爵的github</td>
-                           <td><a href="https://github.com/biezhi" target="_blank">https://github.com/biezhi</a></td>
-                           <td></td>
-                           <td>0</td>
-                           <td>
-                               <label >暂不可操作</label>
-                           </td>
-                       </tr>
 
-                       <div th:each="link : ${links.data}">
+                       <div th:each="link : ${allClassify.data}">
                            <tr mid="8">
                                <td><label th:text="${link.name}"/></td>
-                               <td><a th:href="@{${link.slug}}" style="color:#2479cc;" target="_blank"><label th:text="${link.slug}" /></a></td>
-                               <td></td>
-                               <td><label th:text="${link.sort}"/></td>
+                               <td><label th:text="${link.description}"/></td>
+                               <td><label >0</label></td>
                                <td>
-                                   <a href="javascript:void(0)"  th:onclick="'javascript:editLink('+${link.mid}+')'"
+                                   <a href="javascript:void(0)"  th:onclick="'javascript:editCategory('+${link.mid}+')'"
                                       class="btn btn-primary btn-sm waves-effect waves-light m-b-5"><i
                                            class="fa fa-edit"></i> <span>编辑</span></a>
-                                   <a href="javascript:void(0)" th:onclick="'javascript:delLink('+${link.mid}+')'"
+                                   <a href="javascript:void(0)" th:onclick="'javascript:delCategory('+${link.mid}+')'"
                                       class="btn btn-danger btn-sm waves-effect waves-light m-b-5"><i
                                            class="fa fa-trash-o"></i> <span>删除</span></a>
                                </td>
@@ -63,19 +52,19 @@
                    </table>
                    <div id="page" style="width: 100%;height: auto;text-align: right;margin-top: -20px">
 
-                       <label  th:each="pagebar : ${links.pageBar}">
+                       <label  th:each="pagebar : ${allClassify.pageBar}">
 
-                           <label th:if="${pagebar} eq ${links.pageNum}" style="margin-left: 3px;">
+                           <label th:if="${pagebar} eq ${allClassify.pageNum}" style="margin-left: 3px;">
                                <ul class="pagination">
                                    <li class="active">
-                                       <a th:href="@{'/admin/index/link?pageNum='+${pagebar}}">
+                                       <a th:href="@{'/admin/index/classify?pageNum='+${pagebar}}">
                                            <label th:text="${pagebar}"/>
                                        </a>
                                    </li>
                                </ul>
                            </label>
 
-                           <label th:if="${pagebar} ne ${links.pageNum}" style="margin-left: 3px;">
+                           <label th:if="${pagebar} ne ${allClassify.pageNum}" style="margin-left: 3px;">
                                <ul class="pagination">
                                    <li >
                                        <a th:href="@{'/admin/index/link?pageNum='+${pagebar}}">
@@ -89,7 +78,7 @@
                        <ul class="pagination">
                            <li >
                                <a href="#">
-                                   <label>共</label><label th:text="${links.totalPageNum}"/><label>页</label>
+                                   <label>共</label><label th:text="${allClassify.totalPageNum}"/><label>页</label>
                                </a>
                            </li>
                        </ul>
@@ -107,30 +96,20 @@
                                <input type="hidden" id="mid" name="mid"/>
 
                                <div class="form-group">
-                                   <label class="sr-only">链接标题</label>
-                                   <input type="text" id="title" name="title" class="form-control" placeholder="请输入链接标题"
+                                   <label class="sr-only">分类标题</label>
+                                   <input type="text" id="title" name="title" class="form-control" placeholder="请输入分类标题"
                                           required aria-required="true" style="width: 230px"/>
                                </div>
 
                                <div class="form-group">
-                                   <label class="sr-only">链接URL</label>
-                                   <input type="url" id="url" name="url" class="form-control" placeholder="请输入链接地址" required
+                                   <label class="sr-only">分类描述</label>
+                                   <input type="url" id="url" name="url" class="form-control" placeholder="请输入分类描述" required
                                           aria-required="true" style="width: 230px"/>
                                </div>
 
-                               <div class="form-group">
-                                   <label class="sr-only">链接LOGO</label>
-                                   <input type="url" id="logo" name="logo" class="form-control"
-                                          placeholder="请输入链接LOGO，没有则不输入" style="width: 250px"/>
-                               </div>
 
-                               <div class="form-group">
-                                   <label class="sr-only">链接排序</label>
-                                   <input type="number" id="sort" name="sort" class="form-control" value="0" style="width: 200px"/>
-                               </div>
-
-                               <button style="margin-left: 7px" onclick="updateLink()" type="button" class="btn btn-success waves-effect waves-light m-l-10">保存</button>
-                               <button onclick="clearLink()" type="button" class="btn btn-success waves-effect waves-light m-l-10">清空</button>
+                               <button style="margin-left: 7px" onclick="updateCategory()" type="button" class="btn btn-success waves-effect waves-light m-l-10">保存</button>
+                               <button onclick="clearCategory()" type="button" class="btn btn-success waves-effect waves-light m-l-10">清空</button>
                            </form>
                        </div>
                    </div>
@@ -145,20 +124,18 @@
 <link href="/xcConfirm/css/xcConfirm.css" rel="stylesheet">
 <script src="/xcConfirm/js/xcConfirm.js"></script>
 <script type="application/javascript">
-    function editLink(name) {
-        getLink(name);
+    function editCategory(name) {
+        getCategory(name);
     }
     
-    function getLink(mid) {
+    function getCategory(mid) {
         $.ajax({
             "url":"/admin/index/editLink",
             "type":'get',
             "data": 'mid='+ mid,
             "success":function (data) {
                 $("#title").val(data.data.name);
-                $("#url").val(data.data.slug);
-                $("#logo").val(data.data.logo);
-                $("#sort").val(data.data.sort);
+                $("#url").val(data.data.description);
                 $("#mid").val(mid);
             },
             "error":function (data) {
@@ -167,7 +144,7 @@
         })
     }
 
-    function delLink(mid) {
+    function delCategory(mid) {
         var txt=  "您确定要删除吗？";
         window.wxc.xcConfirm(txt, window.wxc.xcConfirm.typeEnum.warning,{
 
@@ -197,17 +174,17 @@
                 var txt=  "骚年，删除成功！";
                 window.wxc.xcConfirm(txt, window.wxc.xcConfirm.typeEnum.success);
                 setTimeout(function () {
-                    window.location.href = '/admin/index/link';
+                    window.location.href = '/admin/index/category';
                 }, 1000);
             },
-            "error":function () {
+            "error":function (XMLHttpRequest, textStatus, errorThrown) {
                 var txt=  "啊哦，操作失败了，稍后再试吧！";
                 window.wxc.xcConfirm(txt, window.wxc.xcConfirm.typeEnum.error);
             }
         })
     }
 
-    function clearLink() {
+    function clearCategory() {
         $("#title").val(null);
         $("#url").val(null);
         $("#logo").val(null);
@@ -215,14 +192,14 @@
         $("#mid").val(null);
     }
 
-    function updateLink() {
+    function updateCategory() {
         if("" == $("#title").val() || "" == $("#url").val() ){
             var txt=  "请先填写相关信息哦！";
             window.wxc.xcConfirm(txt, window.wxc.xcConfirm.typeEnum.info);
             return;
         }
         $.post({
-            "url":"/admin/index/updateLink",
+            "url":"/admin/index/updateCategory",
             data:JSON.stringify(GetJsonData()),
             cache:false,
             dataType:'json',
@@ -231,7 +208,7 @@
                 var txt=  "骚年，操作成功！";
                 window.wxc.xcConfirm(txt, window.wxc.xcConfirm.typeEnum.success);
                 setTimeout(function () {
-                    window.location.href = '/admin/index/link';
+                    window.location.href = '/admin/index/classify';
                 }, 1000);
             },
             "error":function (XMLHttpRequest, textStatus, errorThrown) {
@@ -246,10 +223,9 @@
         var pojoInputDTO = {
             data:{
                 "mid":$("#mid").val(),
-                "name": $("#title").val(),
-                "slug": $("#url").val(),
-                "sort":$("#sort").val(),
-                "type":"LINK"
+                "description": $("#url").val(),
+                "name":$("#title").val(),
+                "type":"CLASSIFY"
             }
         };
         return pojoInputDTO;
