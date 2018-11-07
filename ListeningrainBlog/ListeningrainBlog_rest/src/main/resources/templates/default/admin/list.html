@@ -70,7 +70,7 @@
 
                    <label  th:each="pagebar : ${contents.pageBar}">
 
-                               <label th:if="${pagebar} eq ${contents.pageNum}">
+                               <label th:if="${pagebar} eq ${contents.pageNum}" style="margin-left: 3px;">
                                    <ul class="pagination">
                                        <li class="active">
                                            <a th:href="@{'/admin/index/list?pageNum='+${pagebar}}">
@@ -80,7 +80,7 @@
                                    </ul>
                                </label>
 
-                               <label th:if="${pagebar} ne ${contents.pageNum}">
+                               <label th:if="${pagebar} ne ${contents.pageNum}" style="margin-left: 3px;">
                                    <ul class="pagination">
                                        <li >
                                            <a th:href="@{'/admin/index/list?pageNum='+${pagebar}}">
