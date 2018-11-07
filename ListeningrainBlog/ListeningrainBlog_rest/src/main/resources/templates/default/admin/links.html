@@ -65,7 +65,7 @@
 
                        <label  th:each="pagebar : ${links.pageBar}">
 
-                           <label th:if="${pagebar} eq ${links.pageNum}">
+                           <label th:if="${pagebar} eq ${links.pageNum}" style="margin-left: 3px;">
                                <ul class="pagination">
                                    <li class="active">
                                        <a th:href="@{'/admin/index/link?pageNum='+${pagebar}}">
@@ -75,7 +75,7 @@
                                </ul>
                            </label>
 
-                           <label th:if="${pagebar} ne ${links.pageNum}">
+                           <label th:if="${pagebar} ne ${links.pageNum}" style="margin-left: 3px;">
                                <ul class="pagination">
                                    <li >
                                        <a th:href="@{'/admin/index/link?pageNum='+${pagebar}}">
