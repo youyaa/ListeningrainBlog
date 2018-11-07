@@ -50,4 +50,10 @@ public class AtomContentsServiceImpl implements AtomContensService {
         int i = contentsMapper.deleteByPrimaryKey(contents.getCid());
         return i;
     }
+
+    @Override
+    public Integer updateContent(Contents contents) {
+        int i = contentsMapper.updateByPrimaryKeySelective(contents);
+        return i;
+    }
 }

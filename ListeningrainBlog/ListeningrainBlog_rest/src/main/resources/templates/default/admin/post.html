@@ -93,6 +93,12 @@
                    <input class="content_content" th:value="${content.data.content}" type="hidden" >
                </div>
 
+               <div th:if="null ne ${content}">
+                   <input class="cid" th:value="${content.data.cid}" type="hidden" >
+               </div>
+
+
+
                <div class="clearfix"></div>
 
                <div class="text-right" style="margin-bottom: 50px">
@@ -250,8 +256,16 @@
             content = Mdeditor.getMarkdown();
         }
 
+        var cid;
+        if(null != $(".cid").val()){
+            cid = $(".cid").val();
+        }else{
+            cid = null;
+        }
+
         var pojoInputDTO = {
                 data:{
+                    "cid":cid,
                     "title": $("input[name='title']").val(),
                     "categories": $("select[name='categories']").val(),
                     "tags": $("input[name='tags']").val(),

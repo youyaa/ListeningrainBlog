@@ -51,9 +51,14 @@ public class AdminController {
     //保存文章
     @RequestMapping(path = "/index/save", method = RequestMethod.POST)
     @ResponseBody
-    public PojoInputDTO save(@RequestBody PojoInputDTO<ContentsInputData> pojoInputDTO){
-        PojoOutputDTO pojoOutputDTO = contentsService.addContent(pojoInputDTO);
-        return pojoInputDTO;
+    public PojoOutputDTO save(@RequestBody PojoInputDTO<ContentsInputData> pojoInputDTO){
+        PojoOutputDTO pojoOutputDTO = null;
+        if(null != pojoInputDTO.getData().getCid()){
+            pojoOutputDTO = contentsService.updateContent(pojoInputDTO);
+        }else{
+            pojoOutputDTO = contentsService.addContent(pojoInputDTO);
+        }
+        return pojoOutputDTO;
     }
 
     //文章列表页

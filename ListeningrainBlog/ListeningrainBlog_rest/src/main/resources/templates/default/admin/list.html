@@ -38,7 +38,7 @@
                            <td><a th:href="@{'/admin/index/editContent?cid='+${content.cid}}"
                                   class="btn btn-primary btn-sm waves-effect waves-light m-b-5"><i
                                    class="fa fa-edit"></i> <span>编辑</span></a>
-                               <a href="javascript:void(0)" th:onclick="'javascript:delLink('+${content.cid}+')'"
+                               <a href="javascript:void(0)" th:onclick="'javascript:delContent('+${content.cid}+')'"
                                   class="btn btn-danger btn-sm waves-effect waves-light m-b-5"><i
                                        class="fa fa-trash-o"></i> <span>删除</span></a>
                                <a href="javascript:void(0)" target="_blank" th:href="@{'/index/post/'+${content.cid}}"
@@ -108,7 +108,7 @@
 <script src="/xcConfirm/js/xcConfirm.js"></script>
 
 <script type="application/javascript">
-    function delLink(cid) {
+    function delContent(cid) {
         var txt=  "您确定要删除吗？";
         window.wxc.xcConfirm(txt, window.wxc.xcConfirm.typeEnum.warning,{
             /**

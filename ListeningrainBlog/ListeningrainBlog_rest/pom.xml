@@ -59,6 +59,20 @@
             <version>2.9.5</version>
         </dependency>
 
+        <!--markdown处理-->
+        <!-- https://mvnrepository.com/artifact/com.atlassian.commonmark/commonmark -->
+        <dependency>
+            <groupId>com.atlassian.commonmark</groupId>
+            <artifactId>commonmark</artifactId>
+            <version>0.11.0</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/com.atlassian.commonmark/commonmark-ext-gfm-tables -->
+        <dependency>
+            <groupId>com.atlassian.commonmark</groupId>
+            <artifactId>commonmark-ext-gfm-tables</artifactId>
+            <version>0.11.0</version>
+        </dependency>
+
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>

@@ -33,4 +33,8 @@ public interface AtomContensService {
      */
     Integer deleteContent(Contents contents);
 
+    /**
+     * 修改文章
+     */
+    Integer updateContent(Contents contents);
 }

@@ -118,4 +118,17 @@ public class ContentsServiceImpl implements ContentsService {
         }
         return new PojoOutputDTO();
     }
+
+    @Override
+    public PojoOutputDTO updateContent(PojoInputDTO<ContentsInputData> pojoInputDTO) {
+        Contents contents = new Contents();
+        if(null != pojoInputDTO){
+            BeanUtils.copyProperties(pojoInputDTO.getData(),contents);
+        }
+        Integer integer = atomContensService.updateContent(contents);
+        if(integer<0){
+            throw new BlogServiceException(ReturnErrCodeEnum.SQL_EXCEPTION_UPDATE);
+        }
+        return new PojoOutputDTO();
+    }
 }

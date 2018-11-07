@@ -10,6 +10,7 @@ import listeningrain.cn.blog.output.dto.PageOutputDTO;
 import listeningrain.cn.blog.output.dto.PojoOutputDTO;
 import listeningrain.cn.blog.service.api.ContentsService;
 import listeningrain.cn.blog.service.api.MetasService;
+import listeningrain.cn.blog.utils.ThemeUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -63,6 +64,9 @@ public class IndexController {
         contentsInputData.setCid(cid);
         pojoInputDTO.setData(contentsInputData);
         PojoOutputDTO<ContentsOutputData> contentsById = contentsService.getContentsById(pojoInputDTO);
+        ContentsOutputData data = contentsById.getData();
+        String content = ThemeUtils.articleTransfer(data.getContent());
+        data.setContent(content);
         modelMap.put("content",contentsById);
         return "post";
     }

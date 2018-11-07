@@ -1,6 +1,5 @@
 package listeningrain.cn.blog.config;
 
-import listeningrain.cn.blog.interceptor.AuthInterceptor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -22,7 +21,7 @@ public class InterceptorConfig implements WebMvcConfigurer {
         List<String> list = new ArrayList<>();
         list.add("/admin/login");
         list.add("/admin/tologin");
-        registry.addInterceptor(new AuthInterceptor()).addPathPatterns("/admin/**").excludePathPatterns(list);
+        //registry.addInterceptor(new AuthInterceptor()).addPathPatterns("/admin/**").excludePathPatterns(list);
     }
 
 }
