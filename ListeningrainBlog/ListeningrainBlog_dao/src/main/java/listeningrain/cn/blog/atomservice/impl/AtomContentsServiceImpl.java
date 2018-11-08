@@ -25,9 +25,12 @@ public class AtomContentsServiceImpl implements AtomContensService {
      * 分页查询
      * @return
      */
-    public List<Contents> getContentsByPage(){
+    public List<Contents> getContentsByPage(Contents content){
        ContentsExample contentsExample = new ContentsExample();
        contentsExample.setOrderByClause("created DESC");
+       if(null != content.getStatus()){
+           contentsExample.createCriteria().andStatusEqualTo(content.getStatus());
+       }
         List<Contents> contents = contentsMapper.selectByExampleWithBLOBs(contentsExample);
         return contents;
     }

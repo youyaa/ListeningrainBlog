@@ -44,7 +44,14 @@ public class AdminController {
 
     //去文章编辑页
     @RequestMapping(path = "/index/post", method = RequestMethod.GET)
-    public String post(){
+    public String post(ModelMap modelMap){
+        PageInputDTO<MetasInputData> pageInputDTO = new PageInputDTO();
+        MetasInputData metasInputData = new MetasInputData();
+        metasInputData.setType("CLASSIFY");
+        pageInputDTO.setPageSize(100);
+        pageInputDTO.setData(metasInputData);
+        PageOutputDTO<MetasOutputData> allClassify = metasService.getMetasByType(pageInputDTO);
+        modelMap.addAttribute("allClassify",allClassify);
         return "admin/post";
     }
 
@@ -70,6 +77,7 @@ public class AdminController {
             pageNum = 1;
         }
         pageInputDTO.setPageNum(pageNum);
+
         PageOutputDTO<ContentsOutputData> contentsByPage = contentsService.getContentsByPage(pageInputDTO);
         modelMap.addAttribute("contents",contentsByPage);
         return "admin/list";
@@ -93,6 +101,13 @@ public class AdminController {
         }
         pojoInputDTO.setData(contentsInputData);
         PojoOutputDTO<ContentsOutputData> contentsById = contentsService.getContentsById(pojoInputDTO);
+
+        PageInputDTO<MetasInputData> pojoMetasInputDTO = new PageInputDTO();
+        MetasInputData metasInputData = new MetasInputData();
+        metasInputData.setType("CLASSIFY");
+        pojoMetasInputDTO.setData(metasInputData);
+        PageOutputDTO<MetasOutputData> allClassify = metasService.getMetasByType(pojoMetasInputDTO);
+        modelMap.addAttribute("allClassify",allClassify);
         modelMap.put("content",contentsById);
         return "/admin/post";
 
@@ -152,11 +167,12 @@ public class AdminController {
     //获取分类
     @RequestMapping(path = "/index/classify",method = RequestMethod.GET)
     public String classify(ModelMap modelMap){
-        PageInputDTO<MetasInputData> pojoInputDTO = new PageInputDTO();
+        PageInputDTO<MetasInputData> pageInputDTO = new PageInputDTO();
         MetasInputData metasInputData = new MetasInputData();
         metasInputData.setType("CLASSIFY");
-        pojoInputDTO.setData(metasInputData);
-        PageOutputDTO<MetasOutputData> allClassify = metasService.getMetasByType(pojoInputDTO);
+        pageInputDTO.setData(metasInputData);
+        pageInputDTO.setPageSize(5);
+        PageOutputDTO<MetasOutputData> allClassify = metasService.getMetasByType(pageInputDTO);
         modelMap.addAttribute("allClassify",allClassify);
         return "admin/category";
     }

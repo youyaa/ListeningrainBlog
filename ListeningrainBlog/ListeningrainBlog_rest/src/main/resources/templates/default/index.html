@@ -19,7 +19,7 @@
               <article th:each="content : ${contents.data}">
                 <h2 class="title"><a th:href="@{'/index/post/'+${content.cid}}" ><span th:text="${content.title}" /></a></h2>
                 <ul class="text">
-                    <span th:utext="${content.content}" />
+                    <span th:text="${content.content}" />
                 </ul>
                 <div class="textfoot">
                   <a th:href="@{'/index/post/'+${content.cid}}">阅读更多>>></a>
@@ -39,7 +39,9 @@
                   </a>
               </label>
           </label>
-            <a href="/" class="next">下一页&gt;&gt;</a>
+          <a style="background-color: #f16e50;">
+              共<label th:text="${contents.totalPageNum}"/>页
+          </a>
       </div>
     </div>
 

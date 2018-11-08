@@ -3,8 +3,10 @@ package listeningrain.cn.blog.service;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import listeningrain.cn.blog.atomservice.AtomContensService;
+import listeningrain.cn.blog.atomservice.AtomMetasService;
 import listeningrain.cn.blog.constant.ReturnErrCodeEnum;
 import listeningrain.cn.blog.entity.Contents;
+import listeningrain.cn.blog.entity.Metas;
 import listeningrain.cn.blog.exception.BlogServiceException;
 import listeningrain.cn.blog.input.data.ContentsInputData;
 import listeningrain.cn.blog.input.dto.PageInputDTO;
@@ -13,6 +15,7 @@ import listeningrain.cn.blog.output.data.ContentsOutputData;
 import listeningrain.cn.blog.output.dto.PageOutputDTO;
 import listeningrain.cn.blog.output.dto.PojoOutputDTO;
 import listeningrain.cn.blog.service.api.ContentsService;
+import listeningrain.cn.blog.utils.ThemeUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -31,11 +34,17 @@ public class ContentsServiceImpl implements ContentsService {
 
     @Autowired
     private AtomContensService atomContensService;
+    @Autowired
+    private AtomMetasService atomMetasService;
 
     //分页查询
     public PageOutputDTO<ContentsOutputData> getContentsByPage(PageInputDTO<ContentsInputData> pageInputDTO){
+        Contents content = new Contents();
+        if(null != pageInputDTO && null != pageInputDTO.getData()){
+            BeanUtils.copyProperties(pageInputDTO.getData(),content);
+        }
         PageHelper.startPage(pageInputDTO.getPageNum(),pageInputDTO.getPageSize());
-        List<Contents> contentsByPage = atomContensService.getContentsByPage();
+        List<Contents> contentsByPage = atomContensService.getContentsByPage(content);
         PageInfo<Contents> of = PageInfo.of(contentsByPage);
         PageOutputDTO<ContentsOutputData> pageOutputDTO = new PageOutputDTO<>();
 
@@ -48,6 +57,14 @@ public class ContentsServiceImpl implements ContentsService {
                for(Contents contents: contentsByPage){
                    ContentsOutputData contentsOutputData = new ContentsOutputData();
                    BeanUtils.copyProperties(contents,contentsOutputData);
+                   contentsOutputData.setCreated(ThemeUtils.formate(contents.getCreated()));
+                   contentsOutputData.setModified(ThemeUtils.formate(contents.getModified()));
+                   Metas metas = new Metas();
+                   metas.setMid(Integer.valueOf(contents.getCategories()));
+                   Metas metasById = atomMetasService.getMetasById(metas);
+                   if(null != metasById){
+                       contentsOutputData.setCategories(metasById.getName());
+                   }
                    //contentsOutputData.setStatus(ArticleStatusEnum.getMsg(contents.getStatus()));
                    list.add(contentsOutputData);
                }
@@ -87,6 +104,7 @@ public class ContentsServiceImpl implements ContentsService {
                 //构造返回对象
                 ContentsOutputData contentsOutputData = new ContentsOutputData();
                 BeanUtils.copyProperties(content,contentsOutputData);
+                contentsOutputData.setCreated(ThemeUtils.formate(content.getCreated()));
                 response = new PojoOutputDTO<>();
                 response.setData(contentsOutputData);
             }

@@ -11,7 +11,7 @@
     <result column="title" jdbcType="VARCHAR" property="title" />
     <result column="slug" jdbcType="VARCHAR" property="slug" />
     <result column="created" jdbcType="TIMESTAMP" property="created" />
-    <result column="modified" jdbcType="INTEGER" property="modified" />
+    <result column="modified" jdbcType="TIMESTAMP" property="modified" />
     <result column="author_id" jdbcType="INTEGER" property="authorId" />
     <result column="type" jdbcType="VARCHAR" property="type" />
     <result column="status" jdbcType="VARCHAR" property="status" />

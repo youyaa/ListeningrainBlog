@@ -67,7 +67,7 @@
                            <label th:if="${pagebar} ne ${allClassify.pageNum}" style="margin-left: 3px;">
                                <ul class="pagination">
                                    <li >
-                                       <a th:href="@{'/admin/index/link?pageNum='+${pagebar}}">
+                                       <a th:href="@{'/admin/index/classify?pageNum='+${pagebar}}">
                                            <label th:text="${pagebar}"/>
                                        </a>
                                    </li>

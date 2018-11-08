@@ -1,14 +1,16 @@
 package listeningrain.cn.blog.utils;
 
-import org.commonmark.Extension;
-import org.commonmark.ext.gfm.tables.TablesExtension;
-import org.commonmark.node.Node;
-import org.commonmark.parser.Parser;
-import org.commonmark.renderer.html.HtmlRenderer;
+
+import com.vladsch.flexmark.Extension;
+import com.vladsch.flexmark.ast.Node;
+import com.vladsch.flexmark.ext.tables.TablesExtension;
+import com.vladsch.flexmark.html.HtmlRenderer;
+import com.vladsch.flexmark.parser.Parser;
+import com.vladsch.flexmark.parser.ParserEmulationProfile;
+import com.vladsch.flexmark.util.options.MutableDataSet;
 import org.springframework.util.StringUtils;
 
 import java.util.Arrays;
-import java.util.List;
 
 /**
  * author: listeningrain
@@ -27,15 +29,20 @@ public class ThemeUtils {
     }
 
     //将markdown格式的语法转成html
-    private static String mdToHtml(String markdown) {
-        if (StringUtils.isEmpty(markdown)) {
-            return "";
-        }
-        List<Extension> extensions = Arrays.asList(new Extension[]{TablesExtension.create()});
-        Parser parser = Parser.builder().extensions(extensions).build();
-        Node document = parser.parse(markdown);
-        HtmlRenderer renderer = HtmlRenderer.builder().extensions(extensions).build();
-        String content = renderer.render(document);
-        return content;
+    private static String mdToHtml(String content) {
+        MutableDataSet options = new MutableDataSet();
+        options.setFrom(ParserEmulationProfile.MARKDOWN);
+        options.set(Parser.EXTENSIONS, Arrays.asList(new Extension[] { TablesExtension.create()}));
+        Parser parser = Parser.builder(options).build();
+        HtmlRenderer renderer = HtmlRenderer.builder(options).build();
+
+        Node document = parser.parse(content);
+        String html = renderer.render(document);
+        return html;
+    }
+
+    //对文章内容进行截取
+    public static String cutArticle(String content){
+        return content.substring(0,200);
     }
 }

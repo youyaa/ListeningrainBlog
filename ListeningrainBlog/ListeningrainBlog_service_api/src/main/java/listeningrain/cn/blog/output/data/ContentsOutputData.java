@@ -3,8 +3,6 @@ package listeningrain.cn.blog.output.data;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.sql.Timestamp;
-
 /**
  * author: listeningrain
  * Date: 2018/9/24
@@ -21,9 +19,9 @@ public class ContentsOutputData extends CommonOutputData{
 
     private String slug;
 
-    private Timestamp created;
+    private String created;
 
-    private Integer modified;
+    private String modified;
 
     private Integer authorId;
 

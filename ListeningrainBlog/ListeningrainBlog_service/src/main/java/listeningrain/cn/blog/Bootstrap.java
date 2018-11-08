@@ -2,6 +2,8 @@ package listeningrain.cn.blog;
 
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -15,7 +17,7 @@ public class Bootstrap {
 
     public static void main(String[] args){
 
-        System.out.println("开始启动listeningrain-service模块");
+        printToConsole("开始启动listeningrain-service模块");
 
         ClassPathXmlApplicationContext applicationContext =
                 new ClassPathXmlApplicationContext("classpath:applicationContext.xml");
@@ -23,7 +25,7 @@ public class Bootstrap {
         applicationContext.registerShutdownHook();
         applicationContext.start();
 
-        System.out.println("启动listeningrain-service模块启动成功");
+        printToConsole("启动listeningrain-service模块启动成功");
 
         while (true){
             try {
@@ -31,6 +33,16 @@ public class Bootstrap {
             }catch (Exception e){
 
             }
+        }
+    }
+
+
+    private static void printToConsole(String s) {
+        if (null != s && s.length() > 0) {
+            String time = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
+            System.out.println(time + " " + s);
+        } else {
+            System.out.println(s);
         }
     }
 }

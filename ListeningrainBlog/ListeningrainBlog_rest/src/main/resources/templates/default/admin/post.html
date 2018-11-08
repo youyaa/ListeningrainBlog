@@ -41,8 +41,25 @@
                <div class="form-group col-md-6" style="padding: 0 0 0 10px;">
 
                    <select class="form-control" name="categories">
-                       <option >请选择文章分类</option>
-                       <option value ="默认分类">默认分类</option>
+
+                       <div th:if="null ne ${content}">
+                           <div th:each="classify : ${allClassify.data}">
+                               <div th:if="${content.data.categories} eq ${classify.mid}">
+                                   <option selected="selected" th:value="${classify.mid}"><label th:text="${classify.name}"></label></option>
+                               </div>
+                               <div th:if="${content.data.categories} ne ${classify.mid}">
+                                   <option th:value="${classify.mid}"><label th:text="${classify.name}"></label></option>
+                               </div>
+                           </div>
+                       </div>
+                       <div th:if="null eq ${content}">
+                           <option >请选择文章分类</option>
+                           <div th:each="classify : ${allClassify.data}">
+                             <option  th:value="${classify.mid}"><label th:text="${classify.name}"></label></option>
+                           </div>
+
+                       </div>
+
                    </select>
                </div>
 
@@ -205,7 +222,7 @@
         }
     }
 
-    function subArticle(type) {
+    function subArticle(status) {
         if("" == $("input[name='title']").val()){
             var txt=  "请先填写文章标题哦";
             window.wxc.xcConfirm(txt, window.wxc.xcConfirm.typeEnum.info);
@@ -229,7 +246,7 @@
         $.ajax({
             type:'post',
             url:'/admin/index/save',
-            data:JSON.stringify(GetJsonData()),
+            data:JSON.stringify(GetJsonData(status)),
             cache:false,
             dataType:'json',
             contentType:"application/json",
@@ -247,7 +264,7 @@
         });
     }
 
-    function GetJsonData() {
+    function GetJsonData(status) {
         var content;
         if($(".content_type").val() == "html"){
             content = Htmleditor.txt.html();
@@ -270,7 +287,8 @@
                     "categories": $("select[name='categories']").val(),
                     "tags": $("input[name='tags']").val(),
                     "content": content,
-                    "type": $(".content_type").val()
+                    "type": $(".content_type").val(),
+                    "status":status
             }
         };
         return pojoInputDTO;

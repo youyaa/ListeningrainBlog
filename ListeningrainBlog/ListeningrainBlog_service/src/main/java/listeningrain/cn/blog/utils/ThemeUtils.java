@@ -7,7 +7,10 @@ import org.commonmark.parser.Parser;
 import org.commonmark.renderer.html.HtmlRenderer;
 import org.springframework.util.StringUtils;
 
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -37,5 +40,12 @@ public class ThemeUtils {
         HtmlRenderer renderer = HtmlRenderer.builder().extensions(extensions).build();
         String content = renderer.render(document);
         return content;
+    }
+
+    //时间格式装换
+    public static String formate(Timestamp created){
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String format = simpleDateFormat.format(new Date(created.getTime()));
+        return format;
     }
 }

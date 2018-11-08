@@ -10,6 +10,9 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ImportResource;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 /**
  * author: listeningrain
  * Date: 2018/9/16
@@ -23,9 +26,9 @@ import org.springframework.context.annotation.ImportResource;
 public class Application {
 
     public static void main(String[] args){
-        System.out.println("开始启动listeningrainBlog-rest模块");
+        printToConsole("开始启动listeningrainBlog-rest模块");
         SpringApplication.run(Application.class);
-        System.out.println("启动listeningrainBlog-rest模块成功");
+        printToConsole("启动listeningrainBlog-rest模块成功");
     }
 
     @Bean
@@ -34,5 +37,15 @@ public class Application {
             storageService.deleteAll();
             storageService.init();
         };
+    }
+
+
+    private static void printToConsole(String s) {
+        if (null != s && s.length() > 0) {
+            String time = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
+            System.out.println(time + " " + s);
+        } else {
+            System.out.println(s);
+        }
     }
 }

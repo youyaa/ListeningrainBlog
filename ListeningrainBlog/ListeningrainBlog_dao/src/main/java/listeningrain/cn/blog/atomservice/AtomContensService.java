@@ -16,7 +16,7 @@ public interface AtomContensService {
      * 分页查询
      * @return
      */
-    List<Contents> getContentsByPage();
+    List<Contents> getContentsByPage(Contents contents);
 
     /**
      * 根据id查询文章

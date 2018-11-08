@@ -18,12 +18,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import java.sql.Timestamp;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 
 /**
  * author: listeningrain
@@ -48,10 +45,24 @@ public class IndexController {
     @RequestMapping(path = "/index/page/{pageNum}",method = RequestMethod.GET)
     public String index(ModelMap modelMap, @PathVariable Integer pageNum){
         PageInputDTO pageInputDTO = new PageInputDTO<>();
+        ContentsInputData contentsInputData = new ContentsInputData();
         if(null != pageNum){
             pageInputDTO.setPageNum(pageNum);
         }
+        contentsInputData.setStatus("publish");
+        pageInputDTO.setData(contentsInputData);
         PageOutputDTO<ContentsOutputData> contentsByPage = contentsService.getContentsByPage(pageInputDTO);
+
+        /**
+         * 首页分页展示时，对文章内容进行截取，不需要显示完整的文章内容
+         */
+        for(ContentsOutputData contentsOutputData : contentsByPage.getData()){
+            //contentsOutputData.setContent(ThemeUtils.cutArticle(contentsOutputData.getContent()));
+            /*if("md".equals(contentsOutputData.getType())){
+                String content = ThemeUtils.articleTransfer(contentsOutputData.getContent());
+                contentsOutputData.setContent(content);
+            }*/
+        }
         modelMap.addAttribute("contents",contentsByPage);
         return "index";
     }
@@ -98,10 +109,17 @@ public class IndexController {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM");
         //SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         ContentsOutputData contentsOutputData = null;
+        String createdTime = null;
         while (iterator.hasNext()) {
             contentsOutputData =(ContentsOutputData) iterator.next();
-            Timestamp created = contentsOutputData.getCreated();
-            String createdTime = sdf.format(created);
+            String created = contentsOutputData.getCreated();
+            try {
+                Date date = sdf.parse(created);
+                createdTime = sdf.format(date);
+            }catch (ParseException e){
+
+            }
+
             if (!map.containsKey(createdTime)){
                 List<ContentsOutputData> list = new ArrayList<>();
                 list.add(contentsOutputData);
@@ -124,6 +142,10 @@ public class IndexController {
         metasInputData.setType("ABOUT");
         pageInputDTO.setData(metasInputData);
         PageOutputDTO<MetasOutputData> pageOutputDTO = metasService.getMetasByType(pageInputDTO);
+        if(null != pageOutputDTO){
+            String content = ThemeUtils.articleTransfer(pageOutputDTO.getData().get(0).getContent());
+            pageOutputDTO.getData().get(0).setContent(content);
+        }
         modelMap.addAttribute("about",pageOutputDTO);
         return "about";
     }
