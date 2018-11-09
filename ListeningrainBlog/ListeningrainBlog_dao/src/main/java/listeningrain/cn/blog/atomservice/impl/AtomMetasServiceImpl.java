@@ -6,6 +6,7 @@ import listeningrain.cn.blog.entity.Metas;
 import listeningrain.cn.blog.entity.MetasExample;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -44,18 +45,21 @@ public class AtomMetasServiceImpl implements AtomMetasService {
     }
 
     @Override
+    @Transactional
     public int updateMetaById(Metas metas) {
         int i = metasMapper.updateByPrimaryKeySelective(metas);
         return i;
     }
 
     @Override
+    @Transactional
     public int addMeta(Metas metas) {
         int i = metasMapper.insertSelective(metas);
         return i;
     }
 
     @Override
+    @Transactional
     public int deleteMetaById(Integer mid) {
         int i = metasMapper.deleteByPrimaryKey(mid);
         return i;

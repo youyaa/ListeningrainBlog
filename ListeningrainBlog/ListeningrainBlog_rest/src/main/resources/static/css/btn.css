@@ -102,3 +102,7 @@ textarea{
   padding-top: 10px;
   padding-left: 10px;
 }
+
+.label-success {
+  background-color: #5cb85c;
+}

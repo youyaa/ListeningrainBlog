@@ -16,7 +16,7 @@ header nav ul li a { color: #484848; float: left; padding: 0 20px; margin-right:
 header nav ul li a:hover, #nav_current { color: #fff; background: #F16E50; transform: skew(-20deg); -webkit-transform: skew(-20deg); -moz-transform: skew(-20deg); -o-transform: skew(-20deg); }
 /* mainContent */
 .mainContent { background: #E8E5DD; width: 1000px; margin: 20px auto; overflow: hidden }
-aside { width: 270px; float: left; }
+aside { width: 270px; float: left;height: auto }
 .avatar { margin: 20px auto; width: 160px; height: 160px; border-radius: 160px; -moz-border-radius: 160px; -webkit-border-radius: 160px; overflow: hidden; }
 .avatar a { display: block; padding-top: 97px; width: 160px; height: 63px; background: url(../images/photo.jpg) no-repeat; background-size: 160px 160px }
 .avatar a span { display: block; margin-top: 63px; padding-top: 8px; width: 160px; height: 55px; text-align: center; font-size: 16px; line-height: 20px; color: #fff; background: rgba(0, 0, 0, .5); -webkit-transition: margin-top .2s ease-in-out; -moz-transition: margin-top .2s ease-in-out; -o-transition: margin-top .2s ease-in-out; transition: margin-top .2s ease-in-out; }

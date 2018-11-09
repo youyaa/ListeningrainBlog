@@ -6,6 +6,7 @@ import listeningrain.cn.blog.entity.Contents;
 import listeningrain.cn.blog.entity.ContentsExample;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -43,18 +44,21 @@ public class AtomContentsServiceImpl implements AtomContensService {
     }
 
     @Override
+    @Transactional
     public Integer insertContent(Contents contents) {
         int i = contentsMapper.insertSelective(contents);
         return i;
     }
 
     @Override
+    @Transactional
     public Integer deleteContent(Contents contents) {
         int i = contentsMapper.deleteByPrimaryKey(contents.getCid());
         return i;
     }
 
     @Override
+    @Transactional
     public Integer updateContent(Contents contents) {
         int i = contentsMapper.updateByPrimaryKeySelective(contents);
         return i;

@@ -57,7 +57,7 @@ public class IndexController {
          * 首页分页展示时，对文章内容进行截取，不需要显示完整的文章内容
          */
         for(ContentsOutputData contentsOutputData : contentsByPage.getData()){
-            //contentsOutputData.setContent(ThemeUtils.cutArticle(contentsOutputData.getContent()));
+            contentsOutputData.setContent(ThemeUtils.cutArticle(contentsOutputData.getContent()));
             /*if("md".equals(contentsOutputData.getType())){
                 String content = ThemeUtils.articleTransfer(contentsOutputData.getContent());
                 contentsOutputData.setContent(content);
