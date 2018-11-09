@@ -166,11 +166,15 @@ public class AdminController {
 
     //获取分类
     @RequestMapping(path = "/index/classify",method = RequestMethod.GET)
-    public String classify(ModelMap modelMap){
+    public String classify(ModelMap modelMap, Integer pageNum){
         PageInputDTO<MetasInputData> pageInputDTO = new PageInputDTO();
         MetasInputData metasInputData = new MetasInputData();
         metasInputData.setType("CLASSIFY");
         pageInputDTO.setData(metasInputData);
+        if(null == pageNum){
+            pageNum = 1;
+        }
+        pageInputDTO.setPageNum(pageNum);
         pageInputDTO.setPageSize(5);
         PageOutputDTO<MetasOutputData> allClassify = metasService.getMetasByType(pageInputDTO);
         modelMap.addAttribute("allClassify",allClassify);

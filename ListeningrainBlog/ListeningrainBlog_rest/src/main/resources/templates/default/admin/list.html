@@ -14,9 +14,10 @@
 
   <div class="right-product my-index right-full">
      <div class="container-fluid">
-	   <div class="info-center">
-           <table class="table table-bordered">
-               <h3>文章列表</h3>
+	   <div class="info-center" >
+           <div class="panel panel-primary" style="margin-top: 10px;margin-right: 20px;">
+               <div class="panel-heading"><h3 class="panel-title">文章管理</h3></div>
+           <table class="table table-bordered" style="background-color: #eceff3">
                <thead>
                    <tr>
                        <th>文章标题</th>
@@ -69,7 +70,7 @@
 
                </tbody>
            </table>
-           <div id="page" style="width: 100%;height: auto;text-align: right;margin-top: -10px">
+           <div id="page" style="background-color: #eceff3;width: 100%;height: auto;text-align: right;padding-right: 10px;margin-top: -10px">
 
                    <label  th:each="pagebar : ${contents.pageBar}">
 
@@ -101,6 +102,7 @@
                            </a>
                        </li>
                    </ul>
+           </div>
            </div>
        </div>			
 	 </div>
