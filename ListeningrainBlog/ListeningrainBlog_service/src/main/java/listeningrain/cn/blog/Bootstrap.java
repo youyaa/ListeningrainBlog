@@ -25,7 +25,7 @@ public class Bootstrap {
         applicationContext.registerShutdownHook();
         applicationContext.start();
 
-        printToConsole("启动listeningrain-service模块启动成功");
+        printToConsole("启动listeningrain-service模块成功");
 
         while (true){
             try {

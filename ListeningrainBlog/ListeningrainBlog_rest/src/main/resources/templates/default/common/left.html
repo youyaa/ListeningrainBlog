@@ -1,39 +1,35 @@
-<!doctype html>
-<html xmlns:th="http://www.thymeleaf.org">
+<!DOCTYPE html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
+    <title>Title</title>
 </head>
-
 <body>
-<aside th:fragment="left">
-    <div class="avatar">
-        <a href="#"><span>青轻飞扬</span></a>
-    </div>
-    <section class="topspaceinfo">
-        <h1>。。。。。。。。。。。。</h1>
-        <p>....</p>
-    </section>
-    <div class="userinfo">
-        <p class="q-fans"> 粉丝：<a href="/" target="_blank">167</a></p>
-        <p class="q-fans">总浏览数：<a href="/" target="_blank" >888</a></p>
-    </div>
-    <section >
-        <h2>最新文章</h2>
-        <ul >
-           <li class="q-fans"><a href="/index/post/149">测试草稿</a></li>
-           <li class="q-fans"><a href="/index/post/150">测试草稿</a></li>
-           <li class="q-fans"><a href="/index/post/151">测试草稿</a></li>
-           <li class="q-fans"><a href="/index/post/152">测试草稿</a></li>
-        </ul>
-    </section>
-    <section >
-        <h2>全部标签</h2>
-        <ul>
-            <label ><a href="/">青空</a></label>
-            <label><a href="/">情感聊吧</a></label>
-            <label><a href="/">study</a></label>
-            <label><a href="/">青青唠叨</a></label>
-        </ul>
+    <aside th:fragment="left" id="secondary" class="widget-area" role="complementary">
+    <section id="search-2" class="widget widget_search"><form method="get" class="search-form" id="search-form" action="http://localhost/wordpress/">
+        <div class="top-section-search">
+            <input type="search" value="" name="s" id="s" placeholder="Search &hellip;" />
+            <input type="submit" value="search" class="search-subimit" />
+        </div>
+    </form></section>		<section id="recent-posts-2" class="widget widget_recent_entries">		<div class="title-widget"><h2 class="widget-title">近期文章</h2></div>		<ul>
+    <li>
+        <a href="http://localhost/wordpress/2018/11/11/8/">(无标题)</a>
+    </li>
+    <li>
+        <a href="http://localhost/wordpress/2018/11/11/%e5%93%87%e5%93%88%e5%93%88/">哇哈哈</a>
+    </li>
+    <li>
+        <a href="http://localhost/wordpress/2018/11/11/hello-world/">世界，您好！</a>
+    </li>
+</ul>
+</section><section id="recent-comments-2" class="widget widget_recent_comments"><div class="title-widget"><h2 class="widget-title">近期评论</h2></div><ul id="recentcomments"><li class="recentcomments"><span class="comment-author-link"><a href='https://wordpress.org/' rel='external nofollow' class='url'>一位WordPress评论者</a></span>发表在《<a href="http://localhost/wordpress/2018/11/11/hello-world/#comment-1">世界，您好！</a>》</li></ul></section><section id="archives-2" class="widget widget_archive"><div class="title-widget"><h2 class="widget-title">文章归档</h2></div>		<ul>
+    <li><a href='http://localhost/wordpress/2018/11/'>2018年十一月</a></li>
+</ul>
+</section>
+    <section id="categories-2" class="widget widget_categories"><div class="title-widget"><h2 class="widget-title">分类目录</h2></div>		<ul>
+        <li class="cat-item cat-item-1"><a href="http://localhost/wordpress/category/uncategorized/" >未分类</a>
+        </li>
+    </ul>
     </section>
 </aside>
 </body>

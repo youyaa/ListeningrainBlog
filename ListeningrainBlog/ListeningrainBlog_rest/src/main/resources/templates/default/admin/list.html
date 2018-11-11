@@ -31,14 +31,14 @@
                </thead>
                <tbody  th:each="content : ${contents.data}">
                    <div th:if=" publish eq ${content.status}">
-                       <tr class="success">
+                       <tr class="success" style="vertical-align: center">
                            <td><a th:href="@{'/index/post/'+${content.cid}}"><span  th:text="${content.title}"/></a></td>
                            <td><span th:text="${content.created}"/></td>
                            <td><span th:text="${content.hits}"/></td>
                            <td><span class="label label-success" th:text="已发布"/> </td>
                            <td><span th:text="${content.categories}"/></td>
                            <td><span th:text="${content.modified}"/></td>
-                           <td><a th:href="@{'/admin/index/editContent?cid='+${content.cid}}"
+                           <td style="vertical-align: center"><a th:href="@{'/admin/index/editContent?cid='+${content.cid}}"
                                   class="btn btn-primary btn-sm waves-effect waves-light m-b-5"><i
                                    class="fa fa-edit"></i> <span>编辑</span></a>
                                <a href="javascript:void(0)" th:onclick="'javascript:delContent('+${content.cid}+')'"
@@ -57,7 +57,7 @@
                            <td><span class="label label-default" th:text="草稿"/></td>
                            <td><span th:text="${content.categories}"/></td>
                            <td><span th:text="${content.modified}"/></td>
-                           <td>
+                           <td style="vertical-align: center">
                                <a  th:href="@{'/admin/index/editContent?cid='+${content.cid}}"
                                   class="btn btn-primary btn-sm waves-effect waves-light m-b-5"><i
                                        class="fa fa-edit"></i> <span>编辑</span></a>

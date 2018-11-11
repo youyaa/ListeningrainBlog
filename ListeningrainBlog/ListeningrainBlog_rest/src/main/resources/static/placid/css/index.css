@@ -1,0 +1,107 @@
+
+@media screen and ( max-width: 782px ) {
+    html { margin-top: 46px !important; }
+    * html body { margin-top: 46px !important; }
+}
+
+    /*Primary Color Options*/
+
+.cat-links a,
+.comments-link a,
+.tags-links a,
+.site-branding div,
+.tags-links a:hover,
+.comments-area .comment-body .comment-metadata time,
+.widget_categories ul li a::after,
+.widget_archive ul li a::after,
+.author-header,.entry-meta a, .cat-links, .tags-links,.entry-meta, .entry-meta a:hover,
+a.readmore:hover
+{
+    color: #000000;
+}
+
+.tags-links a,
+.all-blogs article.sticky,
+.wp-pagenavi span,
+.wp-pagenavi a,
+.wp-pagenavi span.current,
+
+.nav .open > a,
+.nav .open > a:focus,
+.nav .open > a:hover,
+.author_link a
+.fa-folder, .author_link .fa-user,
+.post-by .vcard .fa-user,
+.tags-links .fa-tags,.comments-link .fa-comments,
+.cat-links .fa-folder
+
+{
+    border-color: #000000;
+    color: #000000;
+}
+.widget #today,
+.search-bar-box input,
+.dropdown-menu > li > a:focus,
+.dropdown-menu > li > a:hover,
+.nav .open > a,
+.nav .open > a:focus,
+.nav .open > a:hover,
+.no-image-div,.slide-details .placid-read-more,
+#secondary .widget_search .top-section-search .search-subimit,
+.entry-header .entry-title a:after, #toTop .fa
+
+{
+    background-color: #000000;
+}
+.wp-pagenavi span.current,
+.more-btn,
+.slider-content .cat-name a,
+.search-wrapper,
+input[type="submit"],
+.comments-area .comment-body .reply a,.pagination .pagination .nav-links .page-numbers:hover
+
+{
+    background:  #000000;
+    border-color: #000000;
+}
+
+.widget.widget_meta a:hover
+{
+    color: #000000;
+}
+
+.site-footer a:hover
+{
+    color: #000000;
+}
+
+.woocommerce nav.woocommerce-pagination ul li a:focus, .woocommerce nav.woocommerce-pagination ul li a:hover,
+.woocommerce nav.woocommerce-pagination ul li span.current
+{
+    background: #19bc9b				}
+
+.woocommerce #respond input#submit:hover, .woocommerce a.button:hover,
+.woocommerce button.button:hover, .woocommerce input.button:hover,
+.woocommerce #respond input#submit, .woocommerce a.button,
+.woocommerce button.button, .woocommerce input.button,.woocommerce a.button.alt:hover,
+.woocommerce a.button.alt
+{
+    background:  #19bc9b		   }
+
+.woocommerce div.product .woocommerce-tabs ul.tabs li.active,
+.woocommerce div.product .woocommerce-tabs ul.tabs li:hover,
+.woocommerce div.product .woocommerce-tabs ul.tabs li:focus,
+.woocommerce-palcid ul.products li a.button
+{
+    background:  #19bc9b		 }
+
+.woocommerce div.product .woocommerce-tabs ul.tabs li.active, .woocommerce div.product
+.woocommerce-tabs ul.tabs li:hover,
+.woocommerce div.product .woocommerce-tabs ul.tabs li:focus,.woocommerce button.button.alt,
+.woocommerce ul.products li.product .onsale, .single-product.woocommerce span.onsale
+{
+    background:  #19bc9b          }
+
+.recentcomments a{display:inline !important;padding:0 !important;margin:0 !important;}
+#wpadminbar { display:none; }
+

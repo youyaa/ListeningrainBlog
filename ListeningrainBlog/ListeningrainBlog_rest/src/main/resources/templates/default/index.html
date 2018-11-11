@@ -1,54 +1,77 @@
-<!doctype html>
-<html xmlns:th="http://www.thymeleaf.org"/>
+
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>听雨博客，诚意推荐</title>
-    <meta name="keywords" content="Listeningrain,听雨,博客" />
-    <meta name="description" content="小清新风个人博客,简洁风" />
+    <link rel='stylesheet'  href='/placid/css/index.css' type='text/css'/>
+    <link rel='stylesheet'  href='//fonts.googleapis.com/css?family=Lora:400,400i,700,700i' type='text/css'/>
+    <link rel='stylesheet'  href='/placid/framework/Font-Awesome/css/font-awesome.min.css' type='text/css' />
+    <link rel='stylesheet'  href='/placid/framework/bootstrap/css/bootstrap.css' type='text/css'/>
+    <link rel='stylesheet'  href='/placid/css/style.css' type='text/css'/>
+    <script src="/admin_/script/jquery-3.3.1.js" type="text/javascript"></script>
+    <script type='text/javascript' src='/placid/framework/bootstrap/js/bootstrap.js'></script>
 </head>
-<body>
 
-<div th:replace="common/head :: head"/>
+<body class="home blog logged-in admin-bar no-customize-support hfeed at-sticky-sidebar right-sidebar" style="margin-top: 0">
+<div id="page" class="site">
 
- <div class="mainContent">
+    <div th:replace="common/header :: header"></div>
 
-     <div th:replace="common/left :: left"></div>
+    <div id="content" class="site-content">
+        <div class="container">
 
-    <div class="blogitem">
+            <div th:replace="common/left :: left"></div>
 
-              <article th:each="content : ${contents.data}">
-                <h2 class="title"><a th:href="@{'/index/post/'+${content.cid}}" ><span th:text="${content.title}" /></a></h2>
-                <ul class="text">
-                    <span th:text="${content.content}" />
-                </ul>
-                <div class="textfoot">
-                  <a th:href="@{'/index/post/'+${content.cid}}">阅读更多>>></a>
-                </div>
-              </article>
+            <div id="primary" class="content-area">
+                <main id="main" class="site-main" role="main">
 
-      <div class="pages">
-          <label  th:each="pagebar : ${contents.pageBar}" >
-            <label th:if="${pagebar} eq ${contents.pageNum}">
-                <a th:href="@{'/index/page/'+${pagebar}}" style="background-color: #f16e50;">
-                    <label style="padding-left: 5px;" th:text="${pagebar}"/>
-                </a>
-            </label>
-              <label th:if="${pagebar} ne ${contents.pageNum}">
-                  <a th:href="@{'/index/page/'+${pagebar}}">
-                      <label style="padding-left: 5px;" th:text="${pagebar}"/>
-                  </a>
-              </label>
-          </label>
-          <a style="background-color: #f16e50;">
-              共<label th:text="${contents.totalPageNum}"/>页
-          </a>
-      </div>
+                    <article id="post-8" class="post-8 post type-post status-publish format-standard hentry category-uncategorized">
+                        <div style="float: left;text-align: center; ">
+                            <img style="max-height: 200px;width: auto;" src="https://moguos.oss-cn-shenzhen.aliyuncs.com/lolimeow/assets/images/rand/rand%20(10).jpg"/>
+                        </div>
+
+                        <header class="entry-header" style="float: right;margin-top: -20px">
+                            <h2 class="entry-title"><a href="http://localhost/wordpress/2018/11/11/%e5%93%87%e5%93%88%e5%93%88/" rel="bookmark">Java NIO浅析</a></h2>
+                            <div class="entry-meta">
+                                <span class="poston">Posted on <a href="http://localhost/wordpress/2018/11/11/8/" rel="bookmark"><time class="entry-date published updated" datetime="2018-11-11T10:51:12+00:00">2018年11月11日</time></a></span><span class="post-by"> By <span class="author vcard"><a class="url fn n" href="http://localhost/wordpress/author/root/">root</a></span></span>
+                            </div><!-- .entry-meta -->
+
+                            <div class="entry-content" style="max-width: 400px">
+                                <p>NIO（Non-blocking I/O，在Java领域，也称为New I/O），是一种同步非阻塞的I/O模型，
+                                    也是I/O多路复用的基础，已经被越来越多地应用到大型应用服务器，成为解决高并发与大量连接、I/O处理问题的有效方式...
+                                   </p>
+                            </div>
+
+                        </header>
+                    </article>
+
+                    <article id="post-6" class="post-8 post type-post status-publish format-standard hentry category-uncategorized">
+                        <div style="float: left;text-align: center; ">
+                            <img style="max-height: 200px;width: auto;" src="http://localhost/wordpress/wp-content/uploads/2018/11/sparkler-holding-hands-firework-23059b00dad13f31935a4057660d14e7-300x200.jpg"/>
+                        </div>
+
+                        <header class="entry-header" style="float: right;margin-right: 20%;vertical-align: center">
+                            <h2 class="entry-title"><a href="http://localhost/wordpress/2018/11/11/%e5%93%87%e5%93%88%e5%93%88/" rel="bookmark">哇哈哈</a></h2>
+                            <div class="entry-meta">
+                                <span class="poston">Posted on <a href="http://localhost/wordpress/2018/11/11/8/" rel="bookmark"><time class="entry-date published updated" datetime="2018-11-11T10:51:12+00:00">2018年11月11日</time></a></span><span class="post-by"> By <span class="author vcard"><a class="url fn n" href="http://localhost/wordpress/author/root/">root</a></span></span>
+                            </div><!-- .entry-meta -->
+
+                            <div class="entry-content">
+                                <p>哈哈哈哈哈</p>
+
+                            </div>
+                        </header>
+                    </article>
+
+                </main>
+            </div>
+
+        </div>
+
     </div>
+</div>
 
- </div>
 
-<div th:replace="common/foot :: foot"/>
 
 </body>
-
 </html>
