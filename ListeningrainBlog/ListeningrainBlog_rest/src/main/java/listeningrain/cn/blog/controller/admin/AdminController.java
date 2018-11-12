@@ -181,6 +181,23 @@ public class AdminController {
         return "admin/category";
     }
 
+    //获取名言
+    @RequestMapping(path = "/index/motto",method = RequestMethod.GET)
+    public String motto(ModelMap modelMap, Integer pageNum){
+        PageInputDTO<MetasInputData> pageInputDTO = new PageInputDTO();
+        MetasInputData metasInputData = new MetasInputData();
+        metasInputData.setType("MOTTO");
+        pageInputDTO.setData(metasInputData);
+        if(null == pageNum){
+            pageNum = 1;
+        }
+        pageInputDTO.setPageNum(pageNum);
+        pageInputDTO.setPageSize(5);
+        PageOutputDTO<MetasOutputData> allClassify = metasService.getMetasByType(pageInputDTO);
+        modelMap.addAttribute("mottos",allClassify);
+        return "admin/motto";
+    }
+
     @RequestMapping(path = "/index/updateCategory", method = RequestMethod.POST)
     @ResponseBody
     public PojoOutputDTO updateCategoryOrAdd(@RequestBody PojoInputDTO<MetasInputData> pojoInputDTO){

@@ -1,6 +1,7 @@
 package listeningrain.cn.blog.utils;
 
 import listeningrain.cn.blog.output.data.ContentsOutputData;
+import listeningrain.cn.blog.output.data.UserShowInformationOutputData;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -15,6 +16,16 @@ import java.util.Map;
 public class CacheUtils {
 
     private static Map<Integer, ContentsOutputData> articleCache = null;
+    private static UserShowInformationOutputData userShowInformationOutputData;
+
+
+    public static UserShowInformationOutputData getUserShowInformationOutputData() {
+        return userShowInformationOutputData;
+    }
+
+    public static void setUserShowInformationOutputData(UserShowInformationOutputData userShowInformationOutputData) {
+        CacheUtils.userShowInformationOutputData = userShowInformationOutputData;
+    }
 
     public static boolean put(Integer key, ContentsOutputData value) {
         if (null == articleCache) {

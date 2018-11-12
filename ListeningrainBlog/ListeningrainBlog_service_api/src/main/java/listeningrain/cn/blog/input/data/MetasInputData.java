@@ -27,4 +27,6 @@ public class MetasInputData extends CommonInputData {
     private Integer parent;
 
     private Byte status;
+
+    private String content;
 }

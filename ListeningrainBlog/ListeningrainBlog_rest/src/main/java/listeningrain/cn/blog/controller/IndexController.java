@@ -6,10 +6,12 @@ import listeningrain.cn.blog.input.dto.PageInputDTO;
 import listeningrain.cn.blog.input.dto.PojoInputDTO;
 import listeningrain.cn.blog.output.data.ContentsOutputData;
 import listeningrain.cn.blog.output.data.MetasOutputData;
+import listeningrain.cn.blog.output.data.UserShowInformationOutputData;
 import listeningrain.cn.blog.output.dto.PageOutputDTO;
 import listeningrain.cn.blog.output.dto.PojoOutputDTO;
 import listeningrain.cn.blog.service.api.ContentsService;
 import listeningrain.cn.blog.service.api.MetasService;
+import listeningrain.cn.blog.service.api.UserShowInformationService;
 import listeningrain.cn.blog.utils.CacheUtils;
 import listeningrain.cn.blog.utils.ThemeUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -75,6 +77,7 @@ public class IndexController {
         //封装友链的数据
         link(modelMap);
         latestArticle(modelMap);
+        userShowInformation(modelMap);
         return "index";
     }
 
@@ -84,6 +87,26 @@ public class IndexController {
         PageOutputDTO<ContentsOutputData> contentsByPage = new PageOutputDTO<>();
         contentsByPage.setData(list);
         modelMap.put("latest_contents",contentsByPage);
+    }
+
+    @Autowired
+    private UserShowInformationService userShowInformationService;
+
+    //获取用户的静态信息
+    private void userShowInformation(ModelMap modelMap){
+        if(null == CacheUtils.getUserShowInformationOutputData()){
+            PojoOutputDTO<UserShowInformationOutputData> userShowInformation = userShowInformationService.getUserShowInformation();
+            if(null != userShowInformation){
+                if(null != CacheUtils.getUserShowInformationOutputData()){
+                    CacheUtils.setUserShowInformationOutputData(userShowInformation.getData());
+                }
+            }
+            CacheUtils.setUserShowInformationOutputData(userShowInformation.getData());
+            modelMap.put("userShow",CacheUtils.getUserShowInformationOutputData());
+        }else{
+            System.out.println("----------从缓存中取-----------");
+            modelMap.put("userShow",CacheUtils.getUserShowInformationOutputData());
+        }
     }
 
     //文章详情
@@ -100,6 +123,7 @@ public class IndexController {
         modelMap.put("content",contentsById);
         link(modelMap);
         latestArticle(modelMap);
+        userShowInformation(modelMap);
         return "post";
     }
 
@@ -122,7 +146,11 @@ public class IndexController {
     public String archive(ModelMap modelMap){
         PageInputDTO pageInputDTO = new PageInputDTO();
         pageInputDTO.setPageSize(100);
-        PageOutputDTO contentsByPage = contentsService.getContentsByPage(pageInputDTO);
+        PageOutputDTO<ContentsOutputData> contentsByPage = contentsService.getContentsByPage(pageInputDTO);
+
+        for(ContentsOutputData contentsOutputData : contentsByPage.getData()){
+            contentsOutputData.setContent(ThemeUtils.cutArticle(contentsOutputData.getContent()));
+        }
 
         HashMap<String,List<ContentsOutputData>> map = new HashMap<>();
         Iterator iterator = contentsByPage.getData().iterator();
@@ -152,6 +180,9 @@ public class IndexController {
             }
         }
         modelMap.addAttribute("archives",map);
+        link(modelMap);
+        latestArticle(modelMap);
+        userShowInformation(modelMap);
         return "archive";
     }
 
@@ -173,6 +204,9 @@ public class IndexController {
 
         link(modelMap);
         latestArticle(modelMap);
+        userShowInformation(modelMap);
         return "about";
     }
+
+
 }

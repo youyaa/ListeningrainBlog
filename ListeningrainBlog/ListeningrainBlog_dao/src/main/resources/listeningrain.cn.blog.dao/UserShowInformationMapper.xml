@@ -9,7 +9,7 @@
     -->
     <id column="Id" jdbcType="INTEGER" property="id" />
     <result column="user_id" jdbcType="INTEGER" property="userId" />
-    <result column="nickname" jdbcType="VARCHAR" property="nickname" />
+    <result column="nickname" jdbcType="VARCHAR" property="nickName" />
     <result column="age" jdbcType="INTEGER" property="age" />
     <result column="address" jdbcType="VARCHAR" property="address" />
     <result column="famous_says" jdbcType="VARCHAR" property="famousSays" />

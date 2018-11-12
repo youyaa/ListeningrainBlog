@@ -8,7 +8,6 @@
     <link rel='stylesheet'  href='/placid/framework/Font-Awesome/css/font-awesome.min.css' type='text/css' />
     <link rel='stylesheet'  href='/placid/framework/bootstrap/css/bootstrap.css' type='text/css'/>
     <link rel='stylesheet'  href='/placid/css/style.css' type='text/css'/>
-    <link rel='stylesheet'  href='/css/code.css' type='text/css'/>
     <script src="/admin_/script/jquery-3.3.1.js" type="text/javascript"></script>
     <script type='text/javascript' src='/placid/framework/bootstrap/js/bootstrap.js'></script>
     <script type="text/javascript" src="/js/search.js"></script>
@@ -16,7 +15,6 @@
 
 <body class="home blog logged-in admin-bar no-customize-support hfeed at-sticky-sidebar right-sidebar" style="margin-top: 0">
 <div id="page" class="site">
-
 
     <div th:replace="common/header :: header"></div>
 
@@ -27,21 +25,26 @@
 
             <div id="primary" class="content-area">
                 <main id="main" class="site-main" role="main">
+                 <div th:each="archive,archiveStat : ${archives}" >
+                     <div class="panel panel-primary" style="margin: 0;">
+                         <div class="panel-heading"><h3 class="panel-title"><span th:text="${archive.key}"></span></h3></div>
+                     </div>
 
-                    <article id="post-6" class="post-8 post type-post status-publish format-standard hentry category-uncategorized">
-
-                        <header class="entry-header" style="margin-top: -20px">
-                            <h2 class="entry-title"><a rel="bookmark"><label th:text="${content.data.name}"></label></a></h2>
+                    <article style="margin: 0;padding: 0;padding-left: 30px;padding-right: 15px" th:each="content : ${archive.value}" id="post-6" class="post-8 post type-post status-publish format-standard hentry category-uncategorized">
+                        <header class="entry-header">
+                            <h2 class="entry-title"><a th:href="@{'/index/post/'+${content.cid}}" rel="bookmark"><label th:text="${content.title}"></label></a></h2>
                             <div class="entry-meta">
-                                <span class="poston">Posted on <a rel="bookmark"><time class="entry-date published updated"><label th:text="${content.data.created}"></label></time></a></span>
-                                <span class="poston">By <a rel="bookmark"><time class="entry-date published updated">静心听雨</time></a></span>
+                                <span class="poston">Posted on <a rel="bookmark"><time class="entry-date published updated"><label th:text="${content.created}"></label></time></a></span><span class="post-by"> By <span class="author vcard"><a class="url fn n">静心听雨</a></span></span>
                             </div><!-- .entry-meta -->
 
-                            <div class="entry-content" style="margin-top: -10px">
-                                <span th:utext="${content.data.content}"></span>
+                            <div class="entry-content">
+                                <p>
+                                    <span th:text="${content.content}"></span>
+                                </p>
                             </div>
                         </header>
                     </article>
+                 </div>
 
                 </main>
             </div>

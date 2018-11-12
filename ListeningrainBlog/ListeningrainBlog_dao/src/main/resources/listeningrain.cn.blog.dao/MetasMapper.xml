@@ -189,6 +189,9 @@
       <if test="status != null">
         status,
       </if>
+      <if test="content != null">
+        content,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="mid != null">
@@ -214,6 +217,9 @@
       </if>
       <if test="status != null">
         #{status,jdbcType=TINYINT},
+      </if>
+      <if test="content != null">
+        #{content,jdbcType=TINYINT},
       </if>
     </trim>
   </insert>
@@ -312,6 +318,9 @@
       </if>
       <if test="status != null">
         status = #{status,jdbcType=TINYINT},
+      </if>
+      <if test="content != null">
+        content = #{content,jdbcType=VARCHAR},
       </if>
     </set>
     where mid = #{mid,jdbcType=INTEGER}

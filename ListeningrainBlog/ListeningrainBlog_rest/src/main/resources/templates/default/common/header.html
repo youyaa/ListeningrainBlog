@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
 </head>
@@ -18,10 +18,11 @@
                 <div class="site-branding" style="margin-left: 14%">
 
                     <h1 class="site-title">
-                        <a href="/index/page/1" rel="home" style="color: white;">静心听雨</a></h1>
-                    <p class="site-description">做一个阳光的男生。。。</p>
-                    <div style="color: white;padding-left: 30px">
+                        <a href="/index/page/1" rel="home" style="color: white;"><span th:text="${userShow.nickName}"></span></a></h1>
+                    <p class="site-description"><span th:text="${userShow.famousSays}"></span></p>
+                    <div style="color: white;padding-left: 1%">
                         <a style="color: white;" href="/index/about" class="site-description" >关于 /</a>
+                        <a style="color: white;" href="/index/archive" class="site-description">&nbsp;归档 /</a>
                         <a style="color: white;" href="#" class="site-description" >&nbsp;个人空间</a>
                     </div>
                 </div><!-- .site-branding -->

@@ -24,6 +24,9 @@
     <dubbo:reference interface="listeningrain.cn.blog.service.api.UsersService"
                      id="usersService" check="false"/>
 
+    <dubbo:reference interface="listeningrain.cn.blog.service.api.UserShowInformationService"
+                     id="userShowInformationService" check="false"/>
+
     <!-- 设置超时时间 -->
     <dubbo:consumer timeout="600000"/>
 
