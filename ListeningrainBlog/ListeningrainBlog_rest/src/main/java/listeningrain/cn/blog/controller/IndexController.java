@@ -51,6 +51,7 @@ public class IndexController {
         }
         contentsInputData.setStatus("publish");
         pageInputDTO.setData(contentsInputData);
+        pageInputDTO.setPageSize(3);
         PageOutputDTO<ContentsOutputData> contentsByPage = contentsService.getContentsByPage(pageInputDTO);
 
         /**

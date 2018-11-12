@@ -8,7 +8,7 @@
 
     <!-- Dubbo的消费方 -->
     <!-- 计算机用名，不与提供者同名 -->
-    <dubbo:application name="babasport-console"/>
+    <dubbo:application name="listeningrainBlog-portal"/>
 
     <!-- 注册中心 -->
     <dubbo:registry address="zookeeper://localhost:2181"

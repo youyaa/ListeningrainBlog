@@ -9,7 +9,7 @@
 
     <!-- 配置Dubbo提供方 -->
     <!-- 配置提供方的名称 计算名 -->
-    <dubbo:application name="babasport-service-product"/>
+    <dubbo:application name="listeningrainBlog-service"/>
 
     <!-- 配置注册中心 -->
     <!-- 	<dubbo:registry
