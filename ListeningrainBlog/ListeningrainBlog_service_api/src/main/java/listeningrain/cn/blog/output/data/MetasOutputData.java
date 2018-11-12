@@ -29,4 +29,7 @@ public class MetasOutputData extends CommonOutputData {
     private Byte status;
 
     private String content;
+
+    private String created;
+
 }

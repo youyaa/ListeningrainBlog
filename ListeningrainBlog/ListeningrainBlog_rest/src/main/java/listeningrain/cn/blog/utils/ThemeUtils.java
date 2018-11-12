@@ -41,7 +41,7 @@ public class ThemeUtils {
         return html;
     }
 
-    //对文章内容进行截取,截取80%的字符
+    //对文章内容进行截取,截取120个字符
     public static String cutArticle(String content){
         int length = content.length();
         return content.substring(0,120)+"  ......";

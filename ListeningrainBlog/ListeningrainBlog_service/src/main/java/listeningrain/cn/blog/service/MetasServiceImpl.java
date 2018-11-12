@@ -53,6 +53,7 @@ public class MetasServiceImpl implements MetasService {
                     meta.setContent(content);
                 }
                 BeanUtils.copyProperties(meta,metasOutputData);
+                metasOutputData.setCreated(ThemeUtils.formate(meta.getCreated()));
                 list.add(metasOutputData);
             }
         }

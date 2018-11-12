@@ -7,35 +7,41 @@
 
 
 <body>
-    <aside th:fragment="left" id="secondary" class="widget-area" role="complementary">
+<aside th:fragment="left" id="secondary" class="widget-area" role="complementary">
     <section id="search-2" class="widget widget_search">
         <form class="search-form" id="search-form">
             <div class="top-section-search" style="color: white;">
-                <input type="search" value="" name="q" id="q" placeholder="Search &hellip;" />
-                <button onclick="search()" style="margin-left: 5px;background-color: black;border-radius: 6px" value="search" type="button" class="btn">search</button>
+                <input type="search" value="" name="q" id="q" placeholder="Search &hellip;"/>
+                <button onclick="search()" style="margin-left: 5px;background-color: black;border-radius: 6px"
+                        value="search" type="button" class="btn">search
+                </button>
             </div>
         </form>
-    </section>		<section id="recent-posts-2" class="widget widget_recent_entries">		<div class="title-widget"><h2 class="widget-title">近期文章</h2></div>		<ul>
-    <li>
-        <a href="http://localhost/wordpress/2018/11/11/8/">(无标题)</a>
-    </li>
-    <li>
-        <a href="http://localhost/wordpress/2018/11/11/%e5%93%87%e5%93%88%e5%93%88/">哇哈哈</a>
-    </li>
-    <li>
-        <a href="http://localhost/wordpress/2018/11/11/hello-world/">世界，您好！</a>
-    </li>
-</ul>
-</section><section id="recent-comments-2" class="widget widget_recent_comments"><div class="title-widget"><h2 class="widget-title">近期评论</h2></div><ul id="recentcomments"><li class="recentcomments"><span class="comment-author-link"><a href='https://wordpress.org/' rel='external nofollow' class='url'>一位WordPress评论者</a></span>发表在《<a href="http://localhost/wordpress/2018/11/11/hello-world/#comment-1">世界，您好！</a>》</li></ul></section><section id="archives-2" class="widget widget_archive"><div class="title-widget"><h2 class="widget-title">文章归档</h2></div>		<ul>
-    <li><a href='http://localhost/wordpress/2018/11/'>2018年十一月</a></li>
-</ul>
-</section>
-    <section id="categories-2" class="widget widget_categories"><div class="title-widget"><h2 class="widget-title">友情链接</h2></div>
+    </section>
+    <section id="recent-posts-2" class="widget widget_recent_entries">
+        <div class="title-widget"><h2 class="widget-title">最新文章</h2></div>
         <ul>
-         <li class="cat-item cat-item-1">
-             <a href="https://listeningrain.cn" target="_blank">静心听雨的博客</a>
-         </li>
-       </ul>
+            <li th:each="content : ${latest_contents.data}">
+                <a th:href="@{'/index/post/'+${content.cid}}"><span th:text="${content.title}"></span> (<span th:text="${content.created}"></span>)</a>
+            </li>
+        </ul>
+    </section>
+    <section id="recent-comments-2" class="widget widget_recent_comments">
+        <div class="title-widget"><h2 class="widget-title">最新照片</h2></div>
+        <ul id="recentcomments">
+            <li class="recentcomments">
+                <span>未完待续。。。</span>
+            </li>
+        </ul>
+    </section>
+
+    <section id="categories-2" class="widget widget_categories">
+        <div class="title-widget"><h2 class="widget-title">友情链接</h2></div>
+        <ul>
+            <li class="cat-item cat-item-1" th:each="link : ${links.data}">
+                <a th:href="${link.slug}" target="_blank"><span th:text="${link.name}"></span></a>
+            </li>
+        </ul>
     </section>
 </aside>
 </body>

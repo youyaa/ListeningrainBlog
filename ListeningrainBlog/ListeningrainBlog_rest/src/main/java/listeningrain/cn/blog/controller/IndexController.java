@@ -10,6 +10,7 @@ import listeningrain.cn.blog.output.dto.PageOutputDTO;
 import listeningrain.cn.blog.output.dto.PojoOutputDTO;
 import listeningrain.cn.blog.service.api.ContentsService;
 import listeningrain.cn.blog.service.api.MetasService;
+import listeningrain.cn.blog.utils.CacheUtils;
 import listeningrain.cn.blog.utils.ThemeUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -63,9 +64,26 @@ public class IndexController {
                 String content = ThemeUtils.articleTransfer(contentsOutputData.getContent());
                 contentsOutputData.setContent(content);
             }*/
+            //如果是第一次分页查询，将文章数据放入缓存中
+            if(1 == pageInputDTO.getPageNum()){
+                CacheUtils.put(contentsOutputData.getCid(),contentsOutputData);
+            }
         }
         modelMap.addAttribute("contents",contentsByPage);
+
+
+        //封装友链的数据
+        link(modelMap);
+        latestArticle(modelMap);
         return "index";
+    }
+
+    //封装近期文章数据
+    private void latestArticle(ModelMap modelMap){
+        List<ContentsOutputData> list = CacheUtils.toList();
+        PageOutputDTO<ContentsOutputData> contentsByPage = new PageOutputDTO<>();
+        contentsByPage.setData(list);
+        modelMap.put("latest_contents",contentsByPage);
     }
 
     //文章详情
@@ -80,6 +98,8 @@ public class IndexController {
         String content = ThemeUtils.articleTransfer(data.getContent());
         data.setContent(content);
         modelMap.put("content",contentsById);
+        link(modelMap);
+        latestArticle(modelMap);
         return "post";
     }
 
@@ -143,11 +163,16 @@ public class IndexController {
         metasInputData.setType("ABOUT");
         pageInputDTO.setData(metasInputData);
         PageOutputDTO<MetasOutputData> pageOutputDTO = metasService.getMetasByType(pageInputDTO);
+        PojoOutputDTO<MetasOutputData> pojoOutputDTO = new PojoOutputDTO<>();
         if(null != pageOutputDTO){
             String content = ThemeUtils.articleTransfer(pageOutputDTO.getData().get(0).getContent());
-            pageOutputDTO.getData().get(0).setContent(content);
+             pageOutputDTO.getData().get(0).setContent(content);
         }
-        modelMap.addAttribute("about",pageOutputDTO);
+        pojoOutputDTO.setData(pageOutputDTO.getData().get(0));
+        modelMap.addAttribute("content",pojoOutputDTO);
+
+        link(modelMap);
+        latestArticle(modelMap);
         return "about";
     }
 }

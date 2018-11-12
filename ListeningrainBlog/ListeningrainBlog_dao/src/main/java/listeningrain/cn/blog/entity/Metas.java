@@ -1,5 +1,7 @@
 package listeningrain.cn.blog.entity;
 
+import java.sql.Timestamp;
+
 public class Metas {
     /**
      *
@@ -74,6 +76,16 @@ public class Metas {
     private Byte status;
 
     private String content;
+
+    private Timestamp created;
+
+    public Timestamp getCreated() {
+        return created;
+    }
+
+    public void setCreated(Timestamp created) {
+        this.created = created;
+    }
 
     public String getContent() {
         return content;
