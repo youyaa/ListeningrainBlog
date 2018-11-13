@@ -34,7 +34,7 @@
                         <header class="entry-header" style="float: right;margin-top: -20px">
                             <h2 class="entry-title"><a th:href="@{'/index/post/'+${content.cid}}" rel="bookmark"><label th:text="${content.title}"></label></a></h2>
                             <div class="entry-meta">
-                                <span class="poston">Posted on <a rel="bookmark"><time class="entry-date published updated"><label th:text="${content.created}"></label></time></a></span><span class="post-by"> By <span class="author vcard"><a class="url fn n">静心听雨</a></span></span>
+                                <span class="poston">Posted on <a rel="bookmark"><time class="entry-date published updated"><label th:text="${content.created}"></label></time></a></span><span class="post-by"> By <span class="author vcard"><a class="url fn n"><span th:text="${userShow.nickName}"></span></a></span></span>
                             </div><!-- .entry-meta -->
 
                             <div class="entry-content" style="max-width: 400px">
