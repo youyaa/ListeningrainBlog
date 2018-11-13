@@ -9,9 +9,12 @@
     <link rel='stylesheet'  href='/placid/framework/bootstrap/css/bootstrap.css' type='text/css'/>
     <link rel='stylesheet'  href='/placid/css/style.css' type='text/css'/>
     <link rel='stylesheet'  href='/css/code.css' type='text/css'/>
+    <link rel="stylesheet" href="/css/style.css"/>
+    <link rel="stylesheet" href="/css/comment.css"/>
     <script src="/admin_/script/jquery-3.3.1.js" type="text/javascript"></script>
     <script type='text/javascript' src='/placid/framework/bootstrap/js/bootstrap.js'></script>
     <script type="text/javascript" src="/js/search.js"></script>
+    <script type="text/javascript" src="/js/jquery.flexText.js"></script>
 </head>
 
 <body class="home blog logged-in admin-bar no-customize-support hfeed at-sticky-sidebar right-sidebar" style="margin-top: 0">
@@ -46,6 +49,79 @@
                     </article>
 
                 </main>
+                <div class="commentAll" style="border-top: 1px solid #ccc;width: 100%">
+                    <!--回复区域 begin-->
+                    <div th:if="null ne ${comments}">
+                        <label>已有<span th:text="${content.data.commentsNum}"></span>条评论</label>
+                        <div class="comment-show" style="border-bottom: 1px solid #ccc;">
+                            <div class="comment-show-con clearfix"  th:each="comment : ${comments.data}">
+                                <div class="comment-show-con-img pull-left"><img style="border-radius: 50%" src="https://cn.gravatar.com/avatar/a094d86ee6a1d7e4235f092e0f53e801?s=80&r=G&d=" alt=""></div>
+                                <div class="comment-show-con-list pull-left clearfix">
+                                    <div class="pl-text clearfix">
+                                        <a href="#" class="comment-size-name"><span th:text="${comment.author}"></span> : </a>
+                                        <span class="my-pl-con">&nbsp;<span th:text="${comment.content}"></span></span>
+                                    </div>
+                                    <div class="date-dz">
+                                        <span class="date-dz-left pull-left comment-time"><span th:text="${comment.created}"></span></span>
+                                        <div class="date-dz-right pull-right comment-pl-block">
+                                            <a href="javascript:;" class="removeBlock">删除</a>
+                                            <a href="javascript:;" class="date-dz-pl pl-hf hf-con-block pull-left">回复</a>
+                                            <span class="pull-left date-dz-line">|</span>
+                                            <a href="javascript:;" class="date-dz-z pull-left"><i class="date-dz-z-click-red"></i>赞 (<i class="z-num">666</i>)</a>
+                                        </div>
+                                    </div>
+                                    <div th:if="null ne ${comment.childrenComments}" class="hf-list-con">
+
+                                        <div class="comment-show-con clearfix"  th:each="comment1 : ${comment.childrenComments}">
+                                            <div class="comment-show-con-img pull-left"><img style="border-radius: 50%" src="https://cn.gravatar.com/avatar/a094d86ee6a1d7e4235f092e0f53e801?s=80&r=G&d=" alt=""></div>
+                                            <div class="comment-show-con-list pull-left clearfix">
+                                                <div class="pl-text clearfix">
+                                                    <a href="#" class="comment-size-name"><span th:text="${comment1.author}"></span> @ <span th:text="${comment1.parentAuthorName}"></span> ：</a>
+                                                    <span class="my-pl-con">&nbsp;<span th:text="${comment1.content}"></span></span>
+                                                </div>
+                                                <div class="date-dz">
+                                                    <span class="date-dz-left pull-left comment-time"><span th:text="${comment.created}"></span></span>
+                                                    <div class="date-dz-right pull-right comment-pl-block">
+                                                        <a href="javascript:;" class="removeBlock">删除</a>
+                                                        <a href="javascript:;" class="date-dz-pl pl-hf hf-con-block pull-left">回复</a>
+                                                        <span class="pull-left date-dz-line">|</span>
+                                                        <a href="javascript:;" class="date-dz-z pull-left"><i class="date-dz-z-click-red"></i>赞 (<i class="z-num">666</i>)</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div th:if="null eq ${comments}" style="padding-bottom: 10px;border-bottom: 1px solid #ccc;">
+                        <label>暂无评论哦，快来发表评论吧！</label>
+                    </div>
+                    <!--回复区域 end-->
+
+                    <!--评论区域 begin-->
+
+                    <label style="padding-top: 20px">发表新评论</label>
+                    <div class="reviewArea">
+                        <input class="form-control" placeholder="请输入您的昵称*"/>
+                    </div>
+                    <div class="reviewArea" style="padding-top: 10px">
+                        <input class="form-control" placeholder="请输入您的网址(https/http)"/>
+                    </div>
+                    <div  class="reviewArea" style="padding-top: 10px;padding-bottom: 10px">
+                        <input class="form-control"  placeholder="请输入您的邮箱"/>
+                    </div>
+                    <div class="reviewArea clearfix">
+                        <textarea class="content comment-input" placeholder="Please enter a comment&hellip;" onkeyup="keyUP(this)"></textarea>
+                        <span style="padding-left: 82%;font-size: 40px;margin-top: -16px;color:#5BC0DE;cursor: pointer;" class="face-icon"  >☺</span>
+                        <a href="javascript:;" style="margin-top: 12px;" class="plBtn">评论</a>
+                    </div>
+
+                    <!--评论区域 end-->
+                </div>
             </div>
 
         </div>

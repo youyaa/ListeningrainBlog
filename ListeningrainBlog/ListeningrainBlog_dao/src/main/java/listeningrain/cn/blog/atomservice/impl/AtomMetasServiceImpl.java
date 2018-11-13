@@ -28,6 +28,7 @@ public class AtomMetasServiceImpl implements AtomMetasService {
         if("LINK".equals(metas.getType())){
             metasExample.setOrderByClause("sort ASC");
         }
+        metasExample.setOrderByClause("created DESC");
         metasExample.createCriteria().andTypeEqualTo(metas.getType());
         List<Metas> metasLINK = metasMapper.selectByExample(metasExample);
         return metasLINK;
@@ -63,5 +64,13 @@ public class AtomMetasServiceImpl implements AtomMetasService {
     public int deleteMetaById(Integer mid) {
         int i = metasMapper.deleteByPrimaryKey(mid);
         return i;
+    }
+
+    @Override
+    public long getCountByType(String type){
+        MetasExample metasExample = new MetasExample();
+        metasExample.createCriteria().andTypeEqualTo(type);
+        long count = metasMapper.countByExample(metasExample);
+        return  count;
     }
 }

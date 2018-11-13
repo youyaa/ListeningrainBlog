@@ -4,11 +4,13 @@ import listeningrain.cn.blog.input.data.ContentsInputData;
 import listeningrain.cn.blog.input.data.MetasInputData;
 import listeningrain.cn.blog.input.dto.PageInputDTO;
 import listeningrain.cn.blog.input.dto.PojoInputDTO;
+import listeningrain.cn.blog.output.data.CommentsOutputData;
 import listeningrain.cn.blog.output.data.ContentsOutputData;
 import listeningrain.cn.blog.output.data.MetasOutputData;
 import listeningrain.cn.blog.output.data.UserShowInformationOutputData;
 import listeningrain.cn.blog.output.dto.PageOutputDTO;
 import listeningrain.cn.blog.output.dto.PojoOutputDTO;
+import listeningrain.cn.blog.service.api.CommentsService;
 import listeningrain.cn.blog.service.api.ContentsService;
 import listeningrain.cn.blog.service.api.MetasService;
 import listeningrain.cn.blog.service.api.UserShowInformationService;
@@ -78,6 +80,7 @@ public class IndexController {
         link(modelMap);
         latestArticle(modelMap);
         userShowInformation(modelMap);
+        getMotto(modelMap);
         return "index";
     }
 
@@ -109,6 +112,42 @@ public class IndexController {
         }
     }
 
+    //获取数据库的名言并缓存起来
+    public void getMotto(ModelMap modelMap){
+        MetasOutputData motto = CacheUtils.getMotto();
+        if(null == motto){
+            getMottosFromDB();
+            modelMap.put("motto",CacheUtils.getMotto());
+        }else{
+            modelMap.put("motto",motto);
+            long mottoCount = metasService.getCountByType("MOTTO");
+            if(mottoCount != CacheUtils.getMottoSize()){
+                CacheUtils.removeAllMotto();
+                CacheUtils.times = null;
+                getMottosFromDB();
+            }
+        }
+    }
+
+    private void getMottosFromDB(){
+        PageInputDTO<MetasInputData> pageInputDTO = new PageInputDTO<>();
+        MetasInputData metasInputData = new MetasInputData();
+        metasInputData.setType("MOTTO");
+        pageInputDTO.setData(metasInputData);
+        pageInputDTO.setPageSize(20);
+        PageOutputDTO<MetasOutputData> mottos = metasService.getMetasByType(pageInputDTO);
+        int i = 1;
+        if(null != mottos && 0 <mottos.getData().size()){
+            for(MetasOutputData metasOutputData : mottos.getData()){
+                CacheUtils.putMotto(i,metasOutputData);
+                i++;
+            }
+        }
+    }
+
+    @Autowired
+    private CommentsService commentsService;
+
     //文章详情
     @RequestMapping(path = "/index/post/{cid}",method = RequestMethod.GET)
     public String post(@PathVariable Integer cid, ModelMap modelMap ){
@@ -121,9 +160,15 @@ public class IndexController {
         String content = ThemeUtils.articleTransfer(data.getContent());
         data.setContent(content);
         modelMap.put("content",contentsById);
+
+        //查询文章对应的评论信息
+        PageOutputDTO<CommentsOutputData> commentsByCid = commentsService.getCommentsByCid(cid);
+        modelMap.put("comments",commentsByCid);
+
         link(modelMap);
         latestArticle(modelMap);
         userShowInformation(modelMap);
+        getMotto(modelMap);
         return "post";
     }
 
@@ -183,6 +228,7 @@ public class IndexController {
         link(modelMap);
         latestArticle(modelMap);
         userShowInformation(modelMap);
+        getMotto(modelMap);
         return "archive";
     }
 
@@ -205,6 +251,7 @@ public class IndexController {
         link(modelMap);
         latestArticle(modelMap);
         userShowInformation(modelMap);
+        getMotto(modelMap);
         return "about";
     }
 

@@ -131,4 +131,9 @@ public class MetasServiceImpl implements MetasService {
         }
         return new PojoOutputDTO();
     }
+
+    @Override
+    public long getCountByType(String type) {
+        return atomMetasService.getCountByType(type);
+    }
 }

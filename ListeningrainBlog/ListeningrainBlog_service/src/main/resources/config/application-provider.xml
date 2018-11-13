@@ -25,5 +25,6 @@
     <dubbo:service interface="listeningrain.cn.blog.service.api.MetasService" ref="metasService"/>
     <dubbo:service interface="listeningrain.cn.blog.service.api.UsersService" ref="usersService"/>
     <dubbo:service interface="listeningrain.cn.blog.service.api.UserShowInformationService" ref="userShowInformationService"/>
+    <dubbo:service interface="listeningrain.cn.blog.service.api.CommentsService" ref="commentsService"/>
     <dubbo:provider timeout="180000" />
 </beans>

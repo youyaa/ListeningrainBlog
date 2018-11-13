@@ -38,4 +38,6 @@ public interface AtomMetasService {
      * 新增
      */
     int addMeta(Metas metas);
+
+    long getCountByType(String type);
 }

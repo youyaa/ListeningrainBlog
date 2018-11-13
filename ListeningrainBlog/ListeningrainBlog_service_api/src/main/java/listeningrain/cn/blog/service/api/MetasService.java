@@ -30,4 +30,6 @@ public interface MetasService {
     PojoOutputDTO deleteMetasById(PojoInputDTO<MetasInputData> pojoInputDTO);
 
     PojoOutputDTO addMetas(PojoInputDTO<MetasInputData> pojoInputDTO);
+
+    long getCountByType(String type);
 }
