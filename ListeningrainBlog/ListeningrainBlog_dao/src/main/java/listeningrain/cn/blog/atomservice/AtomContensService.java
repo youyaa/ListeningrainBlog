@@ -37,4 +37,9 @@ public interface AtomContensService {
      * 修改文章
      */
     Integer updateContent(Contents contents);
+
+    /**
+     * 文章评论数+1
+     */
+    Integer updateCommentCountById(Integer cid);
 }

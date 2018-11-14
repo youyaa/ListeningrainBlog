@@ -51,25 +51,32 @@ $(function() {
 					icon : data[i].icon
 				});
 				uSinaEmotionsHt.put(data[i].phrase, data[i].icon);
+				console.log("-----缓存值-----")
 			}
 		}
 	});
 });
 
+
+
 //替换
 function AnalyticEmotion(s) {
-	if(typeof (s) != "undefined") {
-		var sArr = s.match(/\[.*?\]/g);
-		if(null!=sArr && '' != sArr){
-			for(var i = 0; i < sArr.length; i++){
-				if(uSinaEmotionsHt.containsKey(sArr[i])) {
-					var reStr = "<img src=\"" + uSinaEmotionsHt.get(sArr[i]) + "\" height=\"22\" width=\"22\" />";
-					s = s.replace(sArr[i], reStr);
-				}
-			}
+	console.log("----替换之前"+s);
+    if(typeof (s) != "undefined") {
+        var sArr = s.match(/\[.*?\]/g);
+        console.log(sArr);
+        if(null != sArr){
+            for(var i = 0; i < sArr.length; i++){
+                if(uSinaEmotionsHt.containsKey(sArr[i])) {
+                	console.log("-----包含key-----")
+                    var reStr = "<img src=\"" + uSinaEmotionsHt.get(sArr[i]) + "\" height=\"22\" width=\"22\" />";
+                    s = s.replace(sArr[i], reStr);
+                }
+            }
 		}
-		
-	}
+
+    }
+	console.log("调用js替换后----"+s);
 	return s;
 }
 
@@ -81,6 +88,7 @@ function AnalyticEmotion(s) {
 			event.stopPropagation();
 			var eTop = target.offset().top + target.height() + 15;
 			var eLeft = target.offset().left - 1;
+			console.log("etop="+eTop+" eLeft="+eLeft);
 			
 			if($('#emotions .categorys')[0]){
 				$('#emotions').css({top: eTop, left: eLeft});
@@ -93,7 +101,7 @@ function AnalyticEmotion(s) {
 			$('#emotions').click(function(event){
 				event.stopPropagation();
 			});
-			$('#emotions').html('<div style="float:right;"><a href="javascript:void(0);" id="prev">&laquo;</a><a href="javascript:void(0);" id="next">&raquo;</a></div><div class="categorys"></div><div class="container"></div>');
+			$('#emotions').html('<div style="float:right;"><a href="javascript:void(0);" id="prev">&laquo;</a><a href="javascript:void(0);" id="next">&raquo;</a></div><div class="categorys"></div><div class="face_container"></div>');
 			$('#emotions #prev').click(function(){
 				showCategorys(cat_page - 1);
 			});
@@ -150,12 +158,12 @@ function AnalyticEmotion(s) {
 		function showEmotions(){
 			var category = arguments[0]?arguments[0]:'默认';
 			var page = arguments[1]?arguments[1] - 1:0;
-			$('#emotions .container').html('');
+			$('#emotions .face_container').html('');
 			cat_current = category;
 			for(var i = 0;  i < emotions[category].length; ++i){
-				$('#emotions .container').append($('<a href="javascript:void(0);" title="' + emotions[category][i].name + '"><img src="' + emotions[category][i].icon + '" alt="' + emotions[category][i].name + '" width="22" height="22" /></a>'));
+				$('#emotions .face_container').append($('<a href="javascript:void(0);" title="' + emotions[category][i].name + '"><img src="' + emotions[category][i].icon + '" alt="' + emotions[category][i].name + '" width="22" height="22" /></a>'));
 			}
-			$('#emotions .container a').click(function(){
+			$('#emotions .face_container a').click(function(){
 				target.insertText($(this).attr('title'));
 				$('#emotions').remove();
 			});
@@ -168,4 +176,9 @@ function AnalyticEmotion(s) {
 			});
 		}
 	}
+
+    $.fn.chushihua  = function chushihua() {
+		console.log("----初始化----");
+		Hashtable();
+    }
 })(jQuery);

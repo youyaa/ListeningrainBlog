@@ -63,4 +63,10 @@ public class AtomContentsServiceImpl implements AtomContensService {
         int i = contentsMapper.updateByPrimaryKeySelective(contents);
         return i;
     }
+
+    @Override
+    public Integer updateCommentCountById(Integer cid) {
+        int i = contentsMapper.updateCommentNumById(cid);
+        return i;
+    }
 }

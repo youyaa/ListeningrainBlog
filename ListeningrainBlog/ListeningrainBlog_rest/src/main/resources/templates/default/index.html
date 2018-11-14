@@ -8,6 +8,9 @@
     <link rel='stylesheet'  href='/placid/framework/Font-Awesome/css/font-awesome.min.css' type='text/css' />
     <link rel='stylesheet'  href='/placid/framework/bootstrap/css/bootstrap.css' type='text/css'/>
     <link rel='stylesheet'  href='/placid/css/style.css' type='text/css'/>
+    <link rel='stylesheet'  href='/css/code.css' type='text/css'/>
+
+
     <script src="/admin_/script/jquery-3.3.1.js" type="text/javascript"></script>
     <script type='text/javascript' src='/placid/framework/bootstrap/js/bootstrap.js'></script>
     <script type="text/javascript" src="/js/search.js"></script>
@@ -45,11 +48,11 @@
                         </header>
                     </article>
 
-                    <div style="text-align: right;margin-top: -30px">
-                        <label  th:each="pagebar : ${contents.pageBar}">
+                    <div style="text-align: right;margin-top: -30px;">
+                        <label  th:each="pagebar : ${contents.pageBar}" style="margin-left: -20px">
 
                             <label th:if="${pagebar} eq ${contents.pageNum}" style="margin-left: 3px;">
-                                <ul class="pagination">
+                                <ul class="pagination" >
                                     <li class="active">
                                         <a th:href="@{'/index/page/'+${pagebar}}">
                                             <label th:text="${pagebar}"/>
@@ -59,7 +62,7 @@
                             </label>
 
                             <label th:if="${pagebar} ne ${contents.pageNum}" style="margin-left: 3px;">
-                                <ul class="pagination">
+                                <ul class="pagination" >
                                     <li >
                                         <a th:href="@{'/index/page/'+${pagebar}}">
                                             <label th:text="${pagebar}"/>
@@ -68,7 +71,7 @@
                                 </ul>
                             </label>
                         </label>
-                        <ul class="pagination">
+                        <ul class="pagination" style="margin-left: -20px">
                             <li >
                                 <a href="#">
                                     <label>共</label><label th:text="${contents.totalPageNum}"/><label>页</label>

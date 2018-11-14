@@ -1,6 +1,7 @@
 package listeningrain.cn.blog.service;
 
 import listeningrain.cn.blog.atomservice.AtomCommentsService;
+import listeningrain.cn.blog.atomservice.AtomContensService;
 import listeningrain.cn.blog.constant.ReturnErrCodeEnum;
 import listeningrain.cn.blog.entity.Comments;
 import listeningrain.cn.blog.exception.BlogServiceException;
@@ -82,6 +83,9 @@ public class CommentsServiceImpl implements CommentsService {
         return pageOutputDTO;
     }
 
+    @Autowired
+    private AtomContensService atomContensService;
+
     @Override
     public PojoOutputDTO addComment(PojoInputDTO<CommentsInputData> pojoInputDTO) {
         Comments comments = new Comments();
@@ -92,6 +96,12 @@ public class CommentsServiceImpl implements CommentsService {
         if(i<0){
             throw new BlogServiceException(ReturnErrCodeEnum.SQL_EXCEPTION_INSERT);
         }
+
+        //异步更新文章的评论数
+        new Thread(()->{
+            atomContensService.updateCommentCountById(comments.getCid());
+        }).start();
+
         return new PojoOutputDTO();
     }
 }

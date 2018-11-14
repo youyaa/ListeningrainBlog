@@ -52,14 +52,14 @@
 	border-bottom: 2px solid #99cc66;
 	background: #F0F0F0;
 }
-#emotions .container{
+#emotions .face_container{
 	padding:1px;
 	overflow: hidden;
 	min-height:auto;
 	overflow-y:auto;
 	max-height:180px;
 }
-#emotions .container a{
+#emotions .face_container a{
 	float:left;
 	width:26px;
 	height:22px;
@@ -68,7 +68,7 @@
 	margin: -1px 0 0 -1px;
 	border: 1px solid #e8e8e8;
 }
-#emotions .container a:hover{
+#emotions .face_container a:hover{
 	z-index:2;
 	position:relative;
 	border:1px solid #0095cd;

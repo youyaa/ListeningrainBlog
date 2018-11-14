@@ -34,6 +34,13 @@
     -->
     <result column="content" jdbcType="LONGVARCHAR" property="content" />
   </resultMap>
+
+  <!--更新文章的评论数量-->
+  <update id="updateCommentNumById" parameterType="java.lang.Integer">
+     update contents set comments_num = comments_num +1 where cid = #{cid}
+  </update>
+
+
   <sql id="Example_Where_Clause">
     <!--
       WARNING - @mbg.generated

@@ -1,9 +1,11 @@
 package listeningrain.cn.blog.controller;
 
+import listeningrain.cn.blog.input.data.CommentsInputData;
 import listeningrain.cn.blog.input.data.ContentsInputData;
 import listeningrain.cn.blog.input.data.MetasInputData;
 import listeningrain.cn.blog.input.dto.PageInputDTO;
 import listeningrain.cn.blog.input.dto.PojoInputDTO;
+import listeningrain.cn.blog.output.ReturnMessage;
 import listeningrain.cn.blog.output.data.CommentsOutputData;
 import listeningrain.cn.blog.output.data.ContentsOutputData;
 import listeningrain.cn.blog.output.data.MetasOutputData;
@@ -19,9 +21,7 @@ import listeningrain.cn.blog.utils.ThemeUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -170,6 +170,18 @@ public class IndexController {
         userShowInformation(modelMap);
         getMotto(modelMap);
         return "post";
+    }
+
+    //新增一条评论
+    @RequestMapping(path = "/index/comment", method = RequestMethod.POST)
+    @ResponseBody
+    public ReturnMessage<String> addComment(@RequestBody PojoInputDTO<CommentsInputData> pojoInputDTO){
+        PojoOutputDTO pojoOutputDTO = commentsService.addComment(pojoInputDTO);
+        if("SOA0000".equals(pojoOutputDTO.getCode())){
+            return new ReturnMessage<>(0,"success");
+        }else{
+            return new ReturnMessage<>(1,"failure");
+        }
     }
 
     //友链

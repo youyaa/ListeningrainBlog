@@ -15,6 +15,13 @@
     <script type='text/javascript' src='/placid/framework/bootstrap/js/bootstrap.js'></script>
     <script type="text/javascript" src="/js/search.js"></script>
     <script type="text/javascript" src="/js/jquery.flexText.js"></script>
+
+
+    <link href="/css/sinaFaceAndEffec.css" rel="stylesheet">
+
+    <link href="/xcConfirm/css/xcConfirm.css" rel="stylesheet">
+    <script src="/xcConfirm/js/xcConfirm.js"></script>
+
 </head>
 
 <body class="home blog logged-in admin-bar no-customize-support hfeed at-sticky-sidebar right-sidebar" style="margin-top: 0">
@@ -34,11 +41,13 @@
 
                     <article id="post-6" class="post-8 post type-post status-publish format-standard hentry category-uncategorized">
 
+                        <input id="cidd" type="hidden" th:value="${content.data.cid}">
+
                         <header class="entry-header" style="margin-top: -20px">
                             <h2 class="entry-title"><a rel="bookmark"><label th:text="${content.data.title}"></label></a></h2>
                             <div class="entry-meta">
                                 <span class="poston">Posted on <a rel="bookmark"><time class="entry-date published updated"><label th:text="${content.data.created}"></label></time></a></span>
-                                <span class="poston">By <a rel="bookmark"><time class="entry-date published updated">静心听雨</time></a></span>
+                                <span class="poston">By <a rel="bookmark"><time class="entry-date published updated"><span th:text="${userShow.nickName}"></span></time></a></span>
                                 <span class="poston">&nbsp;&nbsp;浏览量: <a rel="bookmark"><time class="entry-date published updated"><label th:text="${content.data.hits}"></label></time></a></span><span class="post-by"> 评论数: <span class="author vcard"><a class="url fn n"><label th:text="${content.data.commentsNum}"></label></a></span></span>
                             </div><!-- .entry-meta -->
 
@@ -53,18 +62,17 @@
                     <!--回复区域 begin-->
                     <div th:if="null ne ${comments}">
                         <label>已有<span th:text="${content.data.commentsNum}"></span>条评论</label>
-                        <div class="comment-show" style="border-bottom: 1px solid #ccc;">
+                        <div class="comment-show" style="margin:0;border-bottom: 1px solid #ccc">
                             <div class="comment-show-con clearfix"  th:each="comment : ${comments.data}">
                                 <div class="comment-show-con-img pull-left"><img style="width: 40px;border-radius: 50%" src="https://cn.gravatar.com/avatar/a094d86ee6a1d7e4235f092e0f53e801?s=80&r=G&d=" alt=""></div>
                                 <div class="comment-show-con-list pull-left clearfix">
                                     <div class="pl-text clearfix">
-                                        <a href="#" class="comment-size-name"><span th:text="${comment.author}"></span> : </a>
-                                        <span class="my-pl-con">&nbsp;<span th:text="${comment.content}"></span></span>
+                                        <a href="#" class="comment-size-name" th:value="${comment.coid}" th:text="${comment.author} + '：'">  </a>
+                                        <span class="my-pl-con">&nbsp;<span th:utext="${comment.content}"></span></span>
                                     </div>
                                     <div class="date-dz">
                                         <span class="date-dz-left pull-left comment-time"><span th:text="${comment.created}"></span></span>
                                         <div class="date-dz-right pull-right comment-pl-block">
-                                            <a href="javascript:;" class="removeBlock">删除</a>
                                             <a href="javascript:;" class="date-dz-pl pl-hf hf-con-block pull-left">回复</a>
                                             <span class="pull-left date-dz-line">|</span>
                                             <a href="javascript:;" class="date-dz-z pull-left"><i class="date-dz-z-click-red"></i>赞 (<i class="z-num">666</i>)</a>
@@ -76,13 +84,12 @@
                                             <div class="comment-show-con-img pull-left"><img style="border-radius: 50%;width: 40px;" src="https://cn.gravatar.com/avatar/a094d86ee6a1d7e4235f092e0f53e801?s=80&r=G&d=" alt=""></div>
                                             <div class="comment-show-con-list pull-left clearfix">
                                                 <div class="pl-text clearfix">
-                                                    <a href="#" class="comment-size-name"><span th:text="${comment1.author}"></span> @ <span th:text="${comment1.parentAuthorName}"></span> ：</a>
-                                                    <span class="my-pl-con">&nbsp;<span th:text="${comment1.content}"></span></span>
+                                                    <a href="#" class="comment-size-name" th:value="${comment1.coid}" th:text="${comment1.author} +'：'"> @ <span class="my-pl-con" th:text="${comment1.parentAuthorName}"></span> ：</a>
+                                                    <span class="my-pl-con">&nbsp;<span th:utext="${comment1.content}"></span></span>
                                                 </div>
                                                 <div class="date-dz">
                                                     <span class="date-dz-left pull-left comment-time"><span th:text="${comment.created}"></span></span>
                                                     <div class="date-dz-right pull-right comment-pl-block">
-                                                        <a href="javascript:;" class="removeBlock">删除</a>
                                                         <a href="javascript:;" class="date-dz-pl pl-hf hf-con-block pull-left">回复</a>
                                                         <span class="pull-left date-dz-line">|</span>
                                                         <a href="javascript:;" class="date-dz-z pull-left"><i class="date-dz-z-click-red"></i>赞 (<i class="z-num">666</i>)</a>
@@ -97,27 +104,29 @@
                         </div>
                     </div>
 
-                    <div th:if="null eq ${comments}" style="padding-bottom: 10px;border-bottom: 1px solid #ccc;">
-                        <label>暂无评论哦，快来发表评论吧！</label>
-                    </div>
+                        <label id="noComment" th:if="null eq ${comments}" style="width: 100%;padding-bottom: 10px;border-bottom: 1px solid #ccc">暂无评论哦，快来发表评论吧！</label>
+
                     <!--回复区域 end-->
 
                     <!--评论区域 begin-->
 
                     <label style="padding-top: 20px">发表新评论</label>
                     <div class="reviewArea">
-                        <input class="form-control" placeholder="请输入您的昵称*"/>
+                        <input id="nickName" class="form-control" placeholder="请输入您的昵称*"/>
                     </div>
                     <div class="reviewArea" style="padding-top: 10px">
-                        <input class="form-control" placeholder="请输入您的网址(https/http)"/>
+                        <input id="url" class="form-control" placeholder="请输入您的网址(https/http)"/>
                     </div>
                     <div  class="reviewArea" style="padding-top: 10px;padding-bottom: 10px">
-                        <input class="form-control"  placeholder="请输入您的邮箱"/>
+                        <input id="email" class="form-control"  placeholder="请输入您的邮箱"/>
                     </div>
-                    <div class="reviewArea clearfix">
+                    <div class="reviewArea clearfix" style="padding-bottom: 100px">
                         <textarea class="content comment-input" placeholder="Please enter a comment&hellip;" onkeyup="keyUP(this)"></textarea>
-                        <span style="padding-left: 82%;font-size: 40px;margin-top: -16px;color:#5BC0DE;cursor: pointer;" class="face-icon"  >☺</span>
-                        <a href="javascript:;" style="margin-top: 12px;" class="plBtn">评论</a>
+
+                        <div style="text-align: right">
+                            <span style="font-size: 40px;margin-top: -16px;color:#5BC0DE;cursor: pointer;" class="face-icon"  >☺</span>
+                            <a href="javascript:;" style="margin-top: 12px;margin-left: 20px" class="plBtn">评论</a>
+                        </div>
                     </div>
 
                     <!--评论区域 end-->
@@ -129,6 +138,160 @@
     </div>
 </div>
 
+<script type="text/javascript" src="/js/sinaFaceAndEffec.js"></script>
+<!--textarea高度自适应-->
+<script type="text/javascript">
+    $(function (){
+        $('.content').flexText();
+        // 绑定表情
+        $('.face-icon').SinaEmotion($('.comment-input'));
+    });
+
+</script>
+<!--textarea限制字数-->
+<script type="text/javascript">
+    function keyUP(t){
+        var len = $(t).val().length;
+        if(len > 139){
+            $(t).val($(t).val().substring(0,140));
+        }
+    }
+</script>
+
+<!--向后台提交评论信息-->
+<script type="text/javascript">
+    function addComment(content,topLevelId,parent) {
+        console.log("----content----"+content);
+
+        var jsonData = GetJsonData(content,topLevelId,parent);
+
+        $.ajax({
+            type:'post',
+            url:'/index/comment',
+            data:JSON.stringify(jsonData),
+            cache:false,
+            dataType:'json',
+            contentType:"application/json",
+            success:function(data){
+                var txt=  "评论成功";
+                window.wxc.xcConfirm(txt, window.wxc.xcConfirm.typeEnum.success);
+                setTimeout(function () {
+                    window.location.href = '/index/post/'+$("#cidd").val();
+                }, 1000);
+            },
+            error:function(data){
+                var txt=  "评论失败";
+                window.wxc.xcConfirm(txt, window.wxc.xcConfirm.typeEnum.error);
+                return false;
+            }
+        })
+
+        return true;
+    }
+
+    function GetJsonData(content,topLevelId,parent) {
+        var pojoInputDTO = {
+            data:{
+                "cid":$("#cidd").val(),
+                "topLevelId": topLevelId,
+                "parent": parent,
+                "author": $("#nickName").val(),
+                "url": $("#url").val(),
+                "mail":$("#email").val(),
+                "content": content,
+            }
+        };
+        return pojoInputDTO;
+    }
+</script>
+
+
+<!--点击评论创建评论条-->
+<script type="text/javascript">
+    $('.commentAll').on('click','.plBtn',function(){
+
+        if("" == $("#nickName").val()){
+            var txt=  "请先填写昵称哦";
+            window.wxc.xcConfirm(txt, window.wxc.xcConfirm.typeEnum.warning);
+            return;
+        }
+
+        //获取输入内容
+        var oSize = $(this).siblings('.flex-text-wrap').find('.comment-input').val();
+
+        //向后台提交评论信息
+        var b = addComment(AnalyticEmotion(oSize),-1,0);
+    });
+</script>
+<!--点击回复动态创建回复块-->
+<script type="text/javascript">
+    $('.comment-show').on('click','.pl-hf',function(){
+        //获取回复人的名字
+        var fhName = $(this).parents('.date-dz-right').parents('.date-dz').siblings('.pl-text').find('.comment-size-name').html();
+        //回复@
+        var fhN = '@'+fhName;
+        //var oInput = $(this).parents('.date-dz-right').parents('.date-dz').siblings('.hf-con');
+        var fhHtml = '<div class="hf-con pull-left"> <textarea class="content comment-input hf-input" placeholder="" onkeyup="keyUP(this)"></textarea> <a href="javascript:;" class="hf-pl">评论</a></div>';
+        //显示回复
+        if($(this).is('.hf-con-block')){
+            $(this).parents('.date-dz-right').parents('.date-dz').append(fhHtml);
+            $(this).removeClass('hf-con-block');
+            $('.content').flexText();
+            $(this).parents('.date-dz-right').siblings('.hf-con').find('.pre').css('padding','6px 15px');
+            //console.log($(this).parents('.date-dz-right').siblings('.hf-con').find('.pre'))
+            //input框自动聚焦
+            $(this).parents('.date-dz-right').siblings('.hf-con').find('.hf-input').val('').focus().val(fhN);
+        }else {
+            $(this).addClass('hf-con-block');
+            $(this).parents('.date-dz-right').siblings('.hf-con').remove();
+        }
+    });
+</script>
+
+<!--评论回复块创建-->
+<script type="text/javascript">
+    $('.comment-show').on('click','.hf-pl',function(){
+
+        if("" == $("#nickName").val()){
+            var txt=  "请先填写昵称哦";
+            window.wxc.xcConfirm(txt, window.wxc.xcConfirm.typeEnum.warning);
+            return;
+        }
+
+        //获取输入内容
+        var oHfVal = $(this).siblings('.flex-text-wrap').find('.hf-input').val();
+        console.log(oHfVal)
+
+        //获取父评论的id
+        var parentId = $(this).parents('.hf-con').parents('.date-dz').siblings('.pl-text').find('.comment-size-name').attr('value');
+        console.log("获取父评论的id"+parentId);
+
+        //获取一级评论的id
+        var topLevelId = $(this).parents('.comment-show-con-list').find('.comment-size-name').attr('value');
+        console.log("获取一级评论的id"+topLevelId);
+
+        //向后台提交评论信息
+        addComment(AnalyticEmotion(oHfVal),topLevelId,parentId);
+    });
+</script>
+
+<!--点赞-->
+<script type="text/javascript">
+    $('.comment-show').on('click','.date-dz-z',function(){
+        var zNum = $(this).find('.z-num').html();
+        if($(this).is('.date-dz-z-click')){
+            zNum--;
+            $(this).removeClass('date-dz-z-click red');
+            $(this).find('.z-num').html(zNum);
+            $(this).find('.date-dz-z-click-red').removeClass('red');
+        }else {
+            zNum++;
+            $(this).addClass('date-dz-z-click');
+            $(this).find('.z-num').html(zNum);
+            $(this).find('.date-dz-z-click-red').addClass('red');
+        }
+    })
+</script>
 
 
 </body>
