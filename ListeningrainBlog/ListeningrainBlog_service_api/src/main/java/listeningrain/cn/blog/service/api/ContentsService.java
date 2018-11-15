@@ -3,6 +3,7 @@ package listeningrain.cn.blog.service.api;
 import listeningrain.cn.blog.input.data.ContentsInputData;
 import listeningrain.cn.blog.input.dto.PageInputDTO;
 import listeningrain.cn.blog.input.dto.PojoInputDTO;
+import listeningrain.cn.blog.output.data.AdminIndexOutputData;
 import listeningrain.cn.blog.output.data.ContentsOutputData;
 import listeningrain.cn.blog.output.dto.PageOutputDTO;
 import listeningrain.cn.blog.output.dto.PojoOutputDTO;
@@ -29,4 +30,7 @@ public interface ContentsService {
 
     //修改文章
     PojoOutputDTO updateContent(PojoInputDTO<ContentsInputData> pojoInputDTO);
+
+    //获取后台管理首页需要的文章聚合数据
+    AdminIndexOutputData getAdminIndexContentsCount();
 }

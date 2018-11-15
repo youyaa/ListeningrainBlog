@@ -1,0 +1,170 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+
+    <link href="/css/sinaFaceAndEffec.css" rel="stylesheet">
+    <script type="text/javascript" src="/js/sinaFaceAndEffec.js"></script>
+
+</head>
+
+<body>
+
+<div th:replace="admin/common/head :: head"/>
+
+<div class="down-main">
+
+    <div th:replace="admin/common/left :: left"/>
+
+  <div class="right-product my-index right-full">
+     <div class="container-fluid">
+	   <div class="info-center">
+
+             <div class="row panel panel-primary" style="margin-top: 10px;margin-left: 6px;margin-right: 6px;">
+                     <div class="panel-heading"><h3 class="panel-title">评论管理</h3></div>
+
+                    <div class="col-md-12" style="padding-top: 10px">
+
+                        <div th:if="null ne ${comments}">
+                                    <table class="table table-striped table-bordered">
+                                        <thead>
+                                        <tr>
+                                            <th>评论内容</th>
+                                            <th>评论人</th>
+                                            <th>评论时间</th>
+                                            <th>评论人网站</th>
+                                            <th>评论人邮箱</th>
+                                            <th>处理状态</th>
+                                            <th>操作</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+
+                                        <div th:each="comment : ${comments.data}">
+                                            <tr mid="8">
+                                                <td><label th:utext="${comment.content}"/></td>
+                                                <td><label th:text="${comment.author}"/></td>
+                                                <td><label th:text="${comment.created}"/></td>
+                                                <td><label th:text="${comment.url}"/></td>
+                                                <td><label th:text="${comment.mail}"/></td>
+                                                <div th:if=" approved eq ${comment.status}">
+                                                    <td><label class="label label-success" th:text="审核通过"/></td>
+                                                </div>
+                                                <div th:if=" approved ne ${comment.status}">
+                                                    <td><label class="label label-info" th:text="审核中"/></td>
+                                                </div>
+                                                <td>
+                                                    <a href="javascript:void(0)"
+                                                       th:onclick="'javascript:response('+${comment.coid}+')'"
+                                                       class="btn btn-primary btn-sm waves-effect waves-light m-b-5"><i
+                                                            class="fa fa-edit"></i>
+                                                        <span>回复</span>
+                                                    </a>
+                                                    <a href="javascript:void(0)"
+                                                       th:onclick="'javascript:delComment('+${comment.coid}+')'"
+                                                       class="btn btn-danger btn-sm waves-effect waves-light m-b-5"><i
+                                                            class="fa fa-trash-o"></i>
+                                                        <span>删除</span>
+                                                    </a>
+                                                </td>
+                                            </tr>
+
+                                        </div>
+
+                                        </tbody>
+                                    </table>
+                                    <div id="page" style="width: 100%;height: auto;text-align: right;margin-top: -20px">
+
+                       <label  th:each="pagebar : ${comments.pageBar}">
+
+                           <label th:if="${pagebar} eq ${comments.pageNum}" style="margin-left: 3px;">
+                               <ul class="pagination">
+                                   <li class="active">
+                                       <a th:href="@{'/admin/index/comments?pageNum='+${pagebar}}">
+                                           <label th:text="${pagebar}"/>
+                                       </a>
+                                   </li>
+                               </ul>
+                           </label>
+
+                           <label th:if="${pagebar} ne ${comments.pageNum}" style="margin-left: 3px;">
+                               <ul class="pagination">
+                                   <li >
+                                       <a th:href="@{'/admin/index/comments?pageNum='+${pagebar}}">
+                                           <label th:text="${pagebar}"/>
+                                       </a>
+                                   </li>
+                               </ul>
+                           </label>
+
+                       </label>
+                       <ul class="pagination">
+                           <li >
+                               <a href="#">
+                                   <label>共</label><label th:text="${comments.totalPageNum}"/><label>页</label>
+                               </a>
+                           </li>
+                       </ul>
+                   </div>
+                        </div>
+
+                        <div th:if="null eq ${comments}">
+                            <div style="padding-top: 20px;padding-bottom: 20px;">
+                                <span >暂无评论哦</span>
+                            </div>
+                        </div>
+                    </div>
+               </div>
+
+       </div>
+	 </div>
+  </div>
+</div>
+
+<link href="/xcConfirm/css/xcConfirm.css" rel="stylesheet">
+<script src="/xcConfirm/js/xcConfirm.js"></script>
+<script type="application/javascript">
+
+
+    function delCategory(mid) {
+        var txt=  "您确定要删除吗？";
+        window.wxc.xcConfirm(txt, window.wxc.xcConfirm.typeEnum.warning,{
+
+            /**
+             * 点击确定后的回调事件
+             */
+            onOk:function(){
+                del(mid);
+            }
+        });
+
+    }
+
+    function del(mid) {
+        var pojoInputDTO = {
+            data:{
+                "mid":mid
+            }
+        };
+        $.post({
+            "url":"/admin/index/deleteLink",
+            data:JSON.stringify(pojoInputDTO),
+            cache:false,
+            dataType:'json',
+            contentType:"application/json",
+            "success":function (data) {
+                var txt=  "骚年，删除成功！";
+                window.wxc.xcConfirm(txt, window.wxc.xcConfirm.typeEnum.success);
+                setTimeout(function () {
+                    window.location.href = '/admin/index/motto';
+                }, 1000);
+            },
+            "error":function (XMLHttpRequest, textStatus, errorThrown) {
+                var txt=  "啊哦，操作失败了，稍后再试吧！";
+                window.wxc.xcConfirm(txt, window.wxc.xcConfirm.typeEnum.error);
+            }
+        })
+    }
+</script>
+
+</body>
+</html>

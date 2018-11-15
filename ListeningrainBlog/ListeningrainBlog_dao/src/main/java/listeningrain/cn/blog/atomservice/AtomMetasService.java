@@ -1,6 +1,7 @@
 package listeningrain.cn.blog.atomservice;
 
 import listeningrain.cn.blog.entity.Metas;
+import listeningrain.cn.blog.output.data.AdminIndexOutputData;
 
 import java.util.List;
 
@@ -40,4 +41,6 @@ public interface AtomMetasService {
     int addMeta(Metas metas);
 
     long getCountByType(String type);
+
+    AdminIndexOutputData getAdminIndexLink();
 }

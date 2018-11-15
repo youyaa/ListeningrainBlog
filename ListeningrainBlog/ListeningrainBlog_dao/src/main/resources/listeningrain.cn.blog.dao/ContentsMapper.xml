@@ -40,6 +40,14 @@
      update contents set comments_num = comments_num +1 where cid = #{cid}
   </update>
 
+  <!--根据查询文章数量-->
+  <select id="selectContentCount"  resultType="java.lang.Integer">
+    select count(1) from contents
+  </select>
+
+  <select id="selectTodayContentCount" resultType="java.lang.Integer">
+    select count(1) from contents where date(created) = curdate()
+  </select>
 
   <sql id="Example_Where_Clause">
     <!--

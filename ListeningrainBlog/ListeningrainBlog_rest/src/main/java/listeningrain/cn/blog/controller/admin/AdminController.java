@@ -4,10 +4,13 @@ import listeningrain.cn.blog.input.data.ContentsInputData;
 import listeningrain.cn.blog.input.data.MetasInputData;
 import listeningrain.cn.blog.input.dto.PageInputDTO;
 import listeningrain.cn.blog.input.dto.PojoInputDTO;
+import listeningrain.cn.blog.output.data.AdminIndexOutputData;
+import listeningrain.cn.blog.output.data.CommentsOutputData;
 import listeningrain.cn.blog.output.data.ContentsOutputData;
 import listeningrain.cn.blog.output.data.MetasOutputData;
 import listeningrain.cn.blog.output.dto.PageOutputDTO;
 import listeningrain.cn.blog.output.dto.PojoOutputDTO;
+import listeningrain.cn.blog.service.api.CommentsService;
 import listeningrain.cn.blog.service.api.ContentsService;
 import listeningrain.cn.blog.service.api.MetasService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +33,8 @@ public class AdminController {
     private ContentsService contentsService;
     @Autowired
     private MetasService metasService;
+    @Autowired
+    private CommentsService commentsService;
 
     @RequestMapping()
     public String index(){
@@ -38,7 +43,16 @@ public class AdminController {
 
     //后台首页
     @RequestMapping(path = "/index", method = RequestMethod.GET)
-    public String admin(){
+    public String admin(ModelMap modelMap){
+
+        AdminIndexOutputData adminIndexContentsCount = contentsService.getAdminIndexContentsCount();
+        AdminIndexOutputData adminIndexComment = commentsService.getAdminIndexComment();
+        AdminIndexOutputData adminIndexLink = metasService.getAdminIndexLink();
+        modelMap.put("contentsCount",adminIndexContentsCount);
+        modelMap.put("commentsCount",adminIndexComment);
+        modelMap.put("linksCount",adminIndexLink);
+        getComments(modelMap,null);
+        motto(modelMap,null);
         return "admin/index";
     }
 
@@ -210,5 +224,19 @@ public class AdminController {
             pojoOutputDTO = metasService.addMetas(pojoInputDTO);
         }
         return pojoOutputDTO;
+    }
+
+    @RequestMapping(path = "/index/comments",method = RequestMethod.GET)
+    public String getComments(ModelMap modelMap,Integer pageNum){
+        PageInputDTO pageInputDTO = new PageInputDTO<>();
+        pageInputDTO.setPageSize(10);
+        if(null == pageNum){
+            pageNum = 1;
+        }
+        pageInputDTO.setPageNum(pageNum);
+
+        PageOutputDTO<CommentsOutputData> commentsByPage = commentsService.getCommentsByPage(pageInputDTO);
+        modelMap.addAttribute("comments",commentsByPage);
+        return "admin/comments";
     }
 }

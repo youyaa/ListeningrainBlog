@@ -1,7 +1,9 @@
 package listeningrain.cn.blog.service.api;
 
 import listeningrain.cn.blog.input.data.CommentsInputData;
+import listeningrain.cn.blog.input.dto.PageInputDTO;
 import listeningrain.cn.blog.input.dto.PojoInputDTO;
+import listeningrain.cn.blog.output.data.AdminIndexOutputData;
 import listeningrain.cn.blog.output.data.CommentsOutputData;
 import listeningrain.cn.blog.output.dto.PageOutputDTO;
 import listeningrain.cn.blog.output.dto.PojoOutputDTO;
@@ -16,4 +18,8 @@ public interface CommentsService {
     PageOutputDTO<CommentsOutputData> getCommentsByCid(Integer cid);
 
     PojoOutputDTO addComment(PojoInputDTO<CommentsInputData> pojoInputDTO);
+
+    PageOutputDTO<CommentsOutputData> getCommentsByPage(PageInputDTO pageInputDTO);
+
+    AdminIndexOutputData getAdminIndexComment();
 }

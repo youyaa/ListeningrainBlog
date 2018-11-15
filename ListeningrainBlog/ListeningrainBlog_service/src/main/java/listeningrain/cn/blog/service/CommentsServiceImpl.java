@@ -1,12 +1,16 @@
 package listeningrain.cn.blog.service;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import listeningrain.cn.blog.atomservice.AtomCommentsService;
 import listeningrain.cn.blog.atomservice.AtomContensService;
 import listeningrain.cn.blog.constant.ReturnErrCodeEnum;
 import listeningrain.cn.blog.entity.Comments;
 import listeningrain.cn.blog.exception.BlogServiceException;
 import listeningrain.cn.blog.input.data.CommentsInputData;
+import listeningrain.cn.blog.input.dto.PageInputDTO;
 import listeningrain.cn.blog.input.dto.PojoInputDTO;
+import listeningrain.cn.blog.output.data.AdminIndexOutputData;
 import listeningrain.cn.blog.output.data.CommentsOutputData;
 import listeningrain.cn.blog.output.dto.PageOutputDTO;
 import listeningrain.cn.blog.output.dto.PojoOutputDTO;
@@ -103,5 +107,53 @@ public class CommentsServiceImpl implements CommentsService {
         }).start();
 
         return new PojoOutputDTO();
+    }
+
+    @Override
+    public PageOutputDTO<CommentsOutputData> getCommentsByPage(PageInputDTO pageInputDTO) {
+        PageHelper.startPage(pageInputDTO.getPageNum(),pageInputDTO.getPageSize());
+        List<Comments> comments = atomCommentsService.getComments(new Comments());
+        PageOutputDTO<CommentsOutputData> pageOutputDTO = null;
+        List<CommentsOutputData> list = null;
+        PageInfo<Comments> of = PageInfo.of(comments);
+        if(null != comments && 0 < comments.size()){
+            pageOutputDTO = new PageOutputDTO<>();
+            list = new ArrayList<>();
+            for(Comments comments1 : comments){
+                CommentsOutputData commentsOutputData = new CommentsOutputData();
+                BeanUtils.copyProperties(comments1,commentsOutputData);
+                commentsOutputData.setCreated(ThemeUtils.formate(comments1.getCreated()));
+                list.add(commentsOutputData);
+            }
+            pageOutputDTO.setData(list);
+            //设置其他参数
+            pageOutputDTO.setPageNum(pageInputDTO.getPageNum());
+            pageOutputDTO.setPageSize(pageInputDTO.getPageSize());
+            pageOutputDTO.setTotal((int)of.getTotal());
+
+            //设置分页参数
+            Integer pageNum = null;
+            if(pageOutputDTO.getTotal() % pageOutputDTO.getPageSize() == 0){
+                pageNum = pageOutputDTO.getTotal() / pageOutputDTO.getPageSize();
+            }else{
+                pageNum = pageOutputDTO.getTotal() / pageOutputDTO.getPageSize() +1;
+            }
+
+            Integer[] pageBar = new Integer[pageNum];
+            for(int i =1;i<=pageNum;i++){
+                pageBar[i-1] = i;
+            }
+            pageOutputDTO.setPageBar(pageBar);
+            //设置总页数
+            pageOutputDTO.setTotalPageNum(pageBar.length);
+        }
+
+        return pageOutputDTO;
+    }
+
+    @Override
+    public AdminIndexOutputData getAdminIndexComment() {
+        AdminIndexOutputData adminIndexOutputData = atomCommentsService.selectAdminIndexComment();
+        return adminIndexOutputData;
     }
 }

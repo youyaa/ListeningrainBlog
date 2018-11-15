@@ -3,6 +3,7 @@ package listeningrain.cn.blog.service.api;
 import listeningrain.cn.blog.input.data.MetasInputData;
 import listeningrain.cn.blog.input.dto.PageInputDTO;
 import listeningrain.cn.blog.input.dto.PojoInputDTO;
+import listeningrain.cn.blog.output.data.AdminIndexOutputData;
 import listeningrain.cn.blog.output.data.MetasOutputData;
 import listeningrain.cn.blog.output.dto.PageOutputDTO;
 import listeningrain.cn.blog.output.dto.PojoOutputDTO;
@@ -32,4 +33,6 @@ public interface MetasService {
     PojoOutputDTO addMetas(PojoInputDTO<MetasInputData> pojoInputDTO);
 
     long getCountByType(String type);
+
+    AdminIndexOutputData getAdminIndexLink();
 }

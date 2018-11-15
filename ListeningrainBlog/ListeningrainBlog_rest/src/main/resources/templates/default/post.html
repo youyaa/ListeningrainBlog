@@ -18,6 +18,7 @@
 
 
     <link href="/css/sinaFaceAndEffec.css" rel="stylesheet">
+    <script type="text/javascript" src="/js/sinaFaceAndEffec.js"></script>
 
     <link href="/xcConfirm/css/xcConfirm.css" rel="stylesheet">
     <script src="/xcConfirm/js/xcConfirm.js"></script>
@@ -78,13 +79,13 @@
                                             <a href="javascript:;" class="date-dz-z pull-left"><i class="date-dz-z-click-red"></i>赞 (<i class="z-num">666</i>)</a>
                                         </div>
                                     </div>
-                                    <div th:if="null ne ${comment.childrenComments}" class="hf-list-con">
 
+                                    <div th:if="null ne ${comment.childrenComments}" class="hf-list-con">
                                         <div class="comment-show-con clearfix"  th:each="comment1 : ${comment.childrenComments}">
                                             <div class="comment-show-con-img pull-left"><img style="border-radius: 50%;width: 40px;" src="https://cn.gravatar.com/avatar/a094d86ee6a1d7e4235f092e0f53e801?s=80&r=G&d=" alt=""></div>
                                             <div class="comment-show-con-list pull-left clearfix">
                                                 <div class="pl-text clearfix">
-                                                    <a href="#" class="comment-size-name" th:value="${comment1.coid}" th:text="${comment1.author} +'：'"> @ <span class="my-pl-con" th:text="${comment1.parentAuthorName}"></span> ：</a>
+                                                    <a href="#" class="comment-size-name" th:value="${comment1.coid}" th:text="${comment1.author}"></a> @ <span class="my-pl-con" th:text="${comment1.parentAuthorName}"></span>:
                                                     <span class="my-pl-con">&nbsp;<span th:utext="${comment1.content}"></span></span>
                                                 </div>
                                                 <div class="date-dz">
@@ -104,7 +105,7 @@
                         </div>
                     </div>
 
-                        <label id="noComment" th:if="null eq ${comments}" style="width: 100%;padding-bottom: 10px;border-bottom: 1px solid #ccc">暂无评论哦，快来发表评论吧！</label>
+                    <label id="noComment" th:if="null eq ${comments}" style="width: 100%;padding-bottom: 10px;border-bottom: 1px solid #ccc">暂无评论哦，快来发表评论吧！</label>
 
                     <!--回复区域 end-->
 
@@ -121,9 +122,9 @@
                         <input id="email" class="form-control"  placeholder="请输入您的邮箱"/>
                     </div>
                     <div class="reviewArea clearfix" style="padding-bottom: 100px">
-                        <textarea class="content comment-input" placeholder="Please enter a comment&hellip;" onkeyup="keyUP(this)"></textarea>
+                        <textarea  class="content comment-input" placeholder="Please enter a comment&hellip;" onkeyup="keyUP(this)"></textarea>
 
-                        <div style="text-align: right">
+                        <div id="ccc" style="text-align: right">
                             <span style="font-size: 40px;margin-top: -16px;color:#5BC0DE;cursor: pointer;" class="face-icon"  >☺</span>
                             <a href="javascript:;" style="margin-top: 12px;margin-left: 20px" class="plBtn">评论</a>
                         </div>
@@ -138,7 +139,6 @@
     </div>
 </div>
 
-<script type="text/javascript" src="/js/sinaFaceAndEffec.js"></script>
 <!--textarea高度自适应-->
 <script type="text/javascript">
     $(function (){
@@ -173,14 +173,14 @@
             dataType:'json',
             contentType:"application/json",
             success:function(data){
-                var txt=  "评论成功";
+                var txt=  "骚年，评论成功";
                 window.wxc.xcConfirm(txt, window.wxc.xcConfirm.typeEnum.success);
                 setTimeout(function () {
                     window.location.href = '/index/post/'+$("#cidd").val();
                 }, 1000);
             },
             error:function(data){
-                var txt=  "评论失败";
+                var txt=  "啊哦，评论失败了，等会再试吧";
                 window.wxc.xcConfirm(txt, window.wxc.xcConfirm.typeEnum.error);
                 return false;
             }
@@ -217,10 +217,10 @@
         }
 
         //获取输入内容
-        var oSize = $(this).siblings('.flex-text-wrap').find('.comment-input').val();
+        var oSize = $(this).parents('#ccc').siblings('.flex-text-wrap').find('.comment-input').val();
 
         //向后台提交评论信息
-        var b = addComment(AnalyticEmotion(oSize),-1,0);
+        addComment(AnalyticEmotion(oSize),-1,0);
     });
 </script>
 <!--点击回复动态创建回复块-->
@@ -229,7 +229,7 @@
         //获取回复人的名字
         var fhName = $(this).parents('.date-dz-right').parents('.date-dz').siblings('.pl-text').find('.comment-size-name').html();
         //回复@
-        var fhN = '@'+fhName;
+        var fhN = '@'+fhName+"   ";
         //var oInput = $(this).parents('.date-dz-right').parents('.date-dz').siblings('.hf-con');
         var fhHtml = '<div class="hf-con pull-left"> <textarea class="content comment-input hf-input" placeholder="" onkeyup="keyUP(this)"></textarea> <a href="javascript:;" class="hf-pl">评论</a></div>';
         //显示回复
@@ -240,7 +240,7 @@
             $(this).parents('.date-dz-right').siblings('.hf-con').find('.pre').css('padding','6px 15px');
             //console.log($(this).parents('.date-dz-right').siblings('.hf-con').find('.pre'))
             //input框自动聚焦
-            $(this).parents('.date-dz-right').siblings('.hf-con').find('.hf-input').val('').focus().val(fhN);
+            $(this).parents('.date-dz-right').siblings('.hf-con').find('.hf-input').val('').focus().attr("placeholder",fhN);
         }else {
             $(this).addClass('hf-con-block');
             $(this).parents('.date-dz-right').siblings('.hf-con').remove();

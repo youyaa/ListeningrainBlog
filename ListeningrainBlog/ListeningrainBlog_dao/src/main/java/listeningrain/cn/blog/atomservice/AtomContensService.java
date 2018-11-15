@@ -1,6 +1,7 @@
 package listeningrain.cn.blog.atomservice;
 
 import listeningrain.cn.blog.entity.Contents;
+import listeningrain.cn.blog.output.data.AdminIndexOutputData;
 
 import java.util.List;
 
@@ -14,6 +15,7 @@ public interface AtomContensService {
 
     /**
      * 分页查询
+     *
      * @return
      */
     List<Contents> getContentsByPage(Contents contents);
@@ -42,4 +44,10 @@ public interface AtomContensService {
      * 文章评论数+1
      */
     Integer updateCommentCountById(Integer cid);
+
+    /**
+     * 后台管理首页需要的文章聚合数据
+     */
+    AdminIndexOutputData selectContentCount();
 }
+

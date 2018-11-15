@@ -59,8 +59,8 @@
                        <div class="w70 right-title pull-right">
                        <div class="title-content">
                            <p>总文章数</p>
-                           <h3 class="number">90</h3>
-                           <button class="btn btn-default">今日发表<span style="color:red;">12</span></button>
+                           <h3 class="number" th:text="${contentsCount.totalCount}"></h3>
+                           <button class="btn btn-default">今日发表<span style="color:red;" th:text="${contentsCount.todayCount}"></span></button>
                        </div>
                        </div>
                        <div class="clearfix"></div>
@@ -74,8 +74,8 @@
                        <div class="w70 right-title pull-right">
                        <div class="title-content">
                            <p>总评论数</p>
-                           <h3 class="number">90</h3>
-                           <button class="btn btn-default">今日评论<span style="color:red;">12</span></button>
+                           <h3 class="number" th:text="${commentsCount.totalCount}"></h3>
+                           <button class="btn btn-default">今日评论<span style="color:red;" th:text="${commentsCount.todayCount}"></span></button>
                        </div>
                        </div>
                        <div class="clearfix"></div>
@@ -89,8 +89,8 @@
                        <div class="w70 right-title pull-right">
                        <div class="title-content">
                            <p>友链总数</p>
-                           <h3 class="number">90</h3>
-                           <button class="btn btn-default">待审核数<span style="color:red;">12</span></button>
+                           <h3 class="number" th:text="${linksCount.totalCount}"></h3>
+                           <button class="btn btn-default">今日友链<span style="color:red;" th:text="${linksCount.todayCount}"></span></button>
                        </div>
                        </div>
                        <div class="clearfix"></div>
@@ -100,23 +100,25 @@
                <!-------信息列表------->
                <div class="row newslist" style="margin-top:20px;">
                  <div class="col-md-8">
-                   <div class="panel panel-default">
+                   <div class="panel panel-default" >
+
                       <div class="panel-heading">
                        最近评论<div class="caret"></div>
                        <a href="#" class="pull-right"><span class="glyphicon glyphicon-refresh"></span></a>
-                      </div>     
-                      <div class="panel-body">
-                           <div class="w15 pull-left">
-                             <img src="img/noavatar_middle.gif" width="25" height="25" alt="图片" class="img-circle">
-                             安妮
-                           </div>
-                           <div class="w55 pull-left">系统需要升级</div>
-                           <div class="w20 pull-left text-center">2016年8月23日</div>
-                          <div class="w10 pull-left text-center"><span class="text-green-main">处理中</span></div>
                       </div>
+                       <div th:each="comment : ${comments.data}">
+                          <div class="panel-body">
+                               <div class="w15 pull-left">
+                                 <img src="https://cn.gravatar.com/avatar/a094d86ee6a1d7e4235f092e0f53e801?s=80&r=G&d=" width="25" height="25" class="img-circle">
+                                 <span th:text="${comment.author}"></span>
+                               </div>
+                               <div class="w55 pull-left"><span th:utext="${comment.content}"></span></div>
+                               <div class="w20 pull-left text-center"><span th:text="${comment.created}"></span></div>
+                          </div>
+                   </div>
                       
                       <div class="panel-body text-center">
-                          <a href="#" style="color:#5297d6;">查看全部</a>
+                          <a href="/admin/index/comments" style="color:#5297d6;">查看全部</a>
                       </div>
                       
                     </div>
@@ -125,11 +127,19 @@
                  <div class="col-md-4">
                      <div class="panel panel-default">
                       <div class="panel-heading">
-                       友链申请
-                       <a href="#" class="pull-right"><span class="glyphicon glyphicon-refresh"></span></a>
-                      </div>     
-                      <div class="panel-body">
-                          
+                       最近添加名言
+
+                           <a href="#" class="pull-right"><span class="glyphicon glyphicon-refresh"></span></a>
+
+
+                         <div th:each="motto : ${mottos.data}">
+                              <div class="panel-body">
+                                  <div class="w15 pull-left" style="width: 40%">
+                                      <span th:text="${motto.name}"></span>
+                                  </div>
+                                  <div style="width: 60%;" class="w55 pull-left"><span th:utext="${motto.content}"></span></div>
+                              </div>
+                         </div>
                       </div>
                     </div>
                     

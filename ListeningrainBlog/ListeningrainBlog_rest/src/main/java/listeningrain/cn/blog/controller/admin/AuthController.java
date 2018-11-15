@@ -41,6 +41,6 @@ public class AuthController {
             return "redirect:/admin";
         }
         modelMap.addAttribute("error","账号或密码错误");
-        return "redirect:/admin/tologin";
+        return "/admin/login";
     }
 }

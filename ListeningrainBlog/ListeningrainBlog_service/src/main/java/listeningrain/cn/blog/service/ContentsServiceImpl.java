@@ -11,6 +11,7 @@ import listeningrain.cn.blog.exception.BlogServiceException;
 import listeningrain.cn.blog.input.data.ContentsInputData;
 import listeningrain.cn.blog.input.dto.PageInputDTO;
 import listeningrain.cn.blog.input.dto.PojoInputDTO;
+import listeningrain.cn.blog.output.data.AdminIndexOutputData;
 import listeningrain.cn.blog.output.data.ContentsOutputData;
 import listeningrain.cn.blog.output.dto.PageOutputDTO;
 import listeningrain.cn.blog.output.dto.PojoOutputDTO;
@@ -148,5 +149,11 @@ public class ContentsServiceImpl implements ContentsService {
             throw new BlogServiceException(ReturnErrCodeEnum.SQL_EXCEPTION_UPDATE);
         }
         return new PojoOutputDTO();
+    }
+
+    @Override
+    public AdminIndexOutputData getAdminIndexContentsCount() {
+        AdminIndexOutputData adminIndexOutputData = atomContensService.selectContentCount();
+        return adminIndexOutputData;
     }
 }

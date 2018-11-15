@@ -1,6 +1,7 @@
 package listeningrain.cn.blog.atomservice;
 
 import listeningrain.cn.blog.entity.Comments;
+import listeningrain.cn.blog.output.data.AdminIndexOutputData;
 
 import java.util.List;
 
@@ -17,5 +18,9 @@ public interface AtomCommentsService {
 
     int insertComment(Comments comments);
 
+    //分页查询评论
+    List<Comments> getComments(Comments comments);
 
+
+    AdminIndexOutputData selectAdminIndexComment();
 }

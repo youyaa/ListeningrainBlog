@@ -119,6 +119,16 @@
     -->
     content
   </sql>
+
+  <select id="selectCommentCount"  resultType="java.lang.Integer">
+    select count(1) from comments
+  </select>
+
+  <select id="selectTodayCommentCount" resultType="java.lang.Integer">
+    select count(1) from comments where date(created) = curdate()
+  </select>
+
+
   <select id="selectByExampleWithBLOBs" parameterType="listeningrain.cn.blog.entity.CommentsExample" resultMap="ResultMapWithBLOBs">
     <!--
       WARNING - @mbg.generated

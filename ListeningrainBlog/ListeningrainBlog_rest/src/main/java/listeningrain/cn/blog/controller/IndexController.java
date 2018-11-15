@@ -176,7 +176,22 @@ public class IndexController {
     @RequestMapping(path = "/index/comment", method = RequestMethod.POST)
     @ResponseBody
     public ReturnMessage<String> addComment(@RequestBody PojoInputDTO<CommentsInputData> pojoInputDTO){
+
+        //去除评论中的@信息
+       /* if(null != pojoInputDTO.getData()){
+            String content = pojoInputDTO.getData().getContent();
+            String[] split = content.split(":");
+            if(split.length>1){
+                StringBuilder stringBuilder = new StringBuilder();
+                for(int i=1;i<split.length;i++){
+                    stringBuilder.append(split[i]);
+                }
+                pojoInputDTO.getData().setContent(stringBuilder.toString());
+            }
+        }*/
+
         PojoOutputDTO pojoOutputDTO = commentsService.addComment(pojoInputDTO);
+
         if("SOA0000".equals(pojoOutputDTO.getCode())){
             return new ReturnMessage<>(0,"success");
         }else{
@@ -259,6 +274,13 @@ public class IndexController {
         }
         pojoOutputDTO.setData(pageOutputDTO.getData().get(0));
         modelMap.addAttribute("content",pojoOutputDTO);
+
+        //查询文章对应的评论信息
+        PageOutputDTO<CommentsOutputData> commentsByCid = null;
+        if(null != pageOutputDTO && null != pageOutputDTO.getData()){
+            commentsByCid = commentsService.getCommentsByCid(pageOutputDTO.getData().get(0).getMid());
+        }
+        modelMap.put("comments",commentsByCid);
 
         link(modelMap);
         latestArticle(modelMap);

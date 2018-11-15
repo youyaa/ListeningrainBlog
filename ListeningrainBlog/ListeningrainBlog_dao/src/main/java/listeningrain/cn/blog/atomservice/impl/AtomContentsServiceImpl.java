@@ -4,6 +4,7 @@ import listeningrain.cn.blog.atomservice.AtomContensService;
 import listeningrain.cn.blog.dao.ContentsMapper;
 import listeningrain.cn.blog.entity.Contents;
 import listeningrain.cn.blog.entity.ContentsExample;
+import listeningrain.cn.blog.output.data.AdminIndexOutputData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -68,5 +69,15 @@ public class AtomContentsServiceImpl implements AtomContensService {
     public Integer updateCommentCountById(Integer cid) {
         int i = contentsMapper.updateCommentNumById(cid);
         return i;
+    }
+
+    @Override
+    public AdminIndexOutputData selectContentCount() {
+        int todayCount = contentsMapper.selectTodayContentCount();
+        int totalCount = contentsMapper.selectContentCount();
+        AdminIndexOutputData adminIndexOutputData = new AdminIndexOutputData();
+        adminIndexOutputData.setTotalCount(totalCount);
+        adminIndexOutputData.setTodayCount(todayCount);
+        return adminIndexOutputData;
     }
 }

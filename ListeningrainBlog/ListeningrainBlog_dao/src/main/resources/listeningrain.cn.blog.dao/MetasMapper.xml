@@ -18,6 +18,15 @@
     <result column="content" jdbcType="VARCHAR" property="content"/>
     <result column="created" jdbcType="TIMESTAMP" property="created"/>
   </resultMap>
+
+  <select id="selectLinkCount"  resultType="java.lang.Integer">
+    select count(1) from metas where type = 'LINK'
+  </select>
+
+  <select id="selectTodayLinkCount" resultType="java.lang.Integer">
+    select count(1) from metas where date(created) = curdate() and type = 'LINK'
+  </select>
+
   <sql id="Example_Where_Clause">
     <!--
       WARNING - @mbg.generated

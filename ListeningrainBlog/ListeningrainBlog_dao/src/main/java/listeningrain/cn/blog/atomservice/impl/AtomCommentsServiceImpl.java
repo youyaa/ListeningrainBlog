@@ -4,6 +4,7 @@ import listeningrain.cn.blog.atomservice.AtomCommentsService;
 import listeningrain.cn.blog.dao.CommentsMapper;
 import listeningrain.cn.blog.entity.Comments;
 import listeningrain.cn.blog.entity.CommentsExample;
+import listeningrain.cn.blog.output.data.AdminIndexOutputData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -44,5 +45,23 @@ public class AtomCommentsServiceImpl implements AtomCommentsService {
     public int insertComment(Comments comments) {
         int i = commentsMapper.insertSelective(comments);
         return i;
+    }
+
+    @Override
+    public List<Comments> getComments(Comments comments) {
+        CommentsExample commentsExample = new CommentsExample();
+        commentsExample.setOrderByClause("created DESC");
+        List<Comments> result = commentsMapper.selectByExampleWithBLOBs(commentsExample);
+        return result;
+    }
+
+    @Override
+    public AdminIndexOutputData selectAdminIndexComment() {
+        int todayCount = commentsMapper.selectTodayCommentCount();
+        int totalCount = commentsMapper.selectCommentCount();
+        AdminIndexOutputData adminIndexOutputData = new AdminIndexOutputData();
+        adminIndexOutputData.setTotalCount(totalCount);
+        adminIndexOutputData.setTodayCount(todayCount);
+        return adminIndexOutputData;
     }
 }

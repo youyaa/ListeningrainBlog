@@ -9,6 +9,7 @@ import listeningrain.cn.blog.exception.BlogServiceException;
 import listeningrain.cn.blog.input.data.MetasInputData;
 import listeningrain.cn.blog.input.dto.PageInputDTO;
 import listeningrain.cn.blog.input.dto.PojoInputDTO;
+import listeningrain.cn.blog.output.data.AdminIndexOutputData;
 import listeningrain.cn.blog.output.data.MetasOutputData;
 import listeningrain.cn.blog.output.dto.PageOutputDTO;
 import listeningrain.cn.blog.output.dto.PojoOutputDTO;
@@ -135,5 +136,11 @@ public class MetasServiceImpl implements MetasService {
     @Override
     public long getCountByType(String type) {
         return atomMetasService.getCountByType(type);
+    }
+
+    @Override
+    public AdminIndexOutputData getAdminIndexLink() {
+        AdminIndexOutputData adminIndexLink = atomMetasService.getAdminIndexLink();
+        return adminIndexLink;
     }
 }

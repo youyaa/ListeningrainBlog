@@ -4,6 +4,7 @@ import listeningrain.cn.blog.atomservice.AtomMetasService;
 import listeningrain.cn.blog.dao.MetasMapper;
 import listeningrain.cn.blog.entity.Metas;
 import listeningrain.cn.blog.entity.MetasExample;
+import listeningrain.cn.blog.output.data.AdminIndexOutputData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -72,5 +73,15 @@ public class AtomMetasServiceImpl implements AtomMetasService {
         metasExample.createCriteria().andTypeEqualTo(type);
         long count = metasMapper.countByExample(metasExample);
         return  count;
+    }
+
+    @Override
+    public AdminIndexOutputData getAdminIndexLink() {
+        int todayCount = metasMapper.selectTodayLinkCount();
+        int totalCount = metasMapper.selectLinkCount();
+        AdminIndexOutputData adminIndexOutputData = new AdminIndexOutputData();
+        adminIndexOutputData.setTotalCount(totalCount);
+        adminIndexOutputData.setTodayCount(todayCount);
+        return adminIndexOutputData;
     }
 }
