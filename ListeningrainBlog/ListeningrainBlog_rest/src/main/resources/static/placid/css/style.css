@@ -1833,8 +1833,6 @@ border: 0;
 
 	width: 70%;
 
-	padding-left: 15px;
-
 }
 
 #primary article,
@@ -2922,6 +2920,7 @@ header.page-header h1
 @media (max-width: 991px) { 
  #secondary {
   margin-top: 30px;
+	 margin-bottom: 50px;
   padding-left: 0;
  }
 }

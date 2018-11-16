@@ -101,30 +101,29 @@
 
     </dependencies>
 
-
     <build>
         <plugins>
             <plugin>
-                <groupId>org.mybatis.generator</groupId>
-                <artifactId>mybatis-generator-maven-plugin</artifactId>
-                <version>1.3.5</version>
+
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
-                    <configurationFile>${basedir}/src/main/resources/generatorConfig.xml</configurationFile>
-                    <!--允许移动生成的文件 -->
-                    <verbose>true</verbose>
-                    <!--允许覆盖生成的文件 -->
-                    <overwrite>true</overwrite>
+                    <!-- 指定该Main Class为全局的唯一入口 -->
+                    <mainClass>listeningrain.cn.blog.Bootstrap
+                    </mainClass>
+                    <layout>ZIP</layout>
                 </configuration>
-                <dependencies>
-                    <dependency>
-                        <groupId>mysql</groupId>
-                        <artifactId>mysql-connector-java</artifactId>
-                        <version>5.1.8</version>
-                    </dependency>
-                </dependencies>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>repackage</goal><!--可以把依赖的包都打包到生成的Jar包中-->
+                        </goals>
+
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
-
     </build>
+
 
 </project>

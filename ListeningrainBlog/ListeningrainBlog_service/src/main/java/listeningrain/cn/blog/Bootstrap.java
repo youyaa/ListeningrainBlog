@@ -20,7 +20,7 @@ public class Bootstrap {
         printToConsole("开始启动listeningrain-service模块");
 
         ClassPathXmlApplicationContext applicationContext =
-                new ClassPathXmlApplicationContext("classpath:applicationContext.xml");
+                new ClassPathXmlApplicationContext("classpath:ApplicationContext.xml");
 
         applicationContext.registerShutdownHook();
         applicationContext.start();
