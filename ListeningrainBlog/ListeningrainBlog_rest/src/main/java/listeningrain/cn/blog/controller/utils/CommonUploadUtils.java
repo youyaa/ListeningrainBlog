@@ -33,13 +33,13 @@ public class CommonUploadUtils {
         if (file.isEmpty()) {
 
         }
-        String imgUrl = "/upload-dir/" + file.getOriginalFilename();
+        String imgUrl = "/upload-img/" + file.getOriginalFilename();
         storageService.store(file);
 
         //构建返回对象
         ReturnMessage<String[]> returnMessage = new ReturnMessage<>();
         returnMessage.setErrno(0);
-        returnMessage.setData(new String[]{"http://localhost:8000"+imgUrl});
+        returnMessage.setData(new String[]{"http://blog.listeningrain.cn"+imgUrl});
         return returnMessage;
     }
 }

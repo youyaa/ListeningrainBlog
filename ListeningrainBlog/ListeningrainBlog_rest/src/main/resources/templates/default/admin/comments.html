@@ -53,14 +53,9 @@
                                                     <td><label class="label label-info" th:text="审核中"/></td>
                                                 </div>
                                                 <td>
+
                                                     <a href="javascript:void(0)"
-                                                       th:onclick="'javascript:response('+${comment.coid}+')'"
-                                                       class="btn btn-primary btn-sm waves-effect waves-light m-b-5"><i
-                                                            class="fa fa-edit"></i>
-                                                        <span>回复</span>
-                                                    </a>
-                                                    <a href="javascript:void(0)"
-                                                       th:onclick="'javascript:delComment('+${comment.coid}+')'"
+                                                       th:onclick="'javascript:delComment('+${comment.coid}+ ','+${comment.cid} +')'"
                                                        class="btn btn-danger btn-sm waves-effect waves-light m-b-5"><i
                                                             class="fa fa-trash-o"></i>
                                                         <span>删除</span>
@@ -125,7 +120,7 @@
 <script type="application/javascript">
 
 
-    function delCategory(mid) {
+    function delComment(coid,cid) {
         var txt=  "您确定要删除吗？";
         window.wxc.xcConfirm(txt, window.wxc.xcConfirm.typeEnum.warning,{
 
@@ -133,20 +128,21 @@
              * 点击确定后的回调事件
              */
             onOk:function(){
-                del(mid);
+                del(coid,cid);
             }
         });
 
     }
 
-    function del(mid) {
+    function del(coid,cid) {
         var pojoInputDTO = {
             data:{
-                "mid":mid
+                "coid":coid,
+                "cid":cid
             }
         };
         $.post({
-            "url":"/admin/index/deleteLink",
+            "url":"/admin/index/deleteComment",
             data:JSON.stringify(pojoInputDTO),
             cache:false,
             dataType:'json',
@@ -155,7 +151,7 @@
                 var txt=  "骚年，删除成功！";
                 window.wxc.xcConfirm(txt, window.wxc.xcConfirm.typeEnum.success);
                 setTimeout(function () {
-                    window.location.href = '/admin/index/motto';
+                    window.location.href = '/admin/index/comments';
                 }, 1000);
             },
             "error":function (XMLHttpRequest, textStatus, errorThrown) {

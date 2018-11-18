@@ -56,6 +56,13 @@ public class AtomCommentsServiceImpl implements AtomCommentsService {
     }
 
     @Override
+    @Transactional
+    public int deleteComment(Comments comments) {
+        int i = commentsMapper.deleteByPrimaryKey(comments.getCoid());
+        return i;
+    }
+
+    @Override
     public AdminIndexOutputData selectAdminIndexComment() {
         int todayCount = commentsMapper.selectTodayCommentCount();
         int totalCount = commentsMapper.selectCommentCount();

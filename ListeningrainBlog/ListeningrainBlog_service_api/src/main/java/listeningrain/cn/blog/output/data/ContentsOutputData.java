@@ -51,4 +51,7 @@ public class ContentsOutputData extends CommonOutputData{
 
     private String content;
 
+    //文章展示的縮略圖
+    private String thum;
+
 }

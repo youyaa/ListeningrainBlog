@@ -18,6 +18,8 @@ public interface AtomCommentsService {
 
     int insertComment(Comments comments);
 
+    int deleteComment(Comments comments);
+
     //分页查询评论
     List<Comments> getComments(Comments comments);
 

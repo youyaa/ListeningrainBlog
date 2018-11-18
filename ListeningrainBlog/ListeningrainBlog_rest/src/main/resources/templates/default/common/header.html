@@ -19,6 +19,7 @@
         <script type="text/javascript" src="/js/search.js"></script>
         <script type="text/javascript" src="/js/jquery.flexText.js"></script>
         <script type="text/javascript" src="/js/sinaFaceAndEffec.js"></script>
+        <link rel="stylesheet" href="/css/sinaFaceAndEffec.css" type="text/css">
 
         <link href="/xcConfirm/css/xcConfirm.css" rel="stylesheet">
         <script src="/xcConfirm/js/xcConfirm.js"></script>
@@ -35,8 +36,8 @@
                 <div class="site-branding" style="margin-left: 14%">
 
                     <h1 class="site-title">
-                        <a href="/index/page/1" rel="home" style="color: white;"><span th:text="${userShow.nickName}"></span></a></h1>
-                    <p class="site-description"><span th:text="${userShow.famousSays}"></span></p>
+                        <a href="/index/page/1" rel="home" style="color: white;"><span th:text="${userShow.data.nickName}"></span></a></h1>
+                    <p class="site-description"><span th:text="${userShow.data.famousSays}"></span></p>
                     <div style="color: white;padding-left: 1%;width: 200px">
                         <a style="color: white;" href="/index/about" class="site-description" >关于 /</a>
                         <a style="color: white;" href="/index/archive" class="site-description">&nbsp;归档 /</a>

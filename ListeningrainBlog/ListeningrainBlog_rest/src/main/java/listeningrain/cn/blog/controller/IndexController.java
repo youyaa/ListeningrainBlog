@@ -69,12 +69,13 @@ public class IndexController {
                 contentsOutputData.setContent(content);
             }*/
             //如果是第一次分页查询，将文章数据放入缓存中
+            int x=(int)(Math.random()*20+1);
+            contentsOutputData.setThum("/image/rand/"+x+".jpg");
             if(1 == pageInputDTO.getPageNum()){
                 CacheUtils.put(contentsOutputData.getCid(),contentsOutputData);
             }
         }
         modelMap.addAttribute("contents",contentsByPage);
-
 
         //封装友链的数据
         link(modelMap);
@@ -97,19 +98,9 @@ public class IndexController {
 
     //获取用户的静态信息
     private void userShowInformation(ModelMap modelMap){
-        if(null == CacheUtils.getUserShowInformationOutputData()){
+
             PojoOutputDTO<UserShowInformationOutputData> userShowInformation = userShowInformationService.getUserShowInformation();
-            if(null != userShowInformation){
-                if(null != CacheUtils.getUserShowInformationOutputData()){
-                    CacheUtils.setUserShowInformationOutputData(userShowInformation.getData());
-                }
-            }
-            CacheUtils.setUserShowInformationOutputData(userShowInformation.getData());
-            modelMap.put("userShow",CacheUtils.getUserShowInformationOutputData());
-        }else{
-            System.out.println("----------从缓存中取-----------");
-            modelMap.put("userShow",CacheUtils.getUserShowInformationOutputData());
-        }
+            modelMap.put("userShow",userShowInformation);
     }
 
     //获取数据库的名言并缓存起来

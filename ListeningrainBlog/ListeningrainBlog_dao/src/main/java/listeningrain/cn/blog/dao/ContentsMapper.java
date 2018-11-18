@@ -8,7 +8,9 @@ import java.util.List;
 
 public interface ContentsMapper {
 
-    int updateCommentNumById(Integer cid);
+    int updateCommentNumAddById(Integer cid);
+
+    int updateCommentNumDecrById(Integer cid);
 
     int selectContentCount();
 

@@ -1,5 +1,6 @@
 package listeningrain.cn.blog.controller.admin;
 
+import listeningrain.cn.blog.input.data.CommentsInputData;
 import listeningrain.cn.blog.input.data.ContentsInputData;
 import listeningrain.cn.blog.input.data.MetasInputData;
 import listeningrain.cn.blog.input.dto.PageInputDTO;
@@ -238,5 +239,12 @@ public class AdminController {
         PageOutputDTO<CommentsOutputData> commentsByPage = commentsService.getCommentsByPage(pageInputDTO);
         modelMap.addAttribute("comments",commentsByPage);
         return "admin/comments";
+    }
+
+    @RequestMapping(path = "/index/deleteComment", method = RequestMethod.POST)
+    @ResponseBody
+    public PojoOutputDTO deleteComment(@RequestBody PojoInputDTO<CommentsInputData> pojoInputDTO){
+        PojoOutputDTO pojoOutputDTO = commentsService.deleteComment(pojoInputDTO);
+        return pojoOutputDTO;
     }
 }

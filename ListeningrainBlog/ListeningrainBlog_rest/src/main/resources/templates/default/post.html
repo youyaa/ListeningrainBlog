@@ -33,7 +33,7 @@
                             <h2 class="entry-title"><a rel="bookmark"><label th:text="${content.data.title}"></label></a></h2>
                             <div class="entry-meta">
                                 <span class="poston">Posted on <a rel="bookmark"><time class="entry-date published updated"><label th:text="${content.data.created}"></label></time></a></span>
-                                <span class="poston">By <a rel="bookmark"><time class="entry-date published updated"><span th:text="${userShow.nickName}"></span></time></a></span>
+                                <span class="poston">By <a rel="bookmark"><time class="entry-date published updated"><span th:text="${userShow.data.nickName}"></span></time></a></span>
                                 <span class="poston">&nbsp;&nbsp;浏览量: <a rel="bookmark"><time class="entry-date published updated"><label th:text="${content.data.hits}"></label></time></a></span><span class="post-by"> 评论数: <span class="author vcard"><a class="url fn n"><label th:text="${content.data.commentsNum}"></label></a></span></span>
                             </div><!-- .entry-meta -->
 

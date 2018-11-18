@@ -36,8 +36,11 @@
   </resultMap>
 
   <!--更新文章的评论数量-->
-  <update id="updateCommentNumById" parameterType="java.lang.Integer">
+  <update id="updateCommentNumAddById" parameterType="java.lang.Integer">
      update contents set comments_num = comments_num +1 where cid = #{cid}
+  </update>
+  <update id="updateCommentNumDecrById" parameterType="java.lang.Integer">
+     update contents set comments_num = comments_num -1 where cid = #{cid}
   </update>
 
   <!--根据查询文章数量-->

@@ -66,8 +66,14 @@ public class AtomContentsServiceImpl implements AtomContensService {
     }
 
     @Override
-    public Integer updateCommentCountById(Integer cid) {
-        int i = contentsMapper.updateCommentNumById(cid);
+    public Integer updateCommentAddCountById(Integer cid) {
+        int i = contentsMapper.updateCommentNumAddById(cid);
+        return i;
+    }
+
+    @Override
+    public Integer updateCommentDecrCountById(Integer cid) {
+        int i = contentsMapper.updateCommentNumDecrById(cid);
         return i;
     }
 

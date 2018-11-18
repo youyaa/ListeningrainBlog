@@ -103,9 +103,25 @@ public class CommentsServiceImpl implements CommentsService {
 
         //异步更新文章的评论数
         new Thread(()->{
-            atomContensService.updateCommentCountById(comments.getCid());
+            atomContensService.updateCommentAddCountById(comments.getCid());
         }).start();
 
+        return new PojoOutputDTO();
+    }
+
+    @Override
+    public PojoOutputDTO deleteComment(PojoInputDTO<CommentsInputData> pojoInputDTO) {
+        Comments comments = new Comments();
+        comments.setCoid(pojoInputDTO.getData().getCoid());
+        int i = atomCommentsService.deleteComment(comments);
+        if(i<0){
+            throw new BlogServiceException(ReturnErrCodeEnum.SQL_EXCEPTION_DELETE);
+        }
+
+        //异步更新文章的评论数
+        new Thread(()->{
+            atomContensService.updateCommentDecrCountById(pojoInputDTO.getData().getCid());
+        }).start();
         return new PojoOutputDTO();
     }
 

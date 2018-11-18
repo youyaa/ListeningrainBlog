@@ -1,13 +1,10 @@
 package listeningrain.cn.blog;
 
 import listeningrain.cn.blog.utils.StorageProperties;
-import listeningrain.cn.blog.utils.StorageService;
-import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ImportResource;
 
 import java.text.SimpleDateFormat;
@@ -30,15 +27,6 @@ public class Application {
         SpringApplication.run(Application.class);
         printToConsole("启动listeningrainBlog-rest模块成功");
     }
-
-    @Bean
-    CommandLineRunner init(StorageService storageService) {
-        return (args) -> {
-            storageService.deleteAll();
-            storageService.init();
-        };
-    }
-
 
     private static void printToConsole(String s) {
         if (null != s && s.length() > 0) {

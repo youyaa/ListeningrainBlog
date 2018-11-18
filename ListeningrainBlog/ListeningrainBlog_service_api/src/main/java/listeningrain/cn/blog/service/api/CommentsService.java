@@ -19,6 +19,8 @@ public interface CommentsService {
 
     PojoOutputDTO addComment(PojoInputDTO<CommentsInputData> pojoInputDTO);
 
+    PojoOutputDTO deleteComment(PojoInputDTO<CommentsInputData> pojoInputDTO);
+
     PageOutputDTO<CommentsOutputData> getCommentsByPage(PageInputDTO pageInputDTO);
 
     AdminIndexOutputData getAdminIndexComment();

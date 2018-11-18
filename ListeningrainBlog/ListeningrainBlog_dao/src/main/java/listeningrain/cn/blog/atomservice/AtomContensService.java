@@ -43,7 +43,12 @@ public interface AtomContensService {
     /**
      * 文章评论数+1
      */
-    Integer updateCommentCountById(Integer cid);
+    Integer updateCommentAddCountById(Integer cid);
+
+    /**
+     * 文章评论数-1
+     */
+    Integer updateCommentDecrCountById(Integer cid);
 
     /**
      * 后台管理首页需要的文章聚合数据
