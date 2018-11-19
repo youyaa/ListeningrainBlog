@@ -36,4 +36,11 @@ public class AtomUserShowInFormationServiceImpl implements AtomUserShowInFormati
     public Integer insertUser(UserShowInformation userShowInformation) {
         return userShowInformationMapper.insertSelective(userShowInformation);
     }
+
+    @Override
+    @Transactional
+    public Integer updateUser(UserShowInformation userShowInformation) {
+        int i = userShowInformationMapper.updateByPrimaryKeySelective(userShowInformation);
+        return i;
+    }
 }

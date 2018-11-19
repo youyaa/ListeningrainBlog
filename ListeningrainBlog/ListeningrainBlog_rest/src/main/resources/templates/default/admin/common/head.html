@@ -33,13 +33,21 @@
         </ul>
 
         <ul class="nav navbar-nav pull-right">
+
+            <li class="dropdown li-border" style="padding-right: 50px"><a href="#" class="dropdown-toggle mystyle-color" data-toggle="dropdown"><img style="width: 25px;border-radius: 50%" src="https://cn.gravatar.com/avatar"/></a>
+                <ul class="dropdown-menu" style="background-color: #09c">
+                    <li><a target="_blank" th:href="${websiteUrl}">查看站点</a></li>
+                    <li><a href="/admin/loginOut">退出</a></li>
+                </ul>
+            </li>
+
             <li class="li-border">
                 <a href="#" class="mystyle-color">
                     <span class="glyphicon glyphicon-bell"></span>
                     <span class="topbar-num">0</span>
                 </a>
             </li>
-            <li class="li-border dropdown"><a href="#" class="mystyle-color" data-toggle="dropdown">
+        <!--    <li class="li-border dropdown"><a href="#" class="mystyle-color" data-toggle="dropdown">
                 <span class="glyphicon glyphicon-search"></span> 搜索</a>
                 <div class="dropdown-menu search-dropdown">
                     <div class="input-group">
@@ -49,13 +57,8 @@
                         </span>
                     </div>
                 </div>
-            </li>
+            </li>-->
 
-            <li class="dropdown li-border"><a href="#" class="dropdown-toggle mystyle-color" data-toggle="dropdown">00000000@qq.com<span class="caret"></span></a>
-                <ul class="dropdown-menu">
-                    <li><a href="#">退出</a></li>
-                </ul>
-            </li>
            <!-- <li class="dropdown"><a href="#" class="dropdown-toggle mystyle-color" data-toggle="dropdown">换肤<span class="caret"></span></a>
                 <ul class="dropdown-menu changecolor">
                     <li id="blue"><a href="#">蓝色</a></li>

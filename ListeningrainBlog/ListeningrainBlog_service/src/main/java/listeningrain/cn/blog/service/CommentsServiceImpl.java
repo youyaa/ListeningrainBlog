@@ -15,10 +15,12 @@ import listeningrain.cn.blog.output.data.CommentsOutputData;
 import listeningrain.cn.blog.output.dto.PageOutputDTO;
 import listeningrain.cn.blog.output.dto.PojoOutputDTO;
 import listeningrain.cn.blog.service.api.CommentsService;
+import listeningrain.cn.blog.utils.EncryptUtils;
 import listeningrain.cn.blog.utils.ThemeUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,6 +47,8 @@ public class CommentsServiceImpl implements CommentsService {
                 CommentsOutputData commentsOutputData = new CommentsOutputData();
                 BeanUtils.copyProperties(comment,commentsOutputData);
                 commentsOutputData.setCreated(ThemeUtils.formate(comment.getCreated()));
+                commentsOutputData.setAvator(gravatar(comment.getMail()));
+
                 //根据每一条记录的id去查询其下的子评论
                 List<Comments> childrenComments = atomCommentsService.selectCommentsByTopLevelId(comment.getCoid());
                 //循环处理评论之间的回复关系
@@ -54,7 +58,7 @@ public class CommentsServiceImpl implements CommentsService {
                     for(Comments chilComment : childrenComments){
                         CommentsOutputData commentsOutputData1 = new CommentsOutputData();
                         BeanUtils.copyProperties(chilComment,commentsOutputData1);
-
+                        commentsOutputData1.setAvator(gravatar(chilComment.getMail()));
                         //存在评论的回复关系
                         if(-1 != chilComment.getParent()){
                             boolean flag = false;
@@ -85,6 +89,21 @@ public class CommentsServiceImpl implements CommentsService {
             pageOutputDTO.setData(list);
         }
         return pageOutputDTO;
+    }
+
+    /**
+     * 返回gravatar头像地址
+     *
+     * @param email
+     * @return
+     */
+    private String gravatar(String email) {
+        String avatarUrl = "https://cn.gravatar.com/avatar";
+        if (StringUtils.isEmpty(email)) {
+            return avatarUrl;
+        }
+        String hash = EncryptUtils.MD5(email.trim().toLowerCase());
+        return avatarUrl + "/" + hash;
     }
 
     @Autowired
@@ -139,6 +158,7 @@ public class CommentsServiceImpl implements CommentsService {
                 CommentsOutputData commentsOutputData = new CommentsOutputData();
                 BeanUtils.copyProperties(comments1,commentsOutputData);
                 commentsOutputData.setCreated(ThemeUtils.formate(comments1.getCreated()));
+                commentsOutputData.setAvator(gravatar(comments1.getMail()));
                 list.add(commentsOutputData);
             }
             pageOutputDTO.setData(list);

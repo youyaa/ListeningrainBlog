@@ -1,5 +1,6 @@
 package listeningrain.cn.blog.utils;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
 /**
@@ -10,7 +11,8 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 @ConfigurationProperties
 public class StorageProperties {
 
-    private String location = "resources/static/upload-img";
+    @Value("${img-upload-dir}")
+    private String location;
 
     public String getLocation() {
 

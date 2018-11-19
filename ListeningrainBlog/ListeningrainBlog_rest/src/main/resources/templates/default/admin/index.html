@@ -2,6 +2,33 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 
+    <script type="text/javascript">
+        var weekday=["星期日","星期一","星期二","星期三","星期四","星期五","星期六"];
+        function showTime(){
+            nowtime=new Date();
+            year=nowtime.getFullYear();
+            month=nowtime.getMonth()+1;
+            date=nowtime.getDate();
+            day = nowtime.getDay();
+
+            //对时间和日期进行处理
+            if(month>=1 && month<=9){
+                month = "0"+month;
+            }
+            var minute = nowtime.getMinutes();
+            if(minute>=1 && minute<=9){
+                minute = "0"+minute;
+            }
+
+            $(".num").text(weekday[day]);
+            $(".monthAndDay").text("年"+month+"月"+date+"日");
+            $(".year").text(year);
+            $(".time").text(nowtime.getHours()+":"+minute);
+
+        }
+        setInterval("showTime()",1000);
+    </script>
+
 </head>
 
 <body>
@@ -19,16 +46,16 @@
        <!---title----->
             <div class="info-title">
               <div class="pull-left">
-                <h4><strong></strong></h4>
-                <p>欢迎登录管理系统</p>
+                <h3><strong><p>欢迎登录管理系统</p></strong></h3>
+
               </div>
               <div class="time-title pull-right">
                   <div class="year-month pull-left">
-                    <p>星期二</p>
-                    <p><span>2016</span>年8月23日</p>
+                    <p class="num"></p>
+                    <p ><span class="year"></span><label class="monthAndDay"></label></p>
                   </div>
                   <div class="hour-minute pull-right">
-                     <strong>9:00</strong>
+                     <strong class="time"></strong>
                   </div>
               </div>
               <div class="clearfix"></div>
@@ -109,7 +136,7 @@
                        <div th:each="comment : ${comments.data}">
                           <div class="panel-body">
                                <div class="w15 pull-left">
-                                 <img src="https://cn.gravatar.com/avatar/a094d86ee6a1d7e4235f092e0f53e801?s=80&r=G&d=" width="25" height="25" class="img-circle">
+                                 <img th:src="${comment.avator}" width="25" height="25" class="img-circle">
                                  <span th:text="${comment.author}"></span>
                                </div>
                                <div class="w55 pull-left"><span th:utext="${comment.content}"></span></div>

@@ -54,5 +54,8 @@ public class CommentsOutputData extends CommonOutputData{
 
     private String parentAuthorName;
 
+    //用户的头像
+    private String avatar;
+
     private List<CommentsOutputData> childrenComments;
 }

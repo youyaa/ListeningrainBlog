@@ -32,7 +32,7 @@
                             <h2 class="entry-title"><a rel="bookmark"><label th:text="${content.data.name}"></label></a></h2>
                             <div class="entry-meta">
                                 <span class="poston">Posted on <a rel="bookmark"><time class="entry-date published updated"><label th:text="${content.data.created}"></label></time></a></span>
-                                <span class="poston">By <a rel="bookmark"><time class="entry-date published updated">静心听雨</time></a></span>
+                                <span class="poston">By <a rel="bookmark"><time class="entry-date published updated"><span th:text="${userShow.data.nickName}"></span></time></a></span>
                             </div><!-- .entry-meta -->
 
                             <div class="entry-content" style="margin-top: -10px">
@@ -48,7 +48,7 @@
                     <div th:if="null ne ${comments}">
                         <div class="comment-show" style="margin:0;border-bottom: 1px solid #ccc">
                             <div class="comment-show-con clearfix"  th:each="comment : ${comments.data}">
-                                <div class="comment-show-con-img pull-left"><img style="width: 40px;border-radius: 50%" src="https://cn.gravatar.com/avatar/a094d86ee6a1d7e4235f092e0f53e801?s=80&r=G&d=" alt=""></div>
+                                <div class="comment-show-con-img pull-left"><img style="width: 40px;border-radius: 50%" th:src="${comment.avator}"></div>
                                 <div class="comment-show-con-list pull-left clearfix">
                                     <div class="pl-text clearfix">
                                         <a href="#" class="comment-size-name" th:value="${comment.coid}" th:text="${comment.author} + '：'">  </a>
@@ -65,7 +65,7 @@
 
                                     <div th:if="null ne ${comment.childrenComments}" class="hf-list-con">
                                         <div class="comment-show-con clearfix"  th:each="comment1 : ${comment.childrenComments}">
-                                            <div class="comment-show-con-img pull-left"><img style="border-radius: 50%;width: 40px;" src="https://cn.gravatar.com/avatar/a094d86ee6a1d7e4235f092e0f53e801?s=80&r=G&d=" alt=""></div>
+                                            <div class="comment-show-con-img pull-left"><img style="border-radius: 50%;width: 40px;" th:src="${comment1.avator}"></div>
                                             <div class="comment-show-con-list pull-left clearfix">
                                                 <div class="pl-text clearfix">
                                                     <a href="#" class="comment-size-name" th:value="${comment1.coid}" th:text="${comment1.author}"></a> @ <span class="my-pl-con" th:text="${comment1.parentAuthorName}"></span>:

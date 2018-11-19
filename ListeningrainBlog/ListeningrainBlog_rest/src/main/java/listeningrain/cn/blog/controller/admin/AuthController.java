@@ -43,4 +43,10 @@ public class AuthController {
         modelMap.addAttribute("error","账号或密码错误");
         return "/admin/login";
     }
+
+    @RequestMapping(path = "/loginOut")
+    public String loginOut(HttpServletRequest httpServletRequest){
+        httpServletRequest.getSession().invalidate();
+        return "redirect:/admin/tologin";
+    }
 }

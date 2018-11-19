@@ -1,0 +1,143 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+
+</head>
+
+<body>
+
+<div th:replace="admin/common/head :: head"/>
+
+<div class="down-main">
+
+    <div th:replace="admin/common/left :: left"/>
+
+  <div class="right-product my-index right-full">
+     <div class="container-fluid">
+	   <div class="info-center">
+
+             <div class="row panel panel-primary" style="margin-top: 10px;margin-left: 6px;margin-right: 6px;">
+                     <div class="panel-heading"><h3 class="panel-title">网站信息管理</h3></div>
+
+                    <div class="col-md-12" style="padding-top: 10px">
+                                    <table class="table table-striped table-bordered">
+                                        <thead>
+                                        <tr>
+                                            <th>网站名称</th>
+                                            <th>网站描述</th>
+                                            <th>操作</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+
+                                            <tr mid="8">
+                                                <td><label id="websiteName" th:text="${website.data.nickName}"/></td>
+                                                <td><label id="websiteDesc" th:text="${website.data.famousSays}"/></td>
+                                                <td>
+                                                    <a href="javascript:void(0)" onclick="editWebsite()"
+                                                       class="btn btn-primary btn-sm waves-effect waves-light m-b-5"><i
+                                                            class="fa fa-edit"></i>
+                                                        <span>编辑</span>
+                                                    </a>
+                                                </td>
+                                            </tr>
+
+                                        </tbody>
+                                    </table>
+                    </div>
+               </div>
+
+
+
+           <div class="row">
+               <div class="col-md-12" style="padding: 20px;margin-top: -20px">
+                   <div class="panel panel-primary">
+                       <div class="panel-heading"><h3 class="panel-title">修改</h3></div>
+                       <div class="panel-body">
+
+                           <form id="linkForm" class="form-inline" role="form">
+
+                               <input type="hidden" id="mid" name="mid" th:value="${website.data.id}" />
+
+                               <div class="form-group">
+                                   <label class="sr-only">网站名称</label>
+                                   <input type="text" id="title" name="title" class="form-control" placeholder="请输入您的网站名称"
+                                          required aria-required="true" style="width: 230px"/>
+                               </div>
+
+                               <div class="form-group">
+                                   <label class="sr-only">网站描述</label>
+                                   <input type="text" id="content" name="content" class="form-control" placeholder="请输入网站描述"
+                                          required aria-required="true" style="width: 230px"/>
+                               </div>
+
+
+                               <button style="margin-left: 7px" onclick="updateWebsite()" type="button" class="btn btn-success waves-effect waves-light m-l-10">保存</button>
+                               <button onclick="clearCategory()" type="button" class="btn btn-success waves-effect waves-light m-l-10">清空</button>
+                           </form>
+                       </div>
+                   </div>
+               </div>
+
+           </div>
+       </div>
+	 </div>
+  </div>
+</div>
+
+<link href="/xcConfirm/css/xcConfirm.css" rel="stylesheet">
+<script src="/xcConfirm/js/xcConfirm.js"></script>
+<script type="application/javascript">
+    function editWebsite() {
+        $("#title").val($("#websiteName").text());
+        $("#content").val($("#websiteDesc").text());
+    }
+
+
+
+    function clearCategory() {
+        $("#title").val(null);
+        $("#content").val(null);
+    }
+
+    function updateWebsite() {
+        if("" == $("#title").val() || "" == $("#content").val() ){
+            var txt=  "请先填写相关信息哦！";
+            window.wxc.xcConfirm(txt, window.wxc.xcConfirm.typeEnum.info);
+            return;
+        }
+        $.post({
+            "url":"/admin/index/updateWebsite",
+            data:JSON.stringify(GetJsonData()),
+            cache:false,
+            dataType:'json',
+            contentType:"application/json",
+            "success":function (data) {
+                var txt=  "骚年，操作成功！";
+                window.wxc.xcConfirm(txt, window.wxc.xcConfirm.typeEnum.success);
+                setTimeout(function () {
+                    window.location.href = '/admin/index/website';
+                }, 1000);
+            },
+            "error":function (XMLHttpRequest, textStatus, errorThrown) {
+                var txt=  "啊哦，操作失败了，稍后再试吧！";
+                window.wxc.xcConfirm(txt, window.wxc.xcConfirm.typeEnum.error);
+            }
+        })
+    }
+
+    function GetJsonData() {
+
+        var pojoInputDTO = {
+            data:{
+                "id":$("#mid").val(),
+                "famousSays":$("#content").val(),
+                "nickName":$("#title").val(),
+            }
+        };
+        return pojoInputDTO;
+    }
+</script>
+
+</body>
+</html>

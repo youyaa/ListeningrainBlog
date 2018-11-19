@@ -5,6 +5,7 @@ import listeningrain.cn.blog.constant.ReturnErrCodeEnum;
 import listeningrain.cn.blog.entity.UserShowInformation;
 import listeningrain.cn.blog.exception.BlogServiceException;
 import listeningrain.cn.blog.input.data.UserShowInformationInputData;
+import listeningrain.cn.blog.input.dto.PojoInputDTO;
 import listeningrain.cn.blog.output.data.UserShowInformationOutputData;
 import listeningrain.cn.blog.output.dto.PojoOutputDTO;
 import listeningrain.cn.blog.service.api.UserShowInformationService;
@@ -45,6 +46,19 @@ public class UserShowInformationServiceImpl implements UserShowInformationServic
         Integer i = atomUserShowInFormationService.insertUser(userShowInformation);
         if(i <= 0){
             throw new BlogServiceException(ReturnErrCodeEnum.SQL_EXCEPTION_INSERT);
+        }
+        return new PojoOutputDTO();
+    }
+
+    @Override
+    public PojoOutputDTO updateUsershowInformation(PojoInputDTO<UserShowInformationInputData> pojoInputDTO) {
+        UserShowInformation userShowInformation = new UserShowInformation();
+        if(null != pojoInputDTO){
+            BeanUtils.copyProperties(pojoInputDTO.getData(),userShowInformation);
+        }
+        Integer i = atomUserShowInFormationService.updateUser(userShowInformation);
+        if(i <= 0){
+            throw new BlogServiceException(ReturnErrCodeEnum.SQL_EXCEPTION_UPDATE);
         }
         return new PojoOutputDTO();
     }

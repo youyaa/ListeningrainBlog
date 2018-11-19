@@ -3,18 +3,18 @@ package listeningrain.cn.blog.controller.admin;
 import listeningrain.cn.blog.input.data.CommentsInputData;
 import listeningrain.cn.blog.input.data.ContentsInputData;
 import listeningrain.cn.blog.input.data.MetasInputData;
+import listeningrain.cn.blog.input.data.UserShowInformationInputData;
 import listeningrain.cn.blog.input.dto.PageInputDTO;
 import listeningrain.cn.blog.input.dto.PojoInputDTO;
-import listeningrain.cn.blog.output.data.AdminIndexOutputData;
-import listeningrain.cn.blog.output.data.CommentsOutputData;
-import listeningrain.cn.blog.output.data.ContentsOutputData;
-import listeningrain.cn.blog.output.data.MetasOutputData;
+import listeningrain.cn.blog.output.data.*;
 import listeningrain.cn.blog.output.dto.PageOutputDTO;
 import listeningrain.cn.blog.output.dto.PojoOutputDTO;
 import listeningrain.cn.blog.service.api.CommentsService;
 import listeningrain.cn.blog.service.api.ContentsService;
 import listeningrain.cn.blog.service.api.MetasService;
+import listeningrain.cn.blog.service.api.UserShowInformationService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.util.StringUtils;
@@ -36,6 +36,8 @@ public class AdminController {
     private MetasService metasService;
     @Autowired
     private CommentsService commentsService;
+    @Value("${website-url}")
+    private String websiteUrl;
 
     @RequestMapping()
     public String index(){
@@ -54,6 +56,7 @@ public class AdminController {
         modelMap.put("linksCount",adminIndexLink);
         getComments(modelMap,null);
         motto(modelMap,null);
+        modelMap.put("websiteUrl",websiteUrl);
         return "admin/index";
     }
 
@@ -245,6 +248,22 @@ public class AdminController {
     @ResponseBody
     public PojoOutputDTO deleteComment(@RequestBody PojoInputDTO<CommentsInputData> pojoInputDTO){
         PojoOutputDTO pojoOutputDTO = commentsService.deleteComment(pojoInputDTO);
+        return pojoOutputDTO;
+    }
+
+    @Autowired
+    private UserShowInformationService userShowInformationService;
+    @RequestMapping(path = "/index/website")
+    public String website(ModelMap modelMap){
+        PojoOutputDTO<UserShowInformationOutputData> userShowInformation = userShowInformationService.getUserShowInformation();
+        modelMap.put("website",userShowInformation);
+        return "admin/personInformation";
+    }
+
+    @RequestMapping(path = "/index/updateWebsite",method = RequestMethod.POST)
+    @ResponseBody
+    public PojoOutputDTO updateWebsite(@RequestBody PojoInputDTO<UserShowInformationInputData> pojoInputDTO){
+        PojoOutputDTO pojoOutputDTO = userShowInformationService.updateUsershowInformation(pojoInputDTO);
         return pojoOutputDTO;
     }
 }

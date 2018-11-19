@@ -14,4 +14,6 @@ public interface AtomUserShowInFormationService {
 
     Integer insertUser(UserShowInformation userShowInformation);
 
+    Integer updateUser(UserShowInformation userShowInformation);
+
 }

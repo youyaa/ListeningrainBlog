@@ -3,6 +3,7 @@ package listeningrain.cn.blog.controller.utils;
 import listeningrain.cn.blog.output.ReturnMessage;
 import listeningrain.cn.blog.utils.StorageService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -22,6 +23,9 @@ public class CommonUploadUtils {
 
     private StorageService storageService;
 
+    @Value("${website-url}")
+    private String websiteUrl;
+
     @Autowired
     public CommonUploadUtils(StorageService storageService) {
         this.storageService = storageService;
@@ -33,13 +37,13 @@ public class CommonUploadUtils {
         if (file.isEmpty()) {
 
         }
-        String imgUrl = "/upload-img/" + file.getOriginalFilename();
+        String imgUrl = "/upload-dir/" + file.getOriginalFilename();
         storageService.store(file);
 
         //构建返回对象
         ReturnMessage<String[]> returnMessage = new ReturnMessage<>();
         returnMessage.setErrno(0);
-        returnMessage.setData(new String[]{"http://blog.listeningrain.cn"+imgUrl});
+        returnMessage.setData(new String[]{websiteUrl+imgUrl});
         return returnMessage;
     }
 }
