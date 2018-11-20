@@ -50,7 +50,8 @@ $(function() {
 					name : data[i].phrase,
 					icon : data[i].icon
 				});
-				uSinaEmotionsHt.put(data[i].phrase, data[i].icon);
+                var str = data[i].icon.split(':');
+				uSinaEmotionsHt.put(data[i].phrase, 'https:'+str[1]);
 				console.log("-----缓存值-----")
 			}
 		}
