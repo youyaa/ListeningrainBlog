@@ -8,7 +8,7 @@
 `ListeningrainBLog` 使用了[Spring boot](https://spring.io/projects/spring-boot)框架开发，并按照我司的开发标准，将service模块提取出来作为单独的服务运行，rest模块通过RPC远程调用service中的接口，依赖阿里开源的[dubbo](http://dubbo.apache.org/zh-cn/)作为RPC框架，在数据访问层使用了企业级框架mybatis，该项目可以作为一个标准的SSM框架的范例。
 默认主题移植自漂亮的 [placid](http://www.2zzt.com/bokezhuti/8845.html)，如果觉得这个项目不错，请为它点赞支持。
 
-演示站点：http://blog.listeningrain.cn
+演示站点：https://blog.listeningrain.cn
 
 
 
