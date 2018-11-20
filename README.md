@@ -21,12 +21,14 @@
 ![listeningrainBlog3.png](https://i.loli.net/2018/11/20/5bf3581f86b2b.png)
 ![listeningrainBlog3.png](https://i.loli.net/2018/11/20/5bf35841b37b5.png)
 
+## 如何使用
+
+具体的使用方法请大家查看wiki哦
+
 ## 开源协议
 
 [MIT](LICENSE)
 
-## 开始使用
 
-具体的使用方法请大家查看wiki哦
 
 
