@@ -96,7 +96,7 @@ CREATE TABLE `metas` (
 # Data for table "metas"
 #
 
-INSERT INTO `metas` VALUES (1,'关于',NULL,'ABOUT',NULL,0,0,NULL,'## Hello World\n\n      这是程序员专用打招呼用语，你懂的！这是我的关于页面，其他的你自己来写吧！','2018-11-12 14:21:24'),(25,'静心听雨的博客','https://listeningrain.cn','LINK',NULL,0,0,NULL,NULL,'2018-11-12 14:21:24'),(26,'静心听雨的github','https://github.com/youyaa','LINK',NULL,1,0,NULL,NULL,'2018-11-12 14:21:24'),(33,'默认分类',NULL,'CATEGORY',NULL,0,0,NULL,NULL,'2018-11-12 14:21:24'),(40,'许嵩',NULL,'MOTTO','最爱的一句话',0,0,NULL,'如果你回头，不要放下我。。。','2018-11-12 18:08:14');
+INSERT INTO `metas` VALUES (1,'关于',NULL,'ABOUT',NULL,0,0,NULL,'## Hello World\n\n      这是程序员专用打招呼用语，你懂的！这是我的关于页面，其他的你自己来写吧！','2018-11-12 14:21:24'),(2,'静心听雨的博客','https://listeningrain.cn','LINK',NULL,0,0,NULL,NULL,'2018-11-12 14:21:24'),(3,'静心听雨的github','https://github.com/youyaa','LINK',NULL,1,0,NULL,NULL,'2018-11-12 14:21:24'),(4,'默认分类',NULL,'CATEGORY',NULL,0,0,NULL,NULL,'2018-11-12 14:21:24'),(5,'许嵩',NULL,'MOTTO','最爱的一句话',0,0,NULL,'如果你回头，不要放下我。。。','2018-11-12 18:08:14');
 
 #
 # Structure for table "tags"
