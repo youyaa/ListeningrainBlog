@@ -8,6 +8,7 @@ import com.vladsch.flexmark.html.HtmlRenderer;
 import com.vladsch.flexmark.parser.Parser;
 import com.vladsch.flexmark.parser.ParserEmulationProfile;
 import com.vladsch.flexmark.util.options.MutableDataSet;
+import listeningrain.cn.blog.output.data.ContentsOutputData;
 import org.springframework.util.StringUtils;
 
 import java.util.Arrays;
@@ -42,11 +43,23 @@ public class ThemeUtils {
     }
 
     //对文章内容进行截取,截取120个字符
-    public static String cutArticle(String content){
+    public static String cutArticle(ContentsOutputData data){
+        String content = data.getContent();
+        content = htmlToText(content);
         int length = content.length();
         if(length <= 120){
             return content;
         }
         return content.substring(0,120)+"  ......";
+    }
+
+    /**
+     * 提取html中的文字
+     */
+    public static String htmlToText(String html) {
+        if (!StringUtils.isEmpty(html)) {
+            return html.replaceAll("(?s)<[^>]*>(\\s*<[^>]*>)*", " ");
+        }
+        return "";
     }
 }

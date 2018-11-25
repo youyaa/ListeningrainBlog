@@ -63,7 +63,7 @@ public class IndexController {
          * 首页分页展示时，对文章内容进行截取，不需要显示完整的文章内容
          */
         for(ContentsOutputData contentsOutputData : contentsByPage.getData()){
-            contentsOutputData.setContent(ThemeUtils.cutArticle(contentsOutputData.getContent()));
+            contentsOutputData.setContent(ThemeUtils.cutArticle(contentsOutputData));
             /*if("md".equals(contentsOutputData.getType())){
                 String content = ThemeUtils.articleTransfer(contentsOutputData.getContent());
                 contentsOutputData.setContent(content);
@@ -212,7 +212,7 @@ public class IndexController {
         PageOutputDTO<ContentsOutputData> contentsByPage = contentsService.getContentsByPage(pageInputDTO);
 
         for(ContentsOutputData contentsOutputData : contentsByPage.getData()){
-            contentsOutputData.setContent(ThemeUtils.cutArticle(contentsOutputData.getContent()));
+            contentsOutputData.setContent(ThemeUtils.cutArticle(contentsOutputData));
         }
 
         HashMap<String,List<ContentsOutputData>> map = new HashMap<>();
