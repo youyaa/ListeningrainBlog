@@ -55,7 +55,6 @@
                            </div>
                        </div>
                        <div th:if="null eq ${content}">
-                           <option >请选择文章分类</option>
                            <div th:each="classify : ${allClassify.data}">
                              <option  th:value="${classify.mid}"><label th:text="${classify.name}"></label></option>
                            </div>
