@@ -63,7 +63,7 @@ public class CommentsServiceImpl implements CommentsService {
                         if(-1 != chilComment.getParent()){
                             boolean flag = false;
                             for(Comments chilComment1 : childrenComments){
-                                if(chilComment.getParent() == chilComment1.getCoid()){
+                                if(chilComment.getParent().equals(chilComment1.getCoid())){
                                     commentsOutputData1.setParentAuthorName(chilComment1.getAuthor());
                                     flag = true;
                                     break;
@@ -72,7 +72,7 @@ public class CommentsServiceImpl implements CommentsService {
 
                             if(!flag){
                                 for(Comments chilComment1 : comments){
-                                    if(chilComment.getParent() == chilComment1.getCoid()){
+                                    if(chilComment.getParent().equals(chilComment1.getCoid())){
                                         commentsOutputData1.setParentAuthorName(chilComment1.getAuthor());
                                         break;
                                     }
