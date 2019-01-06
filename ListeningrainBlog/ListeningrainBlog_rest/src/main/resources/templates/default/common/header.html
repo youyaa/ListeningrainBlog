@@ -5,7 +5,7 @@
 
 </head>
 <body>
-    <header th:fragment="header" id="masthead" class="site-header" role="banner" style="color: white;background-image: url('https://listeningrain.cn/templates/themes/theme_greyshade-master/static/images/left-bg2.jpg')">
+    <header th:fragment="header" id="masthead" class="site-header" role="banner" style="height: auto;color: white;background-image: url('https://listeningrain.cn/templates/themes/theme_greyshade-master/static/images/left-bg2.jpg')">
 
         <!--引入公共的js和css文件-->
         <link rel='stylesheet'  href='/placid/css/index.css' type='text/css'/>
@@ -26,7 +26,7 @@
 
         <div class="top-header">
             <div class="container" style="margin-bottom: -60px">
-                <div class="site-branding" style="margin-left: 14%">
+                <div class="site-branding" style="margin-left: 14%;max-width: 90%">
 
                     <h1 class="site-title">
                         <a href="/index/page/1" rel="home" style="color: white;"><span th:text="${userShow.data.nickName}"></span></a></h1>
@@ -37,13 +37,32 @@
                         <a style="color: white;" href="#" class="site-description" >&nbsp;个人空间</a>
                     </div>
                 </div><!-- .site-branding -->
-                <div style="float: right;max-width: 400px;margin-right: 10%;margin-top: 5%">
+                <div style="float: right;max-width: 400px;margin-right: 10%;margin-top: 4%">
                     <p > <span th:text="${motto.content}"></span> </p>
-                    <p style="padding-left: 20%;margin-top: -10px">-- <span th:text="${motto.name}"></span></p>
+                    <p style="padding-left: 20%;margin-top: -22px">-- <span th:text="${motto.name}"></span></p>
                 </div>
 
             </div>
         </div>
+
+        <script>
+            /**
+             * 判断是否是pc设备
+             **/
+                var userAgentInfo = navigator.userAgent;
+                var Agents = ["Android", "iPhone","SymbianOS", "Windows Phone", "iPod"];
+                var flag = true;
+                for (var v = 0; v < Agents.length; v++) {
+                    if (userAgentInfo.indexOf(Agents[v]) > 0) {
+                        console.log("非PC");
+                        $("#masthead").css("min-height",220);
+                    }
+                }
+                if(window.screen.width>=768){
+                    $("#masthead").css("min-height",150);
+                    console.log("PC");
+                }
+        </script>
 
 </header>
 
