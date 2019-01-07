@@ -59,6 +59,7 @@ public class CommentsServiceImpl implements CommentsService {
                         CommentsOutputData commentsOutputData1 = new CommentsOutputData();
                         BeanUtils.copyProperties(chilComment,commentsOutputData1);
                         commentsOutputData1.setAvator(gravatar(chilComment.getMail()));
+                        commentsOutputData1.setCreated(ThemeUtils.formate(chilComment.getCreated()));
                         //存在评论的回复关系
                         if(-1 != chilComment.getParent()){
                             boolean flag = false;
