@@ -37,7 +37,7 @@ public class CommonUploadUtils {
         if (file.isEmpty()) {
 
         }
-        String imgUrl = "/upload-dir/" + file.getOriginalFilename();
+        String imgUrl = "/upload-img/" + file.getOriginalFilename();
         storageService.store(file);
 
         //构建返回对象
