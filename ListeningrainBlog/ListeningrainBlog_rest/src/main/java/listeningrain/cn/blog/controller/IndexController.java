@@ -215,7 +215,7 @@ public class IndexController {
             contentsOutputData.setContent(ThemeUtils.cutArticle(contentsOutputData));
         }
 
-        HashMap<String,List<ContentsOutputData>> map = new HashMap<>();
+        Map<String,List<ContentsOutputData>> map = new LinkedHashMap<>();
         Iterator iterator = contentsByPage.getData().iterator();
 
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM");
