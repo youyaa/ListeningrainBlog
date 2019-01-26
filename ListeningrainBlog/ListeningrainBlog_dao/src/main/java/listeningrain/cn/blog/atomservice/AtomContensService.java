@@ -51,6 +51,11 @@ public interface AtomContensService {
     Integer updateCommentDecrCountById(Integer cid);
 
     /**
+     * 文章浏览量+1
+     */
+    Integer updateContentsHitsById(Integer cid);
+
+    /**
      * 后台管理首页需要的文章聚合数据
      */
     AdminIndexOutputData selectContentCount();

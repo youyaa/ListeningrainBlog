@@ -43,6 +43,12 @@
      update contents set comments_num = comments_num -1 where cid = #{cid}
   </update>
 
+
+  <!--更新文章的浏览量-->
+  <update id="updateContentsHitsById" parameterType="java.lang.Integer">
+    update contents set hits = hits+1 where cid = #{cid}
+  </update>
+
   <!--根据查询文章数量-->
   <select id="selectContentCount"  resultType="java.lang.Integer">
     select count(1) from contents

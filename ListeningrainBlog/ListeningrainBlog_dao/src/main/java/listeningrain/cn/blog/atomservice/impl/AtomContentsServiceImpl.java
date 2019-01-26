@@ -78,6 +78,12 @@ public class AtomContentsServiceImpl implements AtomContensService {
     }
 
     @Override
+    public Integer updateContentsHitsById(Integer cid) {
+        int i = contentsMapper.updateContentsHitsById(cid);
+        return i;
+    }
+
+    @Override
     public AdminIndexOutputData selectContentCount() {
         int todayCount = contentsMapper.selectTodayContentCount();
         int totalCount = contentsMapper.selectContentCount();

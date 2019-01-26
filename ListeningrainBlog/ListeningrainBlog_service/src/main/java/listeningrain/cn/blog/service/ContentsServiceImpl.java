@@ -110,6 +110,11 @@ public class ContentsServiceImpl implements ContentsService {
                 response.setData(contentsOutputData);
             }
 
+            //异步更新文章的浏览量
+            new Thread(()->{
+                atomContensService.updateContentsHitsById(pojoInputDTO.getData().getCid());
+            }).start();
+
             return response;
     }
 
