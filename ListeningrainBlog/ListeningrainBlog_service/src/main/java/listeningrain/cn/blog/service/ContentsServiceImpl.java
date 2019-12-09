@@ -4,6 +4,7 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import listeningrain.cn.blog.atomservice.AtomContensService;
 import listeningrain.cn.blog.atomservice.AtomMetasService;
+import listeningrain.cn.blog.constant.ConstantsEnum;
 import listeningrain.cn.blog.constant.ReturnErrCodeEnum;
 import listeningrain.cn.blog.entity.Contents;
 import listeningrain.cn.blog.entity.Metas;
@@ -20,6 +21,7 @@ import listeningrain.cn.blog.utils.ThemeUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -122,6 +124,9 @@ public class ContentsServiceImpl implements ContentsService {
     public PojoOutputDTO addContent(PojoInputDTO<ContentsInputData> pojoInputDTO) {
         Contents contents = new Contents();
         BeanUtils.copyProperties(pojoInputDTO.getData(),contents);
+        if(StringUtils.isEmpty(contents.getCategories())){
+            contents.setCategories(ConstantsEnum.DEFAULT_CATEGORY);
+        }
         Integer integer = atomContensService.insertContent(contents);
         if(integer<0){
             throw new BlogServiceException(ReturnErrCodeEnum.SQL_EXCEPTION_INSERT);

@@ -1,5 +1,6 @@
 package listeningrain.cn.blog.controller.admin;
 
+import listeningrain.cn.blog.constant.ConstantsEnum;
 import listeningrain.cn.blog.input.data.CommentsInputData;
 import listeningrain.cn.blog.input.data.ContentsInputData;
 import listeningrain.cn.blog.input.data.MetasInputData;
@@ -187,7 +188,7 @@ public class AdminController {
     public String classify(ModelMap modelMap, Integer pageNum){
         PageInputDTO<MetasInputData> pageInputDTO = new PageInputDTO();
         MetasInputData metasInputData = new MetasInputData();
-        metasInputData.setType("CLASSIFY");
+        metasInputData.setType(ConstantsEnum.CATEGORY);
         pageInputDTO.setData(metasInputData);
         if(null == pageNum){
             pageNum = 1;
