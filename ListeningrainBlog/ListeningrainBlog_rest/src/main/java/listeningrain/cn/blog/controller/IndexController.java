@@ -1,5 +1,6 @@
 package listeningrain.cn.blog.controller;
 
+import listeningrain.cn.blog.constant.ArticleStatusEnum;
 import listeningrain.cn.blog.input.data.CommentsInputData;
 import listeningrain.cn.blog.input.data.ContentsInputData;
 import listeningrain.cn.blog.input.data.MetasInputData;
@@ -209,6 +210,9 @@ public class IndexController {
     public String archive(ModelMap modelMap){
         PageInputDTO pageInputDTO = new PageInputDTO();
         pageInputDTO.setPageSize(100);
+        ContentsInputData contentsInputData = new ContentsInputData();
+        contentsInputData.setStatus(ArticleStatusEnum.PUBLISH.getCode());
+        pageInputDTO.setData(contentsInputData);
         PageOutputDTO<ContentsOutputData> contentsByPage = contentsService.getContentsByPage(pageInputDTO);
 
         for(ContentsOutputData contentsOutputData : contentsByPage.getData()){

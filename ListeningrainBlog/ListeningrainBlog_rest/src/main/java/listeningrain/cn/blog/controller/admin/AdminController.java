@@ -66,7 +66,7 @@ public class AdminController {
     public String post(ModelMap modelMap){
         PageInputDTO<MetasInputData> pageInputDTO = new PageInputDTO();
         MetasInputData metasInputData = new MetasInputData();
-        metasInputData.setType("CLASSIFY");
+        metasInputData.setType(ConstantsEnum.CATEGORY);
         pageInputDTO.setPageSize(100);
         pageInputDTO.setData(metasInputData);
         PageOutputDTO<MetasOutputData> allClassify = metasService.getMetasByType(pageInputDTO);
