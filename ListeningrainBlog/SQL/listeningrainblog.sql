@@ -1,13 +1,18 @@
-# Host: cdb-4sautjqm.bj.tencentcdb.com:10048  (Version 5.7.18-20170830-log)
-# Date: 2018-11-20 18:59:40
-# Generator: MySQL-Front 6.0  (Build 2.20)
-
-
 #
-# Structure for table "comments"
+# SQL Export
+# Created by Querious (201026)
+# Created: December 13, 2019 at 8:43:55 PM GMT+8
+# Encoding: Unicode (UTF-8)
 #
 
+DROP TABLE IF EXISTS `users`;
+DROP TABLE IF EXISTS `user_show_information`;
+DROP TABLE IF EXISTS `tags`;
+DROP TABLE IF EXISTS `metas`;
+DROP TABLE IF EXISTS `contents`;
 DROP TABLE IF EXISTS `comments`;
+
+
 CREATE TABLE `comments` (
   `coid` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'comment表主键',
   `cid` int(10) unsigned DEFAULT '0' COMMENT 'content表主键,关联字段',
@@ -31,16 +36,9 @@ CREATE TABLE `comments` (
   PRIMARY KEY (`coid`),
   KEY `cid` (`cid`),
   KEY `created` (`created`)
-) ENGINE=InnoDB AUTO_INCREMENT=118 DEFAULT CHARSET=utf8 COMMENT='评论表';
+) ENGINE=InnoDB AUTO_INCREMENT=119 DEFAULT CHARSET=utf8 COMMENT='评论表';
 
 
-
-
-#
-# Structure for table "contents"
-#
-
-DROP TABLE IF EXISTS `contents`;
 CREATE TABLE `contents` (
   `cid` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'post表主键',
   `title` varchar(200) DEFAULT NULL COMMENT '内容标题',
@@ -66,17 +64,7 @@ CREATE TABLE `contents` (
   KEY `created` (`created`)
 ) ENGINE=InnoDB AUTO_INCREMENT=161 DEFAULT CHARSET=utf8 COMMENT='内容表';
 
-#
-# Data for table "contents"
-#
 
-INSERT INTO `contents` VALUES (1,'第一篇文章',NULL,'2018-11-20 17:34:24','2018-11-20 17:42:52','> 第一篇文章该写点什么呢？\n\n    public static void main(String[] args){\n       System.out.println(\"Hello ListeningrainBlog!\");\n    }\n\n<br>\n\n各位看官，既然来了，就在下方留下你们的评论吧!',0,'md','publish','nice','34',0,2,1,1,1,NULL,NULL,NULL);
-
-#
-# Structure for table "metas"
-#
-
-DROP TABLE IF EXISTS `metas`;
 CREATE TABLE `metas` (
   `mid` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '项目主键',
   `name` varchar(200) DEFAULT NULL COMMENT '名称',
@@ -92,17 +80,7 @@ CREATE TABLE `metas` (
   KEY `slug` (`slug`)
 ) ENGINE=InnoDB AUTO_INCREMENT=49 DEFAULT CHARSET=utf8 COMMENT='项目';
 
-#
-# Data for table "metas"
-#
 
-INSERT INTO `metas` VALUES (1,'关于',NULL,'ABOUT',NULL,0,0,NULL,'## Hello World\n\n      这是程序员专用打招呼用语，你懂的！这是我的关于页面，其他的你自己来写吧！','2018-11-12 14:21:24'),(2,'静心听雨的博客','https://listeningrain.cn','LINK',NULL,0,0,NULL,NULL,'2018-11-12 14:21:24'),(3,'静心听雨的github','https://github.com/youyaa','LINK',NULL,1,0,NULL,NULL,'2018-11-12 14:21:24'),(4,'默认分类',NULL,'CATEGORY',NULL,0,0,NULL,NULL,'2018-11-12 14:21:24'),(5,'许嵩',NULL,'MOTTO','最爱的一句话',0,0,NULL,'如果你回头，不要放下我。。。','2018-11-12 18:08:14');
-
-#
-# Structure for table "tags"
-#
-
-DROP TABLE IF EXISTS `tags`;
 CREATE TABLE `tags` (
   `id` varchar(64) NOT NULL,
   `name` varchar(50) NOT NULL DEFAULT '' COMMENT '标签名',
@@ -113,16 +91,7 @@ CREATE TABLE `tags` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='标签表';
 
-#
-# Data for table "tags"
-#
 
-
-#
-# Structure for table "user_show_information"
-#
-
-DROP TABLE IF EXISTS `user_show_information`;
 CREATE TABLE `user_show_information` (
   `Id` int(11) NOT NULL AUTO_INCREMENT,
   `user_id` int(10) NOT NULL DEFAULT '0' COMMENT '用户的id',
@@ -135,17 +104,7 @@ CREATE TABLE `user_show_information` (
   PRIMARY KEY (`Id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COMMENT='个人信息配置页';
 
-#
-# Data for table "user_show_information"
-#
 
-INSERT INTO `user_show_information` VALUES (1,123,'我的站点',NULL,NULL,'站点描述',NULL,NULL);
-
-#
-# Structure for table "users"
-#
-
-DROP TABLE IF EXISTS `users`;
 CREATE TABLE `users` (
   `uid` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'user表主键',
   `username` varchar(32) DEFAULT NULL COMMENT '用户名称',
@@ -162,8 +121,24 @@ CREATE TABLE `users` (
   UNIQUE KEY `mail` (`email`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COMMENT='用户表';
 
-#
-# Data for table "users"
-#
 
-INSERT INTO `users` VALUES (1,'root','cm9vdDEyMzQ1',NULL,NULL,NULL,6,1,7,'visitor');
+INSERT INTO `comments` (`coid`, `cid`, `parent`, `top_level_id`, `author`, `avator`, `author_id`, `owner_id`, `mail`, `url`, `ip`, `agent`, `content`, `type`, `status`, `os_name`, `address`, `browser`) VALUES 
+	(1,1,0,-1,'静心听雨',NULL,0,0,'listeningrain.cn@gmail.com','',NULL,NULL,'楼主你好帅啊<img src="https://img.t.sinajs.cn/t4/appstyle/expression/ext/normal/2d/2018new_xiaoerbuyu_org.png" height="22" width="22" />','comment','approved',NULL,NULL,NULL);
+
+INSERT INTO `contents` (`cid`, `title`, `slug`, `content`, `author_id`, `type`, `status`, `tags`, `categories`, `hits`, `comments_num`, `allow_comment`, `allow_ping`, `allow_feed`, `address`, `os_name`, `browser`) VALUES 
+	(1,'第一篇文章',NULL,'> 第一篇文章该写点什么呢？\n\n    public static void main(String[] args){\n       System.out.println("Hello ListeningrainBlog!");\n    }\n\n<br>\n\n各位看官，既然来了，就在下方留下你们的评论吧!',0,'md','publish','','4',0,1,1,1,1,NULL,NULL,NULL);
+
+INSERT INTO `metas` (`mid`, `name`, `slug`, `type`, `description`, `sort`, `parent`, `status`, `content`) VALUES 
+	(1,'关于',NULL,'ABOUT',NULL,0,0,NULL,'## Hello World\n\n      这是程序员专用打招呼用语，你懂的！这是我的关于页面，其他的你自己来写吧！'),
+	(2,'静心听雨的博客','https://listeningrain.cn','LINK',NULL,0,0,NULL,NULL),
+	(3,'静心听雨的github','https://github.com/youyaa','LINK',NULL,1,0,NULL,NULL),
+	(4,'默认分类',NULL,'CATEGORY',NULL,0,0,NULL,NULL),
+	(5,'许嵩',NULL,'MOTTO','最爱的一句话',0,0,NULL,'如果你回头，不要放下我。。。');
+
+
+INSERT INTO `user_show_information` (`Id`, `user_id`, `nickname`, `age`, `address`, `famous_says`, `follower`, `touxiang`) VALUES 
+	(1,123,'我的站点',NULL,NULL,'站点描述',NULL,NULL);
+
+
+INSERT INTO `users` (`uid`, `username`, `password`, `email`, `home_url`, `screen_name`, `created`, `activated`, `logged`, `group_name`) VALUES 
+	(1,'root','cm9vdDEyMzQ1',NULL,NULL,NULL,6,1,7,'visitor');
