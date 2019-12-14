@@ -1,9 +1,9 @@
 
-# Listeningrain 博客系统
+# Listeningrain 博客
 
 
 
-> 听雨这个名字来源于高中时候的一场经历，其实我更愿意叫它静心听雨
+> 静心听雨是我一直在使用的昵称
 
 `ListeningrainBLog` 使用了[Spring boot](https://spring.io/projects/spring-boot)框架开发，并按照我司的开发标准，将service模块提取出来作为单独的服务运行，rest模块通过RPC框架远程调用service中的接口，本项目依赖阿里开源的[dubbo](http://dubbo.apache.org/zh-cn/)作为RPC框架，数据访问层使用了企业级框架mybatis，该项目可以作为一个标准的SSM框架的范例。
 默认主题移植自wordpress漂亮的 [placid](http://www.2zzt.com/bokezhuti/8845.html)，如果觉得这个项目不错，请为它点赞支持。
