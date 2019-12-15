@@ -44,7 +44,7 @@ public class FileSystemStorageService implements StorageService {
             System.out.println("上传文件开始检查是否存在目录");
             if(!rootLocation.toFile().exists()){
                 System.out.println("目录不存在，开始创建");
-                Files.createDirectory(this.rootLocation);
+                Files.createDirectories(this.rootLocation);
             }
 
             if (filename.contains("..")) {
