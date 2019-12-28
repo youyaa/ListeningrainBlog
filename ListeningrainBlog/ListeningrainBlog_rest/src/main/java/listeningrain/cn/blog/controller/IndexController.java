@@ -83,7 +83,7 @@ public class IndexController {
         latestArticle(modelMap);
         userShowInformation(modelMap);
         getMotto(modelMap);
-        return "index";
+        return "index_new";
     }
 
     //封装近期文章数据

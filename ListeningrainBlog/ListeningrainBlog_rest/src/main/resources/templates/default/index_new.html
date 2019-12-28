@@ -21,18 +21,21 @@
             <div id="primary" class="content-area">
                 <main id="main" class="site-main" role="main">
 
-                    <article style=" display: flex;height: 260px;" th:each="content : ${contents.data}" id="post-6" class="post-8 post type-post status-publish format-standard hentry category-uncategorized">
-                        <div class="entry-img" style="float: left;text-align: center;margin-right: 20px; ">
-                            <img style="max-height: 200px;min-height:160px ;width: auto;" th:src="${content.thum}"/>
+                    <article style="height: 260px" th:each="content : ${contents.data}">
+                        <div class="entry-img" style="height: auto;width:50%;float: left;">
+                            <img th:src="${content.thum}"/>
                         </div>
 
-                        <header class="entry-header" style="float: right;margin-top: -20px; ">
-                            <h2 class="entry-title"><a th:href="@{'/index/post/'+${content.cid}}" rel="bookmark"><label th:text="${content.title}"></label></a></h2>
-                            <div class="entry-meta">
-                                <span class="poston">Posted on <a rel="bookmark"><time class="entry-date published updated"><label th:text="${content.created}"></label></time></a></span><span class="post-by"> By <span class="author vcard"><a class="url fn n"><span th:text="${userShow.data.nickName}"></span></a></span></span>
+                        <header style="float: right; width: 50%;padding-left: 25px;margin-top: -22px;">
+                            <h2 class="entry-title" ><a th:href="@{'/index/post/'+${content.cid}}" rel="bookmark"><label style="color: black;" th:text="${content.title}"></label></a></h2>
+                            <div class="entry-meta" style="margin-top: -10px">
+                                <span class="poston">Posted on <a rel="bookmark" >
+                                    <time class="entry-date published updated"><label th:text="${content.created}"></label>
+                                    </time>
+                                </a></span><span class="post-by"> By <span class="author vcard"><a class="url fn n"><span th:text="${userShow.data.nickName}"></span></a></span></span>
                             </div><!-- .entry-meta -->
 
-                            <div class="entry-content" style="max-width: 400px;min-width: 300px;">
+                            <div  style="">
                                 <p>
                                     <span th:text="${content.content}"></span>
                                 </p>
