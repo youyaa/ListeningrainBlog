@@ -39,13 +39,13 @@
             <div id="primary" class="content-area">
                 <main id="main" class="site-main" role="main">
 
-                    <article style="min-height: 260px;" th:each="content : ${contents.data}">
+                    <article style="min-height: 250px;" th:each="content : ${contents.data}">
                         <div class="entry-img hidden-xs visible-lg-block" style="height: auto;width:50%;float: left;">
                             <img class="img-responsive" th:src="${content.thum}"/>
                         </div>
 
                         <header class="haha" style="">
-                            <h2 class="entry-title" ><a th:href="@{'/index/post/'+${content.cid}}" rel="bookmark"><label style="color: black;" th:text="${content.title}"></label></a></h2>
+                            <h3 class="entry-title" ><a th:href="@{'/index/post/'+${content.cid}}" rel="bookmark"><label style="color: black;cursor:pointer" th:text="${content.title}"></label></a></h3>
                             <div class="entry-meta" style="margin-top: -10px">
                                 <span class="poston">Posted on <a rel="bookmark" >
                                     <time class="entry-date published updated"><label th:text="${content.created}"></label>
