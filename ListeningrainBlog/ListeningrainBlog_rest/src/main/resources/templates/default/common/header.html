@@ -5,7 +5,7 @@
 
 </head>
 <body>
-    <header th:fragment="header" id="masthead" class="site-header" role="banner" style="height: auto;color: white;background-image: url('https://listeningrain.cn/templates/themes/theme_greyshade-master/static/images/left-bg2.jpg')">
+    <header th:fragment="header" id="masthead" class="site-header" role="banner" style="min-height:180px;color: white;background-image: url('https://listeningrain.cn/templates/themes/theme_greyshade-master/static/images/left-bg2.jpg')">
 
         <!--引入公共的js和css文件-->
         <link rel='stylesheet'  href='/placid/css/index.css' type='text/css'/>
@@ -55,11 +55,11 @@
                 for (var v = 0; v < Agents.length; v++) {
                     if (userAgentInfo.indexOf(Agents[v]) > 0) {
                         console.log("非PC");
-                        $("#masthead").css("min-height",220);
+                        $("#masthead").css("min-height",240);
                     }
                 }
                 if(window.screen.width>=768){
-                    $("#masthead").css("min-height",150);
+                    $("#masthead").css("min-height",180);
                     console.log("PC");
                 }
         </script>
